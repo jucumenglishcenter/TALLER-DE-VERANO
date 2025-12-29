@@ -37,8 +37,8 @@
         
         .themes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; padding: 20px; }
         
-        .theme-card { background: #f8f9fa; border-radius: 12px; padding: 20px; text-decoration: none; color: inherit; transition: all 0.3s ease; border: 2px solid transparent; display: block; }
-        .theme-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+        .theme-card { background: #f8f9fa; border-radius: 12px; padding: 20px; color: inherit; transition: all 0.3s ease; border: 2px solid transparent; }
+        .theme-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
         .theme-card.m1:hover { border-color: #1976D2; background: #e3f2fd; }
         .theme-card.m2:hover { border-color: #F57C00; background: #fff3e0; }
         .theme-card.m3:hover { border-color: #388E3C; background: #e8f5e9; }
@@ -52,10 +52,12 @@
         .theme-card .classes { color: #666; font-size: 0.85rem; margin-bottom: 10px; }
         .theme-card .vocab-preview { font-size: 0.8rem; color: #888; font-style: italic; margin-bottom: 12px; }
         
-        .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
-        .btn-open { display: inline-block; padding: 8px 14px; border-radius: 20px; color: white; font-size: 0.8rem; font-weight: 600; text-decoration: none; }
+        .btn-group { display: flex; gap: 6px; flex-wrap: wrap; }
+        .btn-open { display: inline-block; padding: 8px 12px; border-radius: 20px; color: white; font-size: 0.75rem; font-weight: 600; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; border: none; cursor: pointer; }
+        .btn-open:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
         .btn-open.explicacion { background: #1976D2; }
         .btn-open.story { background: #9C27B0; }
+        .btn-open.actividades { background: #E91E63; }
         .theme-card.m1 .btn-open.explicacion { background: #1976D2; }
         .theme-card.m2 .btn-open.explicacion { background: #F57C00; }
         .theme-card.m3 .btn-open.explicacion { background: #388E3C; }
@@ -78,6 +80,96 @@
         .legend-dot.m1 { background: #1976D2; }
         .legend-dot.m2 { background: #F57C00; }
         .legend-dot.m3 { background: #388E3C; }
+
+        /* Modal de Actividades */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);
+            color: white;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-header h2 { font-size: 1.2rem; }
+        .modal-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .modal-close:hover { background: rgba(255,255,255,0.3); }
+        
+        .modal-body { padding: 20px; }
+        
+        .activity-item {
+            display: block;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: inherit;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .activity-item:hover {
+            border-color: #E91E63;
+            background: #fce4ec;
+            transform: translateX(5px);
+        }
+        .activity-item .activity-icon { font-size: 1.5rem; margin-right: 10px; }
+        .activity-item .activity-name { font-weight: 600; color: #333; }
+        .activity-item .activity-desc { font-size: 0.8rem; color: #666; margin-top: 5px; }
+        
+        .activity-section { margin-bottom: 20px; }
+        .activity-section h3 { 
+            color: #E91E63; 
+            font-size: 0.95rem; 
+            margin-bottom: 10px; 
+            padding-bottom: 8px;
+            border-bottom: 2px solid #fce4ec;
+        }
+        
+        .coming-soon {
+            background: #fff3e0;
+            border: 2px dashed #F57C00;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            color: #E65100;
+            font-size: 0.9rem;
+        }
 
         @media (max-width: 600px) {
             .main-header h1 { font-size: 1.4rem; }
@@ -144,6 +236,7 @@
                     <div class="btn-group">
                         <a href="explicaciones/T1_Saludos_Basicos_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
                         <a href="stories/M1_T1_Story1_Parte1_Saludos.html" class="btn-open story">📖 Story</a>
+                        <button onclick="openModal('T1')" class="btn-open actividades">✏️ Actividades</button>
                     </div>
                 </div>
                 <div class="theme-card m1">
@@ -154,6 +247,7 @@
                     <div class="btn-group">
                         <a href="explicaciones/T2_Como_Estas_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
                         <a href="stories/M1_T2_Story1_Parte2_ComoEstas.html" class="btn-open story">📖 Story</a>
+                        <button onclick="openModal('T2')" class="btn-open actividades">✏️ Actividades</button>
                     </div>
                 </div>
                 <div class="theme-card m1">
@@ -164,6 +258,7 @@
                     <div class="btn-group">
                         <a href="explicaciones/T3_Despedidas_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
                         <a href="stories/M1_T3_Story1_Parte3_Despedidas.html" class="btn-open story">📖 Story</a>
+                        <button onclick="openModal('T3')" class="btn-open actividades">✏️ Actividades</button>
                     </div>
                 </div>
             </div>
@@ -187,6 +282,7 @@
                     <div class="btn-group">
                         <a href="explicaciones/T4_Rutina_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
                         <a href="stories/M2_T4_Story2_Parte1_Rutina.html" class="btn-open story">📖 Story</a>
+                        <button onclick="openModal('T4')" class="btn-open actividades">✏️ Actividades</button>
                     </div>
                 </div>
                 <div class="theme-card m2">
@@ -197,6 +293,7 @@
                     <div class="btn-group">
                         <a href="explicaciones/T5_Familia_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
                         <a href="stories/M2_T5_Story2_Parte2_Familia.html" class="btn-open story">📖 Story</a>
+                        <button onclick="openModal('T5')" class="btn-open actividades">✏️ Actividades</button>
                     </div>
                 </div>
                 <div class="theme-card m2">
@@ -207,6 +304,7 @@
                     <div class="btn-group">
                         <a href="explicaciones/T6_Gustos_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
                         <a href="stories/M2_T6_Story2_Parte3_Gustos.html" class="btn-open story">📖 Story</a>
+                        <button onclick="openModal('T6')" class="btn-open actividades">✏️ Actividades</button>
                     </div>
                 </div>
             </div>
@@ -230,6 +328,7 @@
                     <div class="btn-group">
                         <a href="explicaciones/T7_Restaurante_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
                         <a href="stories/M3_T7_Story3_Parte1_Restaurante.html" class="btn-open story">📖 Story</a>
+                        <button onclick="openModal('T7')" class="btn-open actividades">✏️ Actividades</button>
                     </div>
                 </div>
                 <div class="theme-card m3">
@@ -240,6 +339,7 @@
                     <div class="btn-group">
                         <a href="explicaciones/T8_Direcciones_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
                         <a href="stories/M3_T8_Story3_Parte2_Direcciones.html" class="btn-open story">📖 Story</a>
+                        <button onclick="openModal('T8')" class="btn-open actividades">✏️ Actividades</button>
                     </div>
                 </div>
                 <div class="theme-card m3">
@@ -250,6 +350,7 @@
                     <div class="btn-group">
                         <a href="explicaciones/T9_Planes_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
                         <a href="stories/M3_T9_Story3_Parte3_Planes.html" class="btn-open story">📖 Story</a>
+                        <button onclick="openModal('T9')" class="btn-open actividades">✏️ Actividades</button>
                     </div>
                 </div>
             </div>
@@ -262,5 +363,97 @@
             <div class="copyright">© 2025 JUCUM English Center. Creado con ❤️ para principiantes.</div>
         </div>
     </div>
+
+    <!-- Modal de Actividades -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2 id="modalTitle">✏️ Actividades - Tema 1</h2>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const actividadesData = {
+            'T1': { titulo: '👋 Saludos Básicos', actividades: [
+                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T1_Lectura.html' },
+                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T1_Auditiva.html' },
+                { tipo: 'ordenar', nombre: 'Ordenar Oraciones', desc: 'Ordena las palabras para formar oraciones', url: 'actividades/ordenar-oraciones/T1_Ordenar.html' }
+            ]},
+            'T2': { titulo: '😊 ¿Cómo estás hoy?', actividades: [
+                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T2_Lectura.html' },
+                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T2_Auditiva.html' },
+                { tipo: 'ordenar', nombre: 'Ordenar Oraciones', desc: 'Ordena las palabras para formar oraciones', url: 'actividades/ordenar-oraciones/T2_Ordenar.html' }
+            ]},
+            'T3': { titulo: '👋 Despedidas', actividades: [
+                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T3_Lectura.html' },
+                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T3_Auditiva.html' },
+                { tipo: 'ordenar', nombre: 'Ordenar Oraciones', desc: 'Ordena las palabras para formar oraciones', url: 'actividades/ordenar-oraciones/T3_Ordenar.html' }
+            ]},
+            'T4': { titulo: '⏰ Mi Rutina Diaria', actividades: [
+                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T4_Lectura.html' },
+                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T4_Auditiva.html' },
+                { tipo: 'ordenar', nombre: 'Ordenar Oraciones', desc: 'Ordena las palabras para formar oraciones', url: 'actividades/ordenar-oraciones/T4_Ordenar.html' }
+            ]},
+            'T5': { titulo: '👨‍👩‍👧‍👦 Mi Familia', actividades: [
+                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T5_Lectura.html' },
+                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T5_Auditiva.html' },
+                { tipo: 'ordenar', nombre: 'Ordenar Oraciones', desc: 'Ordena las palabras para formar oraciones', url: 'actividades/ordenar-oraciones/T5_Ordenar.html' }
+            ]},
+            'T6': { titulo: '🎮 ¿Qué te gusta hacer?', actividades: [
+                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T6_Lectura.html' },
+                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T6_Auditiva.html' },
+                { tipo: 'ordenar', nombre: 'Ordenar Oraciones', desc: 'Ordena las palabras para formar oraciones', url: 'actividades/ordenar-oraciones/T6_Ordenar.html' }
+            ]},
+            'T7': { titulo: '🍽️ En el Restaurante', actividades: [
+                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T7_Lectura.html' },
+                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T7_Auditiva.html' },
+                { tipo: 'ordenar', nombre: 'Ordenar Oraciones', desc: 'Ordena las palabras para formar oraciones', url: 'actividades/ordenar-oraciones/T7_Ordenar.html' }
+            ]},
+            'T8': { titulo: '🗺️ ¿Dónde está...?', actividades: [
+                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T8_Lectura.html' },
+                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T8_Auditiva.html' },
+                { tipo: 'ordenar', nombre: 'Ordenar Oraciones', desc: 'Ordena las palabras para formar oraciones', url: 'actividades/ordenar-oraciones/T8_Ordenar.html' }
+            ]},
+            'T9': { titulo: '🌟 Planes y Despedidas', actividades: [
+                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T9_Lectura.html' },
+                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T9_Auditiva.html' },
+                { tipo: 'ordenar', nombre: 'Ordenar Oraciones', desc: 'Ordena las palabras para formar oraciones', url: 'actividades/ordenar-oraciones/T9_Ordenar.html' }
+            ]}
+        };
+
+        const iconos = { 'lectura': '📖', 'auditiva': '🎧', 'ordenar': '🔤' };
+
+        function openModal(tema) {
+            const data = actividadesData[tema];
+            document.getElementById('modalTitle').textContent = `✏️ Actividades - ${data.titulo}`;
+            
+            let html = '<div class="activity-section"><h3>📝 Actividades disponibles</h3>';
+            data.actividades.forEach(act => {
+                html += `<a href="${act.url}" class="activity-item">
+                    <span class="activity-icon">${iconos[act.tipo]}</span>
+                    <span class="activity-name">${act.nombre}</span>
+                    <p class="activity-desc">${act.desc}</p>
+                </a>`;
+            });
+            html += '</div><div class="coming-soon">🚧 Más actividades próximamente...</div>';
+            
+            document.getElementById('modalBody').innerHTML = html;
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (!event || event.target === document.getElementById('modalOverlay')) {
+                document.getElementById('modalOverlay').classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+    </script>
 </body>
 </html>
