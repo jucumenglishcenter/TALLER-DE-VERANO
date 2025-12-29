@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprensión Lectora | Tema 9: Planes y Despedidas Especiales</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container { max-width: 900px; margin: 0 auto; }
+        
+        .header {
+            background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+            box-shadow: 0 8px 30px rgba(76, 175, 80, 0.3);
+        }
+        
+        .header h1 { font-size: 1.6rem; margin-bottom: 8px; }
+        .header-info { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .badge { background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; }
+        .badge.final { background: rgba(255,215,0,0.3); border: 1px solid rgba(255,215,0,0.5); }
+        
+        .score-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 15px 25px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .score-item { text-align: center; }
+        .score-item .label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+        .score-item .value { font-size: 1.5rem; font-weight: 700; color: #4CAF50; }
+        .score-item .value.correct { color: #4CAF50; }
+        .score-item .value.incorrect { color: #f44336; }
+        
+        .story-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .story-title {
+            color: #388E3C;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #E8F5E9;
+        }
+        
+        .story-content { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 700px) { .story-content { grid-template-columns: 1fr; } }
+        
+        .story-column { padding: 20px; border-radius: 12px; }
+        .story-column.spanish { background: #F5F5F5; border-left: 4px solid #9E9E9E; }
+        .story-column.english { background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); border-left: 4px solid #4CAF50; }
+        
+        .column-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; font-weight: 600; }
+        .spanish .column-label { color: #757575; }
+        .english .column-label { color: #388E3C; }
+        
+        .narration {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .dialogue {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .dialogue .speaker { font-weight: 700; margin-bottom: 5px; font-size: 0.85rem; }
+        .spanish .dialogue .speaker { color: #616161; }
+        .english .dialogue .speaker { color: #2E7D32; }
+        .dialogue .text { color: #333; line-height: 1.5; font-size: 0.95rem; }
+        .vocab-highlight { background: #FFF9C4; padding: 1px 6px; border-radius: 4px; font-weight: 600; }
+        
+        .questions-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .questions-title { color: #388E3C; font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        
+        .level-section { margin-bottom: 30px; }
+        .level-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding: 12px 15px; border-radius: 10px; }
+        .level-header.easy { background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); border-left: 4px solid #4CAF50; }
+        .level-header.medium { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border-left: 4px solid #FF9800; }
+        .level-header.hard { background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%); border-left: 4px solid #f44336; }
+        .level-icon { font-size: 1.3rem; }
+        .level-title { font-weight: 700; font-size: 1rem; }
+        .level-header.easy .level-title { color: #2E7D32; }
+        .level-header.medium .level-title { color: #E65100; }
+        .level-header.hard .level-title { color: #C62828; }
+        .level-subtitle { font-size: 0.8rem; color: #888; margin-left: auto; }
+        
+        .question-card {
+            background: #FAFAFA;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        
+        .question-card.answered { pointer-events: none; }
+        .question-card.correct { border-color: #4CAF50; background: #E8F5E9; }
+        .question-card.incorrect { border-color: #f44336; background: #FFEBEE; }
+        
+        .question-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-right: 10px;
+        }
+        
+        .question-card.correct .question-number { background: #4CAF50; }
+        .question-card.incorrect .question-number { background: #f44336; }
+        
+        .question-text { display: inline; font-size: 1rem; color: #333; font-weight: 500; }
+        .question-text .english-fragment { background: #E8F5E9; padding: 2px 8px; border-radius: 5px; font-style: italic; color: #2E7D32; }
+        
+        .options-container { margin-top: 15px; display: flex; flex-direction: column; gap: 10px; }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: white;
+            border: 2px solid #E0E0E0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option:hover { border-color: #4CAF50; background: #E8F5E9; }
+        .option.correct { border-color: #4CAF50; background: #E8F5E9; }
+        .option.incorrect { border-color: #f44336; background: #FFEBEE; }
+        .option.show-correct { border-color: #4CAF50; background: #E8F5E9; }
+        
+        .option-letter {
+            width: 32px;
+            height: 32px;
+            background: #E0E0E0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #666;
+            flex-shrink: 0;
+        }
+        
+        .option.correct .option-letter, .option.show-correct .option-letter { background: #4CAF50; color: white; }
+        .option.incorrect .option-letter { background: #f44336; color: white; }
+        .option-text { flex: 1; font-size: 0.95rem; color: #333; }
+        .option-icon { font-size: 1.2rem; display: none; }
+        .option.correct .option-icon, .option.incorrect .option-icon, .option.show-correct .option-icon { display: block; }
+        
+        .feedback { margin-top: 12px; padding: 12px 15px; border-radius: 8px; font-size: 0.9rem; display: none; }
+        .feedback.show { display: block; }
+        .feedback.correct { background: #E8F5E9; border: 1px solid #A5D6A7; color: #2E7D32; }
+        .feedback.incorrect { background: #FFEBEE; border: 1px solid #EF9A9A; color: #C62828; }
+        
+        .results-panel {
+            display: none;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA000 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 25px;
+            text-align: center;
+            color: #333;
+            animation: slideIn 0.5s ease;
+        }
+        .results-panel.show { display: block; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .results-panel h2 { font-size: 1.8rem; margin-bottom: 10px; color: #333; }
+        .results-panel .trophy { font-size: 4rem; margin-bottom: 15px; }
+        .results-score { font-size: 3rem; font-weight: 700; margin: 15px 0; color: #333; }
+        .results-breakdown { display: flex; justify-content: center; gap: 30px; margin: 20px 0; flex-wrap: wrap; }
+        .breakdown-item { text-align: center; }
+        .breakdown-item .level { font-size: 0.8rem; opacity: 0.8; margin-bottom: 5px; }
+        .breakdown-item .score { font-size: 1.5rem; font-weight: 700; }
+        .results-message { font-size: 1.1rem; opacity: 0.9; margin-top: 15px; }
+        .course-complete { font-size: 1.3rem; font-weight: 700; margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.3); border-radius: 10px; }
+        
+        .btn-retry {
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: white;
+            color: #F57C00;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-retry:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        
+        .toggle-story { display: flex; justify-content: center; margin-bottom: 15px; }
+        .toggle-btn {
+            padding: 10px 25px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        .toggle-btn:hover { background: #388E3C; }
+        .story-panel.collapsed .story-content { display: none; }
+        .story-panel.collapsed .story-title { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📖 Comprensión Lectora</h1>
+            <div class="header-info">
+                <span class="badge">📗 Módulo 3</span>
+                <span class="badge">🎯 Tema 9: Planes y Despedidas</span>
+                <span class="badge final">⭐ TEMA FINAL</span>
+            </div>
+        </div>
+        
+        <div class="score-panel">
+            <div class="score-item">
+                <div class="label">Respondidas</div>
+                <div class="value" id="answeredCount">0/12</div>
+            </div>
+            <div class="score-item">
+                <div class="label">Correctas</div>
+                <div class="value correct" id="correctCount">0</div>
+            </div>
+            <div class="score-item">
+                <div class="label">Incorrectas</div>
+                <div class="value incorrect" id="incorrectCount">0</div>
+            </div>
+        </div>
+        
+        <div class="toggle-story">
+            <button class="toggle-btn" onclick="toggleStory()">
+                <span id="toggleIcon">📖</span>
+                <span id="toggleText">Ocultar historia</span>
+            </button>
+        </div>
+        
+        <div class="story-panel" id="storyPanel">
+            <div class="story-title">📚 "Emma's Adventure" - Part 3: Summer Plans</div>
+            <div class="story-content">
+                <div class="story-column spanish">
+                    <div class="column-label">🇪🇸 Español</div>
+                    <div class="narration">
+                        Las clases están por terminar. Emma, Sophie y Tom están en el parque hablando sobre sus planes de verano.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"Chicos, tengo noticias. Viajaré con mi familia todo el verano."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"¿Todo el verano? ¡Te extrañaré mucho!"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"Yo también los extrañaré. Pero volveré pronto."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="text">"¿Y tú qué harás, Emma?"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"La próxima semana visitaré a mis abuelos. ¡Estoy muy emocionada!"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="text">"¡Qué bien! Yo visitaré a mis abuelos también, pero solo por dos semanas."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"Espero verlos pronto. Mañana es mi último día aquí."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"Hagamos una promesa: nos encontraremos cuando termine el verano."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="text">"¡Prometido! ¡Nos vemos pronto!"</div>
+                    </div>
+                    <div class="narration">
+                        Los tres amigos se abrazan.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"¡Los extrañaré! ¡Cuídense!"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"¡Tú también cuídate! ¡Espero verte muy pronto!"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="text">"¡Hasta pronto, amigos! ¡El verano pasará rápido!"</div>
+                    </div>
+                </div>
+                
+                <div class="story-column english">
+                    <div class="column-label">🇺🇸 English</div>
+                    <div class="narration">
+                        Classes are about to end. Emma, Sophie, and Tom are at the park talking about their summer plans.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"Guys, I have news. I <span class="vocab-highlight">will</span> <span class="vocab-highlight">travel</span> with my family all summer."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"All summer? I <span class="vocab-highlight">will</span> <span class="vocab-highlight">miss</span> you so much!"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"I <span class="vocab-highlight">will</span> miss you too. But I'll be back <span class="vocab-highlight">soon</span>."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="text">"And what <span class="vocab-highlight">will</span> you do, Emma?"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"<span class="vocab-highlight">Next</span> <span class="vocab-highlight">week</span> I <span class="vocab-highlight">will</span> <span class="vocab-highlight">visit</span> my grandparents. I'm so <span class="vocab-highlight">excited</span>!"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="text">"Great! I <span class="vocab-highlight">will</span> <span class="vocab-highlight">visit</span> my grandparents too, but only for two weeks."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"I <span class="vocab-highlight">hope</span> to see you <span class="vocab-highlight">soon</span>. <span class="vocab-highlight">Tomorrow</span> is my last day here."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"Let's make a promise: we <span class="vocab-highlight">will</span> meet when summer ends."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="text">"Promise! See you <span class="vocab-highlight">soon</span>!"</div>
+                    </div>
+                    <div class="narration">
+                        The three friends hug.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"I <span class="vocab-highlight">will</span> <span class="vocab-highlight">miss</span> you! Take care!"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"You take care too! I <span class="vocab-highlight">hope</span> to see you very <span class="vocab-highlight">soon</span>!"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="text">"See you <span class="vocab-highlight">soon</span>, friends! Summer <span class="vocab-highlight">will</span> pass quickly!"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="questions-panel">
+            <div class="questions-title">❓ Preguntas de Comprensión</div>
+            
+            <!-- NIVEL FÁCIL -->
+            <div class="level-section">
+                <div class="level-header easy">
+                    <span class="level-icon">🟢</span>
+                    <span class="level-title">Nivel Fácil</span>
+                    <span class="level-subtitle">Identificación directa</span>
+                </div>
+                
+                <div class="question-card" id="q1">
+                    <span class="question-number">1</span>
+                    <span class="question-text">Sophie dice <span class="english-fragment">"I will travel"</span>. ¿Qué significa <span class="english-fragment">"will"</span>?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(1, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Pasado (ayer, antes)</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(1, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Futuro (va a pasar)</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(1, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Presente (ahora)</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb1"></div>
+                </div>
+                
+                <div class="question-card" id="q2">
+                    <span class="question-number">2</span>
+                    <span class="question-text">Emma dice <span class="english-fragment">"I will miss you"</span>. ¿Qué significa?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(2, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Te extrañaré</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(2, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Te veré</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(2, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Te olvidaré</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb2"></div>
+                </div>
+                
+                <div class="question-card" id="q3">
+                    <span class="question-number">3</span>
+                    <span class="question-text">¿Qué significa <span class="english-fragment">"I'm excited"</span>?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(3, 'a', 'c')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Estoy cansado/a</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(3, 'b', 'c')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Estoy triste</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(3, 'c', 'c')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Estoy emocionado/a</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb3"></div>
+                </div>
+                
+                <div class="question-card" id="q4">
+                    <span class="question-number">4</span>
+                    <span class="question-text">¿Qué significa <span class="english-fragment">"next week"</span>?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(4, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">La semana pasada</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(4, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">La próxima semana</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(4, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Esta semana</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb4"></div>
+                </div>
+            </div>
+            
+            <!-- NIVEL MEDIO -->
+            <div class="level-section">
+                <div class="level-header medium">
+                    <span class="level-icon">🟡</span>
+                    <span class="level-title">Nivel Medio</span>
+                    <span class="level-subtitle">Comprensión contextual</span>
+                </div>
+                
+                <div class="question-card" id="q5">
+                    <span class="question-number">5</span>
+                    <span class="question-text">¿Qué hará cada amigo en verano?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(5, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Sophie: viajar, Emma y Tom: visitar abuelos</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(5, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Todos viajarán juntos</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(5, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Nadie tiene planes</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb5"></div>
+                </div>
+                
+                <div class="question-card" id="q6">
+                    <span class="question-number">6</span>
+                    <span class="question-text">Sophie dice <span class="english-fragment">"I hope to see you soon"</span>. ¿Qué significa <span class="english-fragment">"hope"</span>?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(6, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Saber</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(6, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Esperar / Desear</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(6, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Olvidar</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb6"></div>
+                </div>
+                
+                <div class="question-card" id="q7">
+                    <span class="question-number">7</span>
+                    <span class="question-text">¿Cuál es la diferencia entre <span class="english-fragment">"tomorrow"</span> y <span class="english-fragment">"next week"</span>?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(7, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Tomorrow = mañana (1 día), Next week = próxima semana (7+ días)</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(7, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Son exactamente iguales</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(7, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Tomorrow = próximo mes, Next week = mañana</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb7"></div>
+                </div>
+                
+                <div class="question-card" id="q8">
+                    <span class="question-number">8</span>
+                    <span class="question-text">¿Por qué los amigos están tristes pero también esperanzados?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(8, 'a', 'c')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Porque no les gusta el verano</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(8, 'b', 'c')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Porque no tienen planes</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(8, 'c', 'c')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Tristes por separarse, pero esperan verse pronto</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb8"></div>
+                </div>
+            </div>
+            
+            <!-- NIVEL DIFÍCIL -->
+            <div class="level-section">
+                <div class="level-header hard">
+                    <span class="level-icon">🔴</span>
+                    <span class="level-title">Nivel Difícil</span>
+                    <span class="level-subtitle">Inferencia y aplicación</span>
+                </div>
+                
+                <div class="question-card" id="q9">
+                    <span class="question-number">9</span>
+                    <span class="question-text">¿Cómo expresas TUS planes de verano correctamente?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(9, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">I will visited my grandparents next week.</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(9, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">I will visit my grandparents next week.</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(9, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">I will visits my grandparents next week.</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb9"></div>
+                </div>
+                
+                <div class="question-card" id="q10">
+                    <span class="question-number">10</span>
+                    <span class="question-text">Tu mejor amigo se va de viaje. ¿Qué combinación de despedida es mejor?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(10, 'a', 'c')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Goodbye. See you.</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(10, 'b', 'c')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Bye. Good morning.</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(10, 'c', 'c')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">I will miss you! Take care! I hope to see you soon!</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb10"></div>
+                </div>
+                
+                <div class="question-card" id="q11">
+                    <span class="question-number">11</span>
+                    <span class="question-text">Ordena del tiempo más cercano al más lejano:</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(11, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">tomorrow → next week → soon</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(11, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">soon → tomorrow → next week</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(11, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">next week → soon → tomorrow</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb11"></div>
+                </div>
+                
+                <div class="question-card" id="q12">
+                    <span class="question-number">12</span>
+                    <span class="question-text">Completa la despedida emotiva:<br><br>
+                    "I _____ miss you! I _____ to see you _____! Take care!"</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(12, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">will / hope / soon</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(12, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">am / want / tomorrow</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(12, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">was / like / next</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb12"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="results-panel" id="resultsPanel">
+            <div class="trophy" id="resultsTrophy">🏆</div>
+            <h2 id="resultsTitle">¡Excelente trabajo!</h2>
+            <div class="results-score" id="resultsScore">0/12</div>
+            <div class="results-breakdown">
+                <div class="breakdown-item">
+                    <div class="level">🟢 Fácil</div>
+                    <div class="score" id="easyScore">0/4</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="level">🟡 Medio</div>
+                    <div class="score" id="mediumScore">0/4</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="level">🔴 Difícil</div>
+                    <div class="score" id="hardScore">0/4</div>
+                </div>
+            </div>
+            <div class="results-message" id="resultsMessage"></div>
+            <div class="course-complete" id="courseComplete">🎓 ¡HAS COMPLETADO EL CURSO DE INGLÉS! 🎓</div>
+            <button class="btn-retry" onclick="retryQuiz()">🔄 Intentar de nuevo</button>
+        </div>
+    </div>
+
+    <script>
+        let answered = 0, correct = 0, incorrect = 0;
+        let answeredQuestions = {};
+        let easyCorrect = 0, mediumCorrect = 0, hardCorrect = 0;
+        
+        const feedbacks = {
+            1: { correct: "✓ ¡Correcto! 'Will' indica futuro. 'I will travel' = Viajaré.", incorrect: "✗ 'Will' es el auxiliar del futuro en inglés. 'I will...' = Yo voy a... / Yo haré..." },
+            2: { correct: "✓ ¡Exacto! 'Miss' = extrañar. 'I will miss you' = Te extrañaré.", incorrect: "✗ 'Miss' significa extrañar. 'I will miss you' = Te extrañaré (en el futuro)." },
+            3: { correct: "✓ ¡Muy bien! 'Excited' = emocionado/a. Es un sentimiento positivo de anticipación.", incorrect: "✗ 'Excited' significa emocionado/a, con ganas de que algo pase. Es positivo." },
+            4: { correct: "✓ ¡Perfecto! 'Next' = próximo/siguiente. 'Next week' = la próxima semana.", incorrect: "✗ 'Next' significa próximo. 'Next week' = la próxima semana (futuro)." },
+            5: { correct: "✓ ¡Correcto! Sophie viajará con su familia. Emma y Tom visitarán a sus abuelos.", incorrect: "✗ Sophie dice 'I will travel', Emma dice 'I will visit my grandparents', Tom también visitará abuelos." },
+            6: { correct: "✓ ¡Bien! 'Hope' = esperar/desear (algo positivo). 'I hope to see you' = Espero verte.", incorrect: "✗ 'Hope' significa esperar o desear algo bueno. 'I hope to see you soon' = Espero verte pronto." },
+            7: { correct: "✓ ¡Excelente! Tomorrow = mañana (1 día). Next week = próxima semana (7+ días).", incorrect: "✗ 'Tomorrow' es el día siguiente (mañana). 'Next week' es la semana siguiente (más tiempo)." },
+            8: { correct: "✓ ¡Correcto! Están tristes por separarse pero tienen esperanza de verse pronto.", incorrect: "✗ Los amigos se extrañarán ('I will miss you') pero esperan verse ('I hope to see you soon')." },
+            9: { correct: "✓ ¡Perfecto! Después de 'will' va el verbo base: will + visit (no visited, no visits).", incorrect: "✗ La estructura es: will + verbo base. 'I will visit' (no 'visited' ni 'visits')." },
+            10: { correct: "✓ ¡Excelente! Una despedida emotiva incluye: expresar que extrañarás, desear bienestar, esperar verse.", incorrect: "✗ Para una despedida especial usa: 'I will miss you', 'Take care', 'I hope to see you soon'." },
+            11: { correct: "✓ ¡Perfecto! Tomorrow (mañana, 1 día) → Next week (7 días) → Soon (indefinido, puede ser más).", incorrect: "✗ El orden por tiempo: tomorrow (mañana) es lo más cercano, next week después, soon es indefinido." },
+            12: { correct: "✓ ¡Excelente! 'Will miss' (futuro), 'hope to see' (deseo), 'soon' (pronto). ¡Despedida perfecta!", incorrect: "✗ La despedida emotiva usa: will (futuro), hope (deseo), soon (pronto)." }
+        };
+        
+        function selectAnswer(questionNum, selected, correctAnswer) {
+            if (answeredQuestions[questionNum]) return;
+            answeredQuestions[questionNum] = true;
+            
+            const questionCard = document.getElementById(`q${questionNum}`);
+            const options = questionCard.querySelectorAll('.option');
+            const feedback = document.getElementById(`fb${questionNum}`);
+            const isCorrect = selected === correctAnswer;
+            
+            answered++;
+            if (isCorrect) {
+                correct++;
+                if (questionNum <= 4) easyCorrect++;
+                else if (questionNum <= 8) mediumCorrect++;
+                else hardCorrect++;
+            } else { incorrect++; }
+            
+            questionCard.classList.add('answered', isCorrect ? 'correct' : 'incorrect');
+            
+            options.forEach(opt => {
+                const letter = opt.querySelector('.option-letter').textContent.toLowerCase();
+                if (letter === selected) opt.classList.add(isCorrect ? 'correct' : 'incorrect');
+                if (letter === correctAnswer && !isCorrect) opt.classList.add('show-correct');
+            });
+            
+            feedback.classList.add('show', isCorrect ? 'correct' : 'incorrect');
+            feedback.innerHTML = isCorrect ? feedbacks[questionNum].correct : feedbacks[questionNum].incorrect;
+            
+            updateScorePanel();
+            if (answered === 12) setTimeout(showResults, 800);
+        }
+        
+        function updateScorePanel() {
+            document.getElementById('answeredCount').textContent = `${answered}/12`;
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('incorrectCount').textContent = incorrect;
+        }
+        
+        function showResults() {
+            const panel = document.getElementById('resultsPanel');
+            panel.classList.add('show');
+            
+            document.getElementById('resultsScore').textContent = `${correct}/12`;
+            document.getElementById('easyScore').textContent = `${easyCorrect}/4`;
+            document.getElementById('mediumScore').textContent = `${mediumCorrect}/4`;
+            document.getElementById('hardScore').textContent = `${hardCorrect}/4`;
+            
+            const trophy = document.getElementById('resultsTrophy');
+            const title = document.getElementById('resultsTitle');
+            const message = document.getElementById('resultsMessage');
+            const courseComplete = document.getElementById('courseComplete');
+            const percentage = (correct / 12) * 100;
+            
+            if (percentage >= 90) {
+                trophy.textContent = '🏆'; title.textContent = '¡FELICITACIONES!';
+                message.textContent = '¡Dominas el inglés básico! Puedes hablar de planes y hacer despedidas emotivas.';
+                courseComplete.style.display = 'block';
+            } else if (percentage >= 70) {
+                trophy.textContent = '🥈'; title.textContent = '¡Muy bien!';
+                message.textContent = 'Buen progreso. Repasa: will, hope, miss, soon, tomorrow, next week.';
+                courseComplete.style.display = 'block';
+            } else if (percentage >= 50) {
+                trophy.textContent = '🥉'; title.textContent = '¡Buen intento!';
+                message.textContent = 'Practica más el futuro con "will" y las expresiones de tiempo.';
+                courseComplete.style.display = 'none';
+            } else {
+                trophy.textContent = '📚'; title.textContent = 'Sigue practicando';
+                message.textContent = 'Lee la historia de nuevo. Aprende: I will + verbo. ¡Tú puedes!';
+                courseComplete.style.display = 'none';
+            }
+            
+            panel.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function retryQuiz() {
+            answered = correct = incorrect = easyCorrect = mediumCorrect = hardCorrect = 0;
+            answeredQuestions = {};
+            
+            document.querySelectorAll('.question-card').forEach(card => card.classList.remove('answered', 'correct', 'incorrect'));
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect', 'show-correct'));
+            document.querySelectorAll('.feedback').forEach(fb => { fb.classList.remove('show', 'correct', 'incorrect'); fb.innerHTML = ''; });
+            document.getElementById('resultsPanel').classList.remove('show');
+            
+            updateScorePanel();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function toggleStory() {
+            const panel = document.getElementById('storyPanel');
+            const icon = document.getElementById('toggleIcon');
+            const text = document.getElementById('toggleText');
+            
+            panel.classList.toggle('collapsed');
+            if (panel.classList.contains('collapsed')) {
+                icon.textContent = '📖'; text.textContent = 'Mostrar historia';
+            } else {
+                icon.textContent = '📕'; text.textContent = 'Ocultar historia';
+            }
+        }
+    </script>
+</body>
+</html>

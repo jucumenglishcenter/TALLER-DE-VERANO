@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprensión Lectora | Tema 2: ¿Cómo estás hoy?</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+            box-shadow: 0 8px 30px rgba(25, 118, 210, 0.3);
+        }
+        
+        .header h1 {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+        
+        .header-info {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        /* Score Panel */
+        .score-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 15px 25px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .score-item {
+            text-align: center;
+        }
+        
+        .score-item .label {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .score-item .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1976D2;
+        }
+        
+        .score-item .value.correct { color: #4CAF50; }
+        .score-item .value.incorrect { color: #f44336; }
+        
+        /* Story Panel */
+        .story-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .story-title {
+            color: #1976D2;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #E3F2FD;
+        }
+        
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 700px) {
+            .story-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .story-column {
+            padding: 20px;
+            border-radius: 12px;
+        }
+        
+        .story-column.spanish {
+            background: #F5F5F5;
+            border-left: 4px solid #9E9E9E;
+        }
+        
+        .story-column.english {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            border-left: 4px solid #1976D2;
+        }
+        
+        .column-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .spanish .column-label { color: #757575; }
+        .english .column-label { color: #1976D2; }
+        
+        .narration {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .dialogue {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .dialogue .speaker {
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+        }
+        
+        .spanish .dialogue .speaker { color: #616161; }
+        .english .dialogue .speaker { color: #1565C0; }
+        
+        .dialogue .text {
+            color: #333;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        .vocab-highlight {
+            background: #FFF9C4;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        /* Questions Panel */
+        .questions-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .questions-title {
+            color: #1976D2;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Level Sections */
+        .level-section {
+            margin-bottom: 30px;
+        }
+        
+        .level-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            border-radius: 10px;
+        }
+        
+        .level-header.easy {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .level-header.medium {
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            border-left: 4px solid #FF9800;
+        }
+        
+        .level-header.hard {
+            background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%);
+            border-left: 4px solid #f44336;
+        }
+        
+        .level-icon { font-size: 1.3rem; }
+        .level-title { font-weight: 700; font-size: 1rem; }
+        .level-header.easy .level-title { color: #2E7D32; }
+        .level-header.medium .level-title { color: #E65100; }
+        .level-header.hard .level-title { color: #C62828; }
+        .level-subtitle { font-size: 0.8rem; color: #888; margin-left: auto; }
+        
+        /* Question Card */
+        .question-card {
+            background: #FAFAFA;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        
+        .question-card.answered { pointer-events: none; }
+        .question-card.correct { border-color: #4CAF50; background: #E8F5E9; }
+        .question-card.incorrect { border-color: #f44336; background: #FFEBEE; }
+        
+        .question-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: #1976D2;
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-right: 10px;
+        }
+        
+        .question-card.correct .question-number { background: #4CAF50; }
+        .question-card.incorrect .question-number { background: #f44336; }
+        
+        .question-text {
+            display: inline;
+            font-size: 1rem;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .question-text .english-fragment {
+            background: #E3F2FD;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-style: italic;
+            color: #1565C0;
+        }
+        
+        .options-container {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: white;
+            border: 2px solid #E0E0E0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option:hover { border-color: #1976D2; background: #E3F2FD; }
+        .option.selected { border-color: #1976D2; background: #E3F2FD; }
+        .option.correct { border-color: #4CAF50; background: #E8F5E9; }
+        .option.incorrect { border-color: #f44336; background: #FFEBEE; }
+        .option.show-correct { border-color: #4CAF50; background: #E8F5E9; }
+        
+        .option-letter {
+            width: 32px;
+            height: 32px;
+            background: #E0E0E0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #666;
+            flex-shrink: 0;
+        }
+        
+        .option.correct .option-letter,
+        .option.show-correct .option-letter { background: #4CAF50; color: white; }
+        .option.incorrect .option-letter { background: #f44336; color: white; }
+        
+        .option-text { flex: 1; font-size: 0.95rem; color: #333; }
+        .option-icon { font-size: 1.2rem; display: none; }
+        .option.correct .option-icon,
+        .option.incorrect .option-icon,
+        .option.show-correct .option-icon { display: block; }
+        
+        /* Feedback */
+        .feedback {
+            margin-top: 12px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .feedback.show { display: block; }
+        .feedback.correct { background: #E8F5E9; border: 1px solid #A5D6A7; color: #2E7D32; }
+        .feedback.incorrect { background: #FFEBEE; border: 1px solid #EF9A9A; color: #C62828; }
+        
+        /* Results Panel */
+        .results-panel {
+            display: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 25px;
+            text-align: center;
+            color: white;
+            animation: slideIn 0.5s ease;
+        }
+        
+        .results-panel.show { display: block; }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .results-panel h2 { font-size: 1.8rem; margin-bottom: 10px; }
+        .results-panel .trophy { font-size: 4rem; margin-bottom: 15px; }
+        .results-score { font-size: 3rem; font-weight: 700; margin: 15px 0; }
+        
+        .results-breakdown {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .breakdown-item { text-align: center; }
+        .breakdown-item .level { font-size: 0.8rem; opacity: 0.9; margin-bottom: 5px; }
+        .breakdown-item .score { font-size: 1.5rem; font-weight: 700; }
+        .results-message { font-size: 1.1rem; opacity: 0.95; margin-top: 15px; }
+        
+        .btn-retry {
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-retry:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        
+        /* Toggle Story */
+        .toggle-story { display: flex; justify-content: center; margin-bottom: 15px; }
+        
+        .toggle-btn {
+            padding: 10px 25px;
+            background: #1976D2;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .toggle-btn:hover { background: #1565C0; }
+        .story-panel.collapsed .story-content { display: none; }
+        .story-panel.collapsed .story-title { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📖 Comprensión Lectora</h1>
+            <div class="header-info">
+                <span class="badge">📘 Módulo 1</span>
+                <span class="badge">🎯 Tema 2: ¿Cómo estás hoy?</span>
+                <span class="badge">📝 12 Preguntas</span>
+            </div>
+        </div>
+        
+        <!-- Score Panel -->
+        <div class="score-panel">
+            <div class="score-item">
+                <div class="label">Respondidas</div>
+                <div class="value" id="answeredCount">0/12</div>
+            </div>
+            <div class="score-item">
+                <div class="label">Correctas</div>
+                <div class="value correct" id="correctCount">0</div>
+            </div>
+            <div class="score-item">
+                <div class="label">Incorrectas</div>
+                <div class="value incorrect" id="incorrectCount">0</div>
+            </div>
+        </div>
+        
+        <!-- Toggle Story -->
+        <div class="toggle-story">
+            <button class="toggle-btn" onclick="toggleStory()">
+                <span id="toggleIcon">📖</span>
+                <span id="toggleText">Ocultar historia</span>
+            </button>
+        </div>
+        
+        <!-- Story Panel -->
+        <div class="story-panel" id="storyPanel">
+            <div class="story-title">
+                📚 "The New Student" - Part 2: Making Friends
+            </div>
+            <div class="story-content">
+                <div class="story-column spanish">
+                    <div class="column-label">🇪🇸 Español</div>
+                    <div class="narration">
+                        Es la hora del recreo. Emma está sola en el patio. Una niña sonriente se acerca a ella.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"¡Hola, Emma! ¿Cómo estás?"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"Hola, Sophie. Estoy bien, gracias. ¿Y tú?"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"¡Estoy muy bien! Estoy emocionada porque mañana es mi cumpleaños."</div>
+                    </div>
+                    <div class="narration">
+                        Un niño llamado Tom se acerca al grupo.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="text">"Hola, chicas. ¿Cómo están hoy?"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"¡Estoy genial! ¿Y tú, Tom?"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="text">"Estoy bien, pero un poco cansado. Jugué fútbol toda la mañana."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"¿Estás bien, Tom?"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="text">"Sí, estoy bien. ¡Gracias por preguntar!"</div>
+                    </div>
+                </div>
+                
+                <div class="story-column english">
+                    <div class="column-label">🇺🇸 English</div>
+                    <div class="narration">
+                        It's recess time. Emma is alone in the schoolyard. A smiling girl approaches her.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"Hi, Emma! <span class="vocab-highlight">How are you</span>?"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"Hello, Sophie. <span class="vocab-highlight">I'm fine</span>, <span class="vocab-highlight">thank you</span>. <span class="vocab-highlight">And you</span>?"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"<span class="vocab-highlight">I'm great</span>! I'm excited because tomorrow is my birthday."</div>
+                    </div>
+                    <div class="narration">
+                        A boy named Tom approaches the group.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="text">"Hi, girls. <span class="vocab-highlight">How are you</span> today?"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"<span class="vocab-highlight">I'm great</span>! And you, Tom?"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="text">"<span class="vocab-highlight">I'm okay</span>, but a little tired. I played soccer all morning."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"<span class="vocab-highlight">Are you</span> okay, Tom?"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="text">"Yes, <span class="vocab-highlight">I'm good</span>. <span class="vocab-highlight">Thank you</span> for asking!"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Questions Panel -->
+        <div class="questions-panel">
+            <div class="questions-title">❓ Preguntas de Comprensión</div>
+            
+            <!-- NIVEL FÁCIL -->
+            <div class="level-section">
+                <div class="level-header easy">
+                    <span class="level-icon">🟢</span>
+                    <span class="level-title">Nivel Fácil</span>
+                    <span class="level-subtitle">Identificación directa</span>
+                </div>
+                
+                <!-- Pregunta 1 -->
+                <div class="question-card" id="q1">
+                    <span class="question-number">1</span>
+                    <span class="question-text">¿Cómo pregunta Sophie <span class="english-fragment">"¿Cómo estás?"</span> en inglés?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(1, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">What are you?</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(1, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">How are you?</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(1, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Who are you?</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb1"></div>
+                </div>
+                
+                <!-- Pregunta 2 -->
+                <div class="question-card" id="q2">
+                    <span class="question-number">2</span>
+                    <span class="question-text">Emma responde <span class="english-fragment">"I'm fine"</span>. ¿Qué significa?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(2, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Estoy bien</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(2, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Estoy mal</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(2, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Tengo hambre</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb2"></div>
+                </div>
+                
+                <!-- Pregunta 3 -->
+                <div class="question-card" id="q3">
+                    <span class="question-number">3</span>
+                    <span class="question-text">¿Qué significa <span class="english-fragment">"thank you"</span>?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(3, 'a', 'c')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">De nada</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(3, 'b', 'c')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Por favor</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(3, 'c', 'c')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Gracias</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb3"></div>
+                </div>
+                
+                <!-- Pregunta 4 -->
+                <div class="question-card" id="q4">
+                    <span class="question-number">4</span>
+                    <span class="question-text">Sophie dice <span class="english-fragment">"I'm great!"</span>. ¿Cómo se siente Sophie?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(4, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Mal</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(4, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Muy bien / Genial</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(4, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Cansada</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb4"></div>
+                </div>
+            </div>
+            
+            <!-- NIVEL MEDIO -->
+            <div class="level-section">
+                <div class="level-header medium">
+                    <span class="level-icon">🟡</span>
+                    <span class="level-title">Nivel Medio</span>
+                    <span class="level-subtitle">Comprensión contextual</span>
+                </div>
+                
+                <!-- Pregunta 5 -->
+                <div class="question-card" id="q5">
+                    <span class="question-number">5</span>
+                    <span class="question-text">Emma dice <span class="english-fragment">"And you?"</span> después de responder. ¿Qué está haciendo?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(5, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Devolviendo la pregunta: "¿Y tú?"</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(5, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Diciendo adiós</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(5, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Preguntando el nombre</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb5"></div>
+                </div>
+                
+                <!-- Pregunta 6 -->
+                <div class="question-card" id="q6">
+                    <span class="question-number">6</span>
+                    <span class="question-text">Tom dice <span class="english-fragment">"I'm okay"</span>. ¿Cuál es la diferencia con <span class="english-fragment">"I'm great"</span>?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(6, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Son exactamente iguales</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(6, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">"I'm okay" es más neutral, "I'm great" es muy positivo</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(6, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">"I'm okay" significa estar mal</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb6"></div>
+                </div>
+                
+                <!-- Pregunta 7 -->
+                <div class="question-card" id="q7">
+                    <span class="question-number">7</span>
+                    <span class="question-text">¿Por qué Sophie está <span class="english-fragment">"great"</span> (genial)?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(7, 'a', 'c')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Porque jugó fútbol</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(7, 'b', 'c')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Porque es nueva en la escuela</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(7, 'c', 'c')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Porque mañana es su cumpleaños</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb7"></div>
+                </div>
+                
+                <!-- Pregunta 8 -->
+                <div class="question-card" id="q8">
+                    <span class="question-number">8</span>
+                    <span class="question-text">¿Por qué Tom está solo <span class="english-fragment">"okay"</span> y no <span class="english-fragment">"great"</span>?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(8, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Porque está un poco cansado de jugar fútbol</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(8, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Porque está enfermo</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(8, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Porque no le caen bien las chicas</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb8"></div>
+                </div>
+            </div>
+            
+            <!-- NIVEL DIFÍCIL -->
+            <div class="level-section">
+                <div class="level-header hard">
+                    <span class="level-icon">🔴</span>
+                    <span class="level-title">Nivel Difícil</span>
+                    <span class="level-subtitle">Inferencia y aplicación</span>
+                </div>
+                
+                <!-- Pregunta 9 -->
+                <div class="question-card" id="q9">
+                    <span class="question-number">9</span>
+                    <span class="question-text">Ordena estas respuestas de MÁS POSITIVA a MENOS POSITIVA:</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(9, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">I'm fine → I'm great → I'm okay</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(9, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">I'm great → I'm fine → I'm okay</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(9, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">I'm okay → I'm fine → I'm great</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb9"></div>
+                </div>
+                
+                <!-- Pregunta 10 -->
+                <div class="question-card" id="q10">
+                    <span class="question-number">10</span>
+                    <span class="question-text">Tu amigo se ve cansado. ¿Cómo le preguntas si está bien en inglés?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(10, 'a', 'c')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">You are okay?</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(10, 'b', 'c')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">How you are?</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(10, 'c', 'c')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Are you okay?</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb10"></div>
+                </div>
+                
+                <!-- Pregunta 11 -->
+                <div class="question-card" id="q11">
+                    <span class="question-number">11</span>
+                    <span class="question-text">Completa este diálogo típico:<br><br>
+                    A: "Hi! How are you?"<br>
+                    B: "_____, _____. And you?"<br>
+                    A: "I'm great, _____!"</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(11, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">I'm fine / thank you / thanks</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(11, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">I fine / thanks you / thank</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(11, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Fine I'm / you thank / thanks you</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb11"></div>
+                </div>
+                
+                <!-- Pregunta 12 -->
+                <div class="question-card" id="q12">
+                    <span class="question-number">12</span>
+                    <span class="question-text">En la historia, <span class="english-fragment">"I'm"</span> aparece muchas veces. ¿Qué dos palabras forman <span class="english-fragment">"I'm"</span>?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(12, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">I + my</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(12, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">I + am</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(12, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">I + me</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb12"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results Panel -->
+        <div class="results-panel" id="resultsPanel">
+            <div class="trophy" id="resultsTrophy">🏆</div>
+            <h2 id="resultsTitle">¡Excelente trabajo!</h2>
+            <div class="results-score" id="resultsScore">0/12</div>
+            <div class="results-breakdown">
+                <div class="breakdown-item">
+                    <div class="level">🟢 Fácil</div>
+                    <div class="score" id="easyScore">0/4</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="level">🟡 Medio</div>
+                    <div class="score" id="mediumScore">0/4</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="level">🔴 Difícil</div>
+                    <div class="score" id="hardScore">0/4</div>
+                </div>
+            </div>
+            <div class="results-message" id="resultsMessage"></div>
+            <button class="btn-retry" onclick="retryQuiz()">🔄 Intentar de nuevo</button>
+        </div>
+    </div>
+
+    <script>
+        let answered = 0, correct = 0, incorrect = 0;
+        let answeredQuestions = {};
+        let easyCorrect = 0, mediumCorrect = 0, hardCorrect = 0;
+        
+        const feedbacks = {
+            1: { correct: "✓ ¡Correcto! 'How are you?' = ¿Cómo estás?", incorrect: "✗ La respuesta correcta es 'How are you?' (¿Cómo estás?). 'What are you?' sería '¿Qué eres?' y 'Who are you?' es '¿Quién eres?'." },
+            2: { correct: "✓ ¡Exacto! 'I'm fine' = Estoy bien", incorrect: "✗ 'I'm fine' significa 'Estoy bien'. Es una respuesta común y positiva." },
+            3: { correct: "✓ ¡Muy bien! 'Thank you' = Gracias", incorrect: "✗ 'Thank you' significa 'Gracias'. 'De nada' es 'You're welcome' y 'Por favor' es 'Please'." },
+            4: { correct: "✓ ¡Perfecto! 'I'm great' significa que está muy bien o genial", incorrect: "✗ 'I'm great' = Estoy muy bien / genial. Es una respuesta muy positiva." },
+            5: { correct: "✓ ¡Correcto! 'And you?' devuelve la pregunta: ¿Y tú?", incorrect: "✗ 'And you?' significa '¿Y tú?'. Es cortés devolver la pregunta después de responder." },
+            6: { correct: "✓ ¡Excelente! 'I'm great' es muy positivo, 'I'm okay' es más neutral (ni muy bien ni mal)", incorrect: "✗ 'I'm great' = muy bien (muy positivo). 'I'm okay' = más o menos / regular (neutral). 'I'm fine' está en el medio." },
+            7: { correct: "✓ ¡Bien! Sophie está emocionada porque mañana es su cumpleaños", incorrect: "✗ Sophie dice que está 'great' porque mañana es su cumpleaños ('tomorrow is my birthday')." },
+            8: { correct: "✓ ¡Correcto! Tom está 'okay' porque está un poco cansado de jugar fútbol", incorrect: "✗ Tom explica que está 'a little tired' (un poco cansado) porque jugó fútbol toda la mañana." },
+            9: { correct: "✓ ¡Excelente! El orden correcto es: Great (mejor) → Fine (bien) → Okay (más o menos)", incorrect: "✗ De más positivo a menos: 'I'm great' (genial) → 'I'm fine' (bien) → 'I'm okay' (más o menos)." },
+            10: { correct: "✓ ¡Perfecto! 'Are you okay?' es la forma correcta de preguntar '¿Estás bien?'", incorrect: "✗ En inglés las preguntas invierten el orden: 'Are you okay?' (no 'You are okay?'). Como Emma pregunta: 'Are you okay, Tom?'" },
+            11: { correct: "✓ ¡Excelente! El patrón completo es: 'I'm fine, thank you. And you?' - 'I'm great, thanks!'", incorrect: "✗ La estructura correcta es: 'I'm fine' (no 'I fine'), 'thank you' (no 'thanks you'), y 'thanks' es una forma corta de 'thank you'." },
+            12: { correct: "✓ ¡Perfecto! 'I'm' es la contracción de 'I am' (Yo soy/estoy)", incorrect: "✗ 'I'm' = 'I am' (Yo soy / Yo estoy). Es una contracción muy común en inglés." }
+        };
+        
+        function selectAnswer(questionNum, selected, correctAnswer) {
+            if (answeredQuestions[questionNum]) return;
+            answeredQuestions[questionNum] = true;
+            
+            const questionCard = document.getElementById(`q${questionNum}`);
+            const options = questionCard.querySelectorAll('.option');
+            const feedback = document.getElementById(`fb${questionNum}`);
+            const isCorrect = selected === correctAnswer;
+            
+            answered++;
+            if (isCorrect) {
+                correct++;
+                if (questionNum <= 4) easyCorrect++;
+                else if (questionNum <= 8) mediumCorrect++;
+                else hardCorrect++;
+            } else {
+                incorrect++;
+            }
+            
+            questionCard.classList.add('answered', isCorrect ? 'correct' : 'incorrect');
+            
+            options.forEach(opt => {
+                const letter = opt.querySelector('.option-letter').textContent.toLowerCase();
+                if (letter === selected) opt.classList.add(isCorrect ? 'correct' : 'incorrect');
+                if (letter === correctAnswer && !isCorrect) opt.classList.add('show-correct');
+            });
+            
+            feedback.classList.add('show', isCorrect ? 'correct' : 'incorrect');
+            feedback.innerHTML = isCorrect ? feedbacks[questionNum].correct : feedbacks[questionNum].incorrect;
+            
+            updateScorePanel();
+            if (answered === 12) setTimeout(showResults, 800);
+        }
+        
+        function updateScorePanel() {
+            document.getElementById('answeredCount').textContent = `${answered}/12`;
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('incorrectCount').textContent = incorrect;
+        }
+        
+        function showResults() {
+            const panel = document.getElementById('resultsPanel');
+            panel.classList.add('show');
+            
+            document.getElementById('resultsScore').textContent = `${correct}/12`;
+            document.getElementById('easyScore').textContent = `${easyCorrect}/4`;
+            document.getElementById('mediumScore').textContent = `${mediumCorrect}/4`;
+            document.getElementById('hardScore').textContent = `${hardCorrect}/4`;
+            
+            const trophy = document.getElementById('resultsTrophy');
+            const title = document.getElementById('resultsTitle');
+            const message = document.getElementById('resultsMessage');
+            const percentage = (correct / 12) * 100;
+            
+            if (percentage >= 90) {
+                trophy.textContent = '🏆'; title.textContent = '¡Excelente trabajo!';
+                message.textContent = '¡Dominas las expresiones de "¿Cómo estás?"! Estás listo para el siguiente tema.';
+            } else if (percentage >= 70) {
+                trophy.textContent = '🥈'; title.textContent = '¡Muy bien!';
+                message.textContent = 'Buen progreso. Repasa las diferencias entre fine, great y okay.';
+            } else if (percentage >= 50) {
+                trophy.textContent = '🥉'; title.textContent = '¡Buen intento!';
+                message.textContent = 'Necesitas practicar más. Vuelve a leer la historia con atención.';
+            } else {
+                trophy.textContent = '📚'; title.textContent = 'Sigue practicando';
+                message.textContent = 'Lee la historia de nuevo y fíjate en cómo responden los personajes. ¡Tú puedes!';
+            }
+            
+            panel.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function retryQuiz() {
+            answered = correct = incorrect = easyCorrect = mediumCorrect = hardCorrect = 0;
+            answeredQuestions = {};
+            
+            document.querySelectorAll('.question-card').forEach(card => card.classList.remove('answered', 'correct', 'incorrect'));
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect', 'show-correct'));
+            document.querySelectorAll('.feedback').forEach(fb => { fb.classList.remove('show', 'correct', 'incorrect'); fb.innerHTML = ''; });
+            document.getElementById('resultsPanel').classList.remove('show');
+            
+            updateScorePanel();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function toggleStory() {
+            const panel = document.getElementById('storyPanel');
+            const icon = document.getElementById('toggleIcon');
+            const text = document.getElementById('toggleText');
+            
+            panel.classList.toggle('collapsed');
+            if (panel.classList.contains('collapsed')) {
+                icon.textContent = '📖'; text.textContent = 'Mostrar historia';
+            } else {
+                icon.textContent = '📕'; text.textContent = 'Ocultar historia';
+            }
+        }
+    </script>
+</body>
+</html>

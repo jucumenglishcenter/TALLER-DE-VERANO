@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprensión Lectora | Tema 1: Saludos Básicos</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+            box-shadow: 0 8px 30px rgba(25, 118, 210, 0.3);
+        }
+        
+        .header h1 {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .header-info {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        /* Score Panel */
+        .score-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 15px 25px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .score-item {
+            text-align: center;
+        }
+        
+        .score-item .label {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .score-item .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1976D2;
+        }
+        
+        .score-item .value.correct { color: #4CAF50; }
+        .score-item .value.incorrect { color: #f44336; }
+        
+        /* Story Panel */
+        .story-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .story-title {
+            color: #1976D2;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #E3F2FD;
+        }
+        
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 700px) {
+            .story-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .story-column {
+            padding: 20px;
+            border-radius: 12px;
+        }
+        
+        .story-column.spanish {
+            background: #F5F5F5;
+            border-left: 4px solid #9E9E9E;
+        }
+        
+        .story-column.english {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            border-left: 4px solid #1976D2;
+        }
+        
+        .column-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .spanish .column-label { color: #757575; }
+        .english .column-label { color: #1976D2; }
+        
+        .narration {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .dialogue {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .dialogue .speaker {
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+        }
+        
+        .spanish .dialogue .speaker { color: #616161; }
+        .english .dialogue .speaker { color: #1565C0; }
+        
+        .dialogue .text {
+            color: #333;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        .vocab-highlight {
+            background: #FFF9C4;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        /* Questions Panel */
+        .questions-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .questions-title {
+            color: #1976D2;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Level Sections */
+        .level-section {
+            margin-bottom: 30px;
+        }
+        
+        .level-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            border-radius: 10px;
+        }
+        
+        .level-header.easy {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .level-header.medium {
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            border-left: 4px solid #FF9800;
+        }
+        
+        .level-header.hard {
+            background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%);
+            border-left: 4px solid #f44336;
+        }
+        
+        .level-icon {
+            font-size: 1.3rem;
+        }
+        
+        .level-title {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        
+        .level-header.easy .level-title { color: #2E7D32; }
+        .level-header.medium .level-title { color: #E65100; }
+        .level-header.hard .level-title { color: #C62828; }
+        
+        .level-subtitle {
+            font-size: 0.8rem;
+            color: #888;
+            margin-left: auto;
+        }
+        
+        /* Question Card */
+        .question-card {
+            background: #FAFAFA;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        
+        .question-card.answered {
+            pointer-events: none;
+        }
+        
+        .question-card.correct {
+            border-color: #4CAF50;
+            background: #E8F5E9;
+        }
+        
+        .question-card.incorrect {
+            border-color: #f44336;
+            background: #FFEBEE;
+        }
+        
+        .question-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: #1976D2;
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-right: 10px;
+        }
+        
+        .question-card.correct .question-number { background: #4CAF50; }
+        .question-card.incorrect .question-number { background: #f44336; }
+        
+        .question-text {
+            display: inline;
+            font-size: 1rem;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .question-text .english-fragment {
+            background: #E3F2FD;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-style: italic;
+            color: #1565C0;
+        }
+        
+        .options-container {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: white;
+            border: 2px solid #E0E0E0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option:hover {
+            border-color: #1976D2;
+            background: #E3F2FD;
+        }
+        
+        .option.selected {
+            border-color: #1976D2;
+            background: #E3F2FD;
+        }
+        
+        .option.correct {
+            border-color: #4CAF50;
+            background: #E8F5E9;
+        }
+        
+        .option.incorrect {
+            border-color: #f44336;
+            background: #FFEBEE;
+        }
+        
+        .option.show-correct {
+            border-color: #4CAF50;
+            background: #E8F5E9;
+        }
+        
+        .option-letter {
+            width: 32px;
+            height: 32px;
+            background: #E0E0E0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #666;
+            flex-shrink: 0;
+        }
+        
+        .option.correct .option-letter,
+        .option.show-correct .option-letter {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .option.incorrect .option-letter {
+            background: #f44336;
+            color: white;
+        }
+        
+        .option-text {
+            flex: 1;
+            font-size: 0.95rem;
+            color: #333;
+        }
+        
+        .option-icon {
+            font-size: 1.2rem;
+            display: none;
+        }
+        
+        .option.correct .option-icon,
+        .option.incorrect .option-icon,
+        .option.show-correct .option-icon {
+            display: block;
+        }
+        
+        /* Feedback */
+        .feedback {
+            margin-top: 12px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .feedback.show {
+            display: block;
+        }
+        
+        .feedback.correct {
+            background: #E8F5E9;
+            border: 1px solid #A5D6A7;
+            color: #2E7D32;
+        }
+        
+        .feedback.incorrect {
+            background: #FFEBEE;
+            border: 1px solid #EF9A9A;
+            color: #C62828;
+        }
+        
+        /* Results Panel */
+        .results-panel {
+            display: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 25px;
+            text-align: center;
+            color: white;
+            animation: slideIn 0.5s ease;
+        }
+        
+        .results-panel.show {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .results-panel h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .results-panel .trophy {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+        
+        .results-score {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+        
+        .results-breakdown {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .breakdown-item {
+            text-align: center;
+        }
+        
+        .breakdown-item .level {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .breakdown-item .score {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .results-message {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-top: 15px;
+        }
+        
+        .btn-retry {
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-retry:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Toggle Story Button */
+        .toggle-story {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .toggle-btn {
+            padding: 10px 25px;
+            background: #1976D2;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .toggle-btn:hover {
+            background: #1565C0;
+        }
+        
+        .story-panel.collapsed .story-content {
+            display: none;
+        }
+        
+        .story-panel.collapsed .story-title {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📖 Comprensión Lectora</h1>
+            <div class="header-info">
+                <span class="badge">📘 Módulo 1</span>
+                <span class="badge">🎯 Tema 1: Saludos Básicos</span>
+                <span class="badge">📝 12 Preguntas</span>
+            </div>
+        </div>
+        
+        <!-- Score Panel -->
+        <div class="score-panel">
+            <div class="score-item">
+                <div class="label">Respondidas</div>
+                <div class="value" id="answeredCount">0/12</div>
+            </div>
+            <div class="score-item">
+                <div class="label">Correctas</div>
+                <div class="value correct" id="correctCount">0</div>
+            </div>
+            <div class="score-item">
+                <div class="label">Incorrectas</div>
+                <div class="value incorrect" id="incorrectCount">0</div>
+            </div>
+        </div>
+        
+        <!-- Toggle Story -->
+        <div class="toggle-story">
+            <button class="toggle-btn" onclick="toggleStory()">
+                <span id="toggleIcon">📖</span>
+                <span id="toggleText">Ocultar historia</span>
+            </button>
+        </div>
+        
+        <!-- Story Panel -->
+        <div class="story-panel" id="storyPanel">
+            <div class="story-title">
+                📚 "The New Student" - Part 1: Arriving at School
+            </div>
+            <div class="story-content">
+                <div class="story-column spanish">
+                    <div class="column-label">🇪🇸 Español</div>
+                    <div class="narration">
+                        Es lunes por la mañana. Emma llega a su nueva escuela con su mamá. Está nerviosa pero emocionada.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👩‍🏫 Mrs. Johnson:</div>
+                        <div class="text">"¡Buenos días! Bienvenida. Mi nombre es Mrs. Johnson."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"Hola. Mi nombre es Emma. Mucho gusto."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👩‍🏫 Mrs. Johnson:</div>
+                        <div class="text">"¡Mucho gusto, Emma! Ven, te presento a la clase."</div>
+                    </div>
+                    <div class="narration">
+                        Mrs. Johnson lleva a Emma al salón de clases.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👩‍🏫 Mrs. Johnson:</div>
+                        <div class="text">"Buenas tardes, clase. Esta es Emma. Es nueva."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👨‍👩‍👧‍👦 Clase:</div>
+                        <div class="text">"¡Hola, Emma! ¡Mucho gusto!"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"Hola a todos. Mucho gusto también."</div>
+                    </div>
+                </div>
+                
+                <div class="story-column english">
+                    <div class="column-label">🇺🇸 English</div>
+                    <div class="narration">
+                        It's Monday morning. Emma arrives at her new school with her mom. She is nervous but excited.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👩‍🏫 Mrs. Johnson:</div>
+                        <div class="text">"<span class="vocab-highlight">Good morning</span>! Welcome. <span class="vocab-highlight">My name is</span> Mrs. Johnson."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"<span class="vocab-highlight">Hello</span>. <span class="vocab-highlight">My name is</span> Emma. <span class="vocab-highlight">Nice to meet you</span>."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👩‍🏫 Mrs. Johnson:</div>
+                        <div class="text">"<span class="vocab-highlight">Nice to meet you</span>, Emma! Come, I'll introduce you to the class."</div>
+                    </div>
+                    <div class="narration">
+                        Mrs. Johnson takes Emma to the classroom.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👩‍🏫 Mrs. Johnson:</div>
+                        <div class="text">"<span class="vocab-highlight">Good afternoon</span>, class. This is Emma. She is new."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👨‍👩‍👧‍👦 Class:</div>
+                        <div class="text">"<span class="vocab-highlight">Hi</span>, Emma! <span class="vocab-highlight">Nice to meet you</span>!"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"<span class="vocab-highlight">Hello</span> everyone. Nice to meet you too."</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Questions Panel -->
+        <div class="questions-panel">
+            <div class="questions-title">❓ Preguntas de Comprensión</div>
+            
+            <!-- NIVEL FÁCIL -->
+            <div class="level-section">
+                <div class="level-header easy">
+                    <span class="level-icon">🟢</span>
+                    <span class="level-title">Nivel Fácil</span>
+                    <span class="level-subtitle">Identificación directa</span>
+                </div>
+                
+                <!-- Pregunta 1 -->
+                <div class="question-card" id="q1">
+                    <span class="question-number">1</span>
+                    <span class="question-text">¿Qué dice Mrs. Johnson para saludar en la mañana?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(1, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Good night</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(1, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Good morning</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(1, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Goodbye</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb1"></div>
+                </div>
+                
+                <!-- Pregunta 2 -->
+                <div class="question-card" id="q2">
+                    <span class="question-number">2</span>
+                    <span class="question-text">¿Cómo se presenta Emma? <span class="english-fragment">"_____ Emma"</span></span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(2, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">My name is</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(2, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">My friend is</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(2, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Your name is</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb2"></div>
+                </div>
+                
+                <!-- Pregunta 3 -->
+                <div class="question-card" id="q3">
+                    <span class="question-number">3</span>
+                    <span class="question-text">¿Qué significa <span class="english-fragment">"Nice to meet you"</span>?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(3, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Buenas noches</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(3, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Mucho gusto</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(3, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Hasta luego</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb3"></div>
+                </div>
+                
+                <!-- Pregunta 4 -->
+                <div class="question-card" id="q4">
+                    <span class="question-number">4</span>
+                    <span class="question-text">La clase dice <span class="english-fragment">"Hi, Emma!"</span>. ¿Qué significa "Hi"?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(4, 'a', 'c')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Adiós</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(4, 'b', 'c')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Gracias</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(4, 'c', 'c')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Hola (informal)</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb4"></div>
+                </div>
+            </div>
+            
+            <!-- NIVEL MEDIO -->
+            <div class="level-section">
+                <div class="level-header medium">
+                    <span class="level-icon">🟡</span>
+                    <span class="level-title">Nivel Medio</span>
+                    <span class="level-subtitle">Comprensión contextual</span>
+                </div>
+                
+                <!-- Pregunta 5 -->
+                <div class="question-card" id="q5">
+                    <span class="question-number">5</span>
+                    <span class="question-text">Mrs. Johnson dice <span class="english-fragment">"Good afternoon"</span> a la clase. ¿Qué momento del día es?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(5, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">La mañana</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(5, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">La tarde</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(5, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">La noche</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb5"></div>
+                </div>
+                
+                <!-- Pregunta 6 -->
+                <div class="question-card" id="q6">
+                    <span class="question-number">6</span>
+                    <span class="question-text">¿Cuál es la diferencia entre <span class="english-fragment">"Hello"</span> y <span class="english-fragment">"Hi"</span>?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(6, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">"Hi" es más informal que "Hello"</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(6, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">"Hello" es para la noche</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(6, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Son de idiomas diferentes</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb6"></div>
+                </div>
+                
+                <!-- Pregunta 7 -->
+                <div class="question-card" id="q7">
+                    <span class="question-number">7</span>
+                    <span class="question-text">¿Quién dice <span class="english-fragment">"Nice to meet you"</span> primero en la historia?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(7, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">La clase</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(7, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Emma</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(7, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Mrs. Johnson</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb7"></div>
+                </div>
+                
+                <!-- Pregunta 8 -->
+                <div class="question-card" id="q8">
+                    <span class="question-number">8</span>
+                    <span class="question-text">Emma llega en la mañana, pero Mrs. Johnson dice <span class="english-fragment">"Good afternoon"</span> a la clase. ¿Por qué?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(8, 'a', 'c')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Mrs. Johnson se equivocó</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(8, 'b', 'c')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Emma llegó tarde</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(8, 'c', 'c')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Ya pasó tiempo y ahora es la tarde</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb8"></div>
+                </div>
+            </div>
+            
+            <!-- NIVEL DIFÍCIL -->
+            <div class="level-section">
+                <div class="level-header hard">
+                    <span class="level-icon">🔴</span>
+                    <span class="level-title">Nivel Difícil</span>
+                    <span class="level-subtitle">Inferencia y aplicación</span>
+                </div>
+                
+                <!-- Pregunta 9 -->
+                <div class="question-card" id="q9">
+                    <span class="question-number">9</span>
+                    <span class="question-text">Si son las 8:00 PM y quieres saludar a alguien, ¿qué dirías?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(9, 'a', 'c')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Good morning</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(9, 'b', 'c')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Good afternoon</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(9, 'c', 'c')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Good evening</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb9"></div>
+                </div>
+                
+                <!-- Pregunta 10 -->
+                <div class="question-card" id="q10">
+                    <span class="question-number">10</span>
+                    <span class="question-text">Emma responde <span class="english-fragment">"Nice to meet you too"</span>. ¿Qué significa la palabra <span class="english-fragment">"too"</span> aquí?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(10, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Dos / número 2</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(10, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">También / igualmente</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(10, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Mucho / muy</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb10"></div>
+                </div>
+                
+                <!-- Pregunta 11 -->
+                <div class="question-card" id="q11">
+                    <span class="question-number">11</span>
+                    <span class="question-text">Un nuevo estudiante llega a tu clase. Completa el diálogo correctamente:<br><br>
+                    Tú: "_____, my _____ is [tu nombre]. Nice to _____ you!"</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(11, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Goodbye / friend / see</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(11, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Hello / name / meet</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(11, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Morning / class / have</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb11"></div>
+                </div>
+                
+                <!-- Pregunta 12 -->
+                <div class="question-card" id="q12">
+                    <span class="question-number">12</span>
+                    <span class="question-text">Según la historia, ¿cuál es el orden correcto de una presentación formal?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(12, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Saludo → Nombre → Mucho gusto</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(12, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Nombre → Mucho gusto → Saludo</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(12, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Mucho gusto → Saludo → Nombre</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb12"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results Panel -->
+        <div class="results-panel" id="resultsPanel">
+            <div class="trophy" id="resultsTrophy">🏆</div>
+            <h2 id="resultsTitle">¡Excelente trabajo!</h2>
+            <div class="results-score" id="resultsScore">0/12</div>
+            <div class="results-breakdown">
+                <div class="breakdown-item">
+                    <div class="level">🟢 Fácil</div>
+                    <div class="score" id="easyScore">0/4</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="level">🟡 Medio</div>
+                    <div class="score" id="mediumScore">0/4</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="level">🔴 Difícil</div>
+                    <div class="score" id="hardScore">0/4</div>
+                </div>
+            </div>
+            <div class="results-message" id="resultsMessage"></div>
+            <button class="btn-retry" onclick="retryQuiz()">🔄 Intentar de nuevo</button>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let answered = 0;
+        let correct = 0;
+        let incorrect = 0;
+        let answeredQuestions = {};
+        
+        // Scores by level
+        let easyCorrect = 0;
+        let mediumCorrect = 0;
+        let hardCorrect = 0;
+        
+        // Feedback messages
+        const feedbacks = {
+            1: { 
+                correct: "✓ ¡Correcto! 'Good morning' = Buenos días", 
+                incorrect: "✗ La respuesta correcta es 'Good morning' (Buenos días). 'Good night' es buenas noches y 'Goodbye' es adiós."
+            },
+            2: { 
+                correct: "✓ ¡Exacto! 'My name is' = Mi nombre es", 
+                incorrect: "✗ La respuesta correcta es 'My name is' (Mi nombre es). Es la frase para presentarse."
+            },
+            3: { 
+                correct: "✓ ¡Muy bien! 'Nice to meet you' = Mucho gusto / Encantado de conocerte", 
+                incorrect: "✗ 'Nice to meet you' significa 'Mucho gusto'. Se usa cuando conoces a alguien nuevo."
+            },
+            4: { 
+                correct: "✓ ¡Perfecto! 'Hi' es una forma informal de decir 'Hola'", 
+                incorrect: "✗ 'Hi' significa 'Hola' de manera informal. Es más casual que 'Hello'."
+            },
+            5: { 
+                correct: "✓ ¡Correcto! 'Good afternoon' se usa en la tarde", 
+                incorrect: "✗ 'Good afternoon' = Buenas tardes. Se usa aproximadamente de 12:00 PM a 6:00 PM."
+            },
+            6: { 
+                correct: "✓ ¡Excelente! 'Hi' es más casual/informal que 'Hello'", 
+                incorrect: "✗ 'Hi' es más informal. 'Hello' es más formal. Ambos significan 'Hola' pero se usan en diferentes contextos."
+            },
+            7: { 
+                correct: "✓ ¡Bien! Emma dice 'Nice to meet you' primero, al presentarse con Mrs. Johnson", 
+                incorrect: "✗ Emma es la primera en decir 'Nice to meet you' cuando se presenta con Mrs. Johnson."
+            },
+            8: { 
+                correct: "✓ ¡Excelente razonamiento! Emma llega en la mañana, pero para cuando llegan al salón ya es la tarde", 
+                incorrect: "✗ El tiempo pasó. Emma llegó en la mañana ('Good morning') pero cuando van al salón ya es tarde ('Good afternoon')."
+            },
+            9: { 
+                correct: "✓ ¡Perfecto! A las 8:00 PM es de noche, así que usamos 'Good evening'", 
+                incorrect: "✗ 'Good evening' se usa en la noche (después de las 6:00 PM aproximadamente)."
+            },
+            10: { 
+                correct: "✓ ¡Excelente! 'Too' aquí significa 'también' - ella devuelve el saludo de la misma manera", 
+                incorrect: "✗ 'Too' significa 'también'. 'Nice to meet you too' = 'Mucho gusto también' o 'Igualmente'."
+            },
+            11: { 
+                correct: "✓ ¡Perfecto! 'Hello, my name is [nombre]. Nice to meet you!' es la presentación correcta", 
+                incorrect: "✗ El orden correcto es: Hello (saludo) + my name is (presentación) + Nice to meet you (cortesía)."
+            },
+            12: { 
+                correct: "✓ ¡Excelente! El orden correcto es: 1) Saludar, 2) Decir tu nombre, 3) Decir mucho gusto", 
+                incorrect: "✗ En la historia, Emma primero saluda (Hello), luego dice su nombre (My name is Emma), y finalmente dice 'Nice to meet you'."
+            }
+        };
+        
+        function selectAnswer(questionNum, selected, correctAnswer) {
+            // Prevent re-answering
+            if (answeredQuestions[questionNum]) return;
+            answeredQuestions[questionNum] = true;
+            
+            const questionCard = document.getElementById(`q${questionNum}`);
+            const options = questionCard.querySelectorAll('.option');
+            const feedback = document.getElementById(`fb${questionNum}`);
+            
+            const isCorrect = selected === correctAnswer;
+            
+            // Update scores
+            answered++;
+            if (isCorrect) {
+                correct++;
+                if (questionNum <= 4) easyCorrect++;
+                else if (questionNum <= 8) mediumCorrect++;
+                else hardCorrect++;
+            } else {
+                incorrect++;
+            }
+            
+            // Update UI
+            questionCard.classList.add('answered');
+            questionCard.classList.add(isCorrect ? 'correct' : 'incorrect');
+            
+            // Mark options
+            options.forEach(opt => {
+                const letter = opt.querySelector('.option-letter').textContent.toLowerCase();
+                if (letter === selected) {
+                    opt.classList.add(isCorrect ? 'correct' : 'incorrect');
+                }
+                if (letter === correctAnswer && !isCorrect) {
+                    opt.classList.add('show-correct');
+                }
+            });
+            
+            // Show feedback
+            feedback.classList.add('show');
+            feedback.classList.add(isCorrect ? 'correct' : 'incorrect');
+            feedback.innerHTML = isCorrect ? feedbacks[questionNum].correct : feedbacks[questionNum].incorrect;
+            
+            // Update score panel
+            updateScorePanel();
+            
+            // Check if all answered
+            if (answered === 12) {
+                setTimeout(showResults, 800);
+            }
+        }
+        
+        function updateScorePanel() {
+            document.getElementById('answeredCount').textContent = `${answered}/12`;
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('incorrectCount').textContent = incorrect;
+        }
+        
+        function showResults() {
+            const panel = document.getElementById('resultsPanel');
+            panel.classList.add('show');
+            
+            // Set scores
+            document.getElementById('resultsScore').textContent = `${correct}/12`;
+            document.getElementById('easyScore').textContent = `${easyCorrect}/4`;
+            document.getElementById('mediumScore').textContent = `${mediumCorrect}/4`;
+            document.getElementById('hardScore').textContent = `${hardCorrect}/4`;
+            
+            // Set trophy and message based on score
+            const trophy = document.getElementById('resultsTrophy');
+            const title = document.getElementById('resultsTitle');
+            const message = document.getElementById('resultsMessage');
+            
+            const percentage = (correct / 12) * 100;
+            
+            if (percentage >= 90) {
+                trophy.textContent = '🏆';
+                title.textContent = '¡Excelente trabajo!';
+                message.textContent = '¡Dominas los saludos en inglés! Estás listo para el siguiente tema.';
+            } else if (percentage >= 70) {
+                trophy.textContent = '🥈';
+                title.textContent = '¡Muy bien!';
+                message.textContent = 'Buen progreso. Repasa los errores y estarás listo para avanzar.';
+            } else if (percentage >= 50) {
+                trophy.textContent = '🥉';
+                title.textContent = '¡Buen intento!';
+                message.textContent = 'Necesitas practicar más. Vuelve a leer la historia y reintenta.';
+            } else {
+                trophy.textContent = '📚';
+                title.textContent = 'Sigue practicando';
+                message.textContent = 'Lee la historia con atención y vuelve a intentarlo. ¡Tú puedes!';
+            }
+            
+            // Scroll to results
+            panel.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function retryQuiz() {
+            // Reset state
+            answered = 0;
+            correct = 0;
+            incorrect = 0;
+            easyCorrect = 0;
+            mediumCorrect = 0;
+            hardCorrect = 0;
+            answeredQuestions = {};
+            
+            // Reset UI
+            document.querySelectorAll('.question-card').forEach(card => {
+                card.classList.remove('answered', 'correct', 'incorrect');
+            });
+            
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect', 'show-correct');
+            });
+            
+            document.querySelectorAll('.feedback').forEach(fb => {
+                fb.classList.remove('show', 'correct', 'incorrect');
+                fb.innerHTML = '';
+            });
+            
+            document.getElementById('resultsPanel').classList.remove('show');
+            
+            updateScorePanel();
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function toggleStory() {
+            const panel = document.getElementById('storyPanel');
+            const icon = document.getElementById('toggleIcon');
+            const text = document.getElementById('toggleText');
+            
+            panel.classList.toggle('collapsed');
+            
+            if (panel.classList.contains('collapsed')) {
+                icon.textContent = '📖';
+                text.textContent = 'Mostrar historia';
+            } else {
+                icon.textContent = '📕';
+                text.textContent = 'Ocultar historia';
+            }
+        }
+    </script>
+</body>
+</html>

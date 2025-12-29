@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprensión Lectora | Tema 5: Mi Familia</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container { max-width: 900px; margin: 0 auto; }
+        
+        .header {
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+            box-shadow: 0 8px 30px rgba(255, 152, 0, 0.3);
+        }
+        
+        .header h1 { font-size: 1.6rem; margin-bottom: 8px; }
+        .header-info { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .badge { background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; }
+        
+        .score-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 15px 25px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .score-item { text-align: center; }
+        .score-item .label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+        .score-item .value { font-size: 1.5rem; font-weight: 700; color: #FF9800; }
+        .score-item .value.correct { color: #4CAF50; }
+        .score-item .value.incorrect { color: #f44336; }
+        
+        .story-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .story-title {
+            color: #F57C00;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #FFF3E0;
+        }
+        
+        .story-content { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 700px) { .story-content { grid-template-columns: 1fr; } }
+        
+        .story-column { padding: 20px; border-radius: 12px; }
+        .story-column.spanish { background: #F5F5F5; border-left: 4px solid #9E9E9E; }
+        .story-column.english { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border-left: 4px solid #FF9800; }
+        
+        .column-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; font-weight: 600; }
+        .spanish .column-label { color: #757575; }
+        .english .column-label { color: #F57C00; }
+        
+        .narration {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .dialogue {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .dialogue .speaker { font-weight: 700; margin-bottom: 5px; font-size: 0.85rem; }
+        .spanish .dialogue .speaker { color: #616161; }
+        .english .dialogue .speaker { color: #E65100; }
+        .dialogue .text { color: #333; line-height: 1.5; font-size: 0.95rem; }
+        .vocab-highlight { background: #FFF9C4; padding: 1px 6px; border-radius: 4px; font-weight: 600; }
+        
+        .questions-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .questions-title { color: #F57C00; font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        
+        .level-section { margin-bottom: 30px; }
+        .level-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding: 12px 15px; border-radius: 10px; }
+        .level-header.easy { background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); border-left: 4px solid #4CAF50; }
+        .level-header.medium { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border-left: 4px solid #FF9800; }
+        .level-header.hard { background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%); border-left: 4px solid #f44336; }
+        .level-icon { font-size: 1.3rem; }
+        .level-title { font-weight: 700; font-size: 1rem; }
+        .level-header.easy .level-title { color: #2E7D32; }
+        .level-header.medium .level-title { color: #E65100; }
+        .level-header.hard .level-title { color: #C62828; }
+        .level-subtitle { font-size: 0.8rem; color: #888; margin-left: auto; }
+        
+        .question-card {
+            background: #FAFAFA;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        
+        .question-card.answered { pointer-events: none; }
+        .question-card.correct { border-color: #4CAF50; background: #E8F5E9; }
+        .question-card.incorrect { border-color: #f44336; background: #FFEBEE; }
+        
+        .question-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: #FF9800;
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-right: 10px;
+        }
+        
+        .question-card.correct .question-number { background: #4CAF50; }
+        .question-card.incorrect .question-number { background: #f44336; }
+        
+        .question-text { display: inline; font-size: 1rem; color: #333; font-weight: 500; }
+        .question-text .english-fragment { background: #FFF3E0; padding: 2px 8px; border-radius: 5px; font-style: italic; color: #E65100; }
+        
+        .options-container { margin-top: 15px; display: flex; flex-direction: column; gap: 10px; }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: white;
+            border: 2px solid #E0E0E0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option:hover { border-color: #FF9800; background: #FFF3E0; }
+        .option.correct { border-color: #4CAF50; background: #E8F5E9; }
+        .option.incorrect { border-color: #f44336; background: #FFEBEE; }
+        .option.show-correct { border-color: #4CAF50; background: #E8F5E9; }
+        
+        .option-letter {
+            width: 32px;
+            height: 32px;
+            background: #E0E0E0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #666;
+            flex-shrink: 0;
+        }
+        
+        .option.correct .option-letter, .option.show-correct .option-letter { background: #4CAF50; color: white; }
+        .option.incorrect .option-letter { background: #f44336; color: white; }
+        .option-text { flex: 1; font-size: 0.95rem; color: #333; }
+        .option-icon { font-size: 1.2rem; display: none; }
+        .option.correct .option-icon, .option.incorrect .option-icon, .option.show-correct .option-icon { display: block; }
+        
+        .feedback { margin-top: 12px; padding: 12px 15px; border-radius: 8px; font-size: 0.9rem; display: none; }
+        .feedback.show { display: block; }
+        .feedback.correct { background: #E8F5E9; border: 1px solid #A5D6A7; color: #2E7D32; }
+        .feedback.incorrect { background: #FFEBEE; border: 1px solid #EF9A9A; color: #C62828; }
+        
+        .results-panel {
+            display: none;
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 25px;
+            text-align: center;
+            color: white;
+            animation: slideIn 0.5s ease;
+        }
+        .results-panel.show { display: block; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .results-panel h2 { font-size: 1.8rem; margin-bottom: 10px; }
+        .results-panel .trophy { font-size: 4rem; margin-bottom: 15px; }
+        .results-score { font-size: 3rem; font-weight: 700; margin: 15px 0; }
+        .results-breakdown { display: flex; justify-content: center; gap: 30px; margin: 20px 0; flex-wrap: wrap; }
+        .breakdown-item { text-align: center; }
+        .breakdown-item .level { font-size: 0.8rem; opacity: 0.9; margin-bottom: 5px; }
+        .breakdown-item .score { font-size: 1.5rem; font-weight: 700; }
+        .results-message { font-size: 1.1rem; opacity: 0.95; margin-top: 15px; }
+        
+        .btn-retry {
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: white;
+            color: #F57C00;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-retry:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        
+        .toggle-story { display: flex; justify-content: center; margin-bottom: 15px; }
+        .toggle-btn {
+            padding: 10px 25px;
+            background: #FF9800;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        .toggle-btn:hover { background: #F57C00; }
+        .story-panel.collapsed .story-content { display: none; }
+        .story-panel.collapsed .story-title { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📖 Comprensión Lectora</h1>
+            <div class="header-info">
+                <span class="badge">📙 Módulo 2</span>
+                <span class="badge">🎯 Tema 5: Mi Familia</span>
+                <span class="badge">📝 12 Preguntas</span>
+            </div>
+        </div>
+        
+        <div class="score-panel">
+            <div class="score-item">
+                <div class="label">Respondidas</div>
+                <div class="value" id="answeredCount">0/12</div>
+            </div>
+            <div class="score-item">
+                <div class="label">Correctas</div>
+                <div class="value correct" id="correctCount">0</div>
+            </div>
+            <div class="score-item">
+                <div class="label">Incorrectas</div>
+                <div class="value incorrect" id="incorrectCount">0</div>
+            </div>
+        </div>
+        
+        <div class="toggle-story">
+            <button class="toggle-btn" onclick="toggleStory()">
+                <span id="toggleIcon">📖</span>
+                <span id="toggleText">Ocultar historia</span>
+            </button>
+        </div>
+        
+        <div class="story-panel" id="storyPanel">
+            <div class="story-title">📚 "Emma's Week" - Part 2: The García Family</div>
+            <div class="story-content">
+                <div class="story-column spanish">
+                    <div class="column-label">🇪🇸 Español</div>
+                    <div class="narration">
+                        Sophie visita la casa de Emma por primera vez. Emma está emocionada de presentarle a su familia.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"¡Bienvenida a mi casa, Sophie! Ven, te presento a mi familia."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"¡Gracias! Tu casa es muy bonita."</div>
+                    </div>
+                    <div class="narration">
+                        Entran a la cocina donde está la mamá de Emma.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"Sophie, esta es mi madre. Se llama Sara."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👩 Sara:</div>
+                        <div class="text">"¡Hola, Sophie! Mucho gusto. ¿Quieren un snack?"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"Y este es mi padre, Carlos. Él está trabajando desde casa hoy."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👨 Carlos:</div>
+                        <div class="text">"¡Hola! Bienvenida, Sophie."</div>
+                    </div>
+                    <div class="narration">
+                        Un niño corre hacia ellas desde el jardín.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"Y este es mi hermano Lucas. Tiene 8 años."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👦 Lucas:</div>
+                        <div class="text">"¡Hola! ¿Quieres jugar fútbol?"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"¡Tu familia es muy simpática! Yo vivo con mis padres también."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"Amo a mi familia. Vivimos muy felices juntos."</div>
+                    </div>
+                </div>
+                
+                <div class="story-column english">
+                    <div class="column-label">🇺🇸 English</div>
+                    <div class="narration">
+                        Sophie visits Emma's house for the first time. Emma is excited to introduce her family.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"Welcome to my house, Sophie! Come, I'll introduce you to my <span class="vocab-highlight">family</span>."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"Thank you! Your house <span class="vocab-highlight">is</span> very nice."</div>
+                    </div>
+                    <div class="narration">
+                        They enter the kitchen where Emma's mom is.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"Sophie, <span class="vocab-highlight">this is</span> my <span class="vocab-highlight">mother</span>. Her name is Sara."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👩 Sara:</div>
+                        <div class="text">"Hello, Sophie! Nice to meet you. Do you want a snack?"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"And <span class="vocab-highlight">this is</span> my <span class="vocab-highlight">father</span>, Carlos. He is working from home today."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👨 Carlos:</div>
+                        <div class="text">"Hello! Welcome, Sophie."</div>
+                    </div>
+                    <div class="narration">
+                        A boy runs toward them from the garden.
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"And <span class="vocab-highlight">this is</span> my <span class="vocab-highlight">brother</span> Lucas. He is 8 years old."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👦 Lucas:</div>
+                        <div class="text">"Hi! Do you want to play soccer?"</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="text">"Your <span class="vocab-highlight">family</span> is very nice! I <span class="vocab-highlight">live</span> <span class="vocab-highlight">with</span> my parents too."</div>
+                    </div>
+                    <div class="dialogue">
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="text">"I <span class="vocab-highlight">love</span> my <span class="vocab-highlight">family</span>. We live very happy together."</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="questions-panel">
+            <div class="questions-title">❓ Preguntas de Comprensión</div>
+            
+            <!-- NIVEL FÁCIL -->
+            <div class="level-section">
+                <div class="level-header easy">
+                    <span class="level-icon">🟢</span>
+                    <span class="level-title">Nivel Fácil</span>
+                    <span class="level-subtitle">Identificación directa</span>
+                </div>
+                
+                <div class="question-card" id="q1">
+                    <span class="question-number">1</span>
+                    <span class="question-text">¿Cómo se dice <span class="english-fragment">"madre"</span> en inglés?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(1, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">father</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(1, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">mother</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(1, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">brother</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb1"></div>
+                </div>
+                
+                <div class="question-card" id="q2">
+                    <span class="question-number">2</span>
+                    <span class="question-text">Emma dice <span class="english-fragment">"This is my father"</span>. ¿Qué significa?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(2, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Este es mi padre</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(2, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Este es mi hermano</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(2, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Esta es mi madre</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb2"></div>
+                </div>
+                
+                <div class="question-card" id="q3">
+                    <span class="question-number">3</span>
+                    <span class="question-text">¿Qué significa <span class="english-fragment">"brother"</span>?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(3, 'a', 'c')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Hermana</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(3, 'b', 'c')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Primo</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(3, 'c', 'c')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Hermano</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb3"></div>
+                </div>
+                
+                <div class="question-card" id="q4">
+                    <span class="question-number">4</span>
+                    <span class="question-text">Emma dice <span class="english-fragment">"I love my family"</span>. ¿Qué significa <span class="english-fragment">"love"</span>?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(4, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Gustar</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(4, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Amar</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(4, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Vivir</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb4"></div>
+                </div>
+            </div>
+            
+            <!-- NIVEL MEDIO -->
+            <div class="level-section">
+                <div class="level-header medium">
+                    <span class="level-icon">🟡</span>
+                    <span class="level-title">Nivel Medio</span>
+                    <span class="level-subtitle">Comprensión contextual</span>
+                </div>
+                
+                <div class="question-card" id="q5">
+                    <span class="question-number">5</span>
+                    <span class="question-text">¿Cuántos miembros tiene la familia de Emma según la historia?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(5, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">3 (Emma, mamá, papá)</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(5, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">4 (Emma, mamá, papá, hermano)</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(5, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">5 (Emma, mamá, papá, hermano, hermana)</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb5"></div>
+                </div>
+                
+                <div class="question-card" id="q6">
+                    <span class="question-number">6</span>
+                    <span class="question-text">Sophie dice <span class="english-fragment">"I live with my parents"</span>. ¿Qué significa?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(6, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Vivo con mis padres</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(6, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Amo a mis padres</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(6, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Visito a mis padres</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb6"></div>
+                </div>
+                
+                <div class="question-card" id="q7">
+                    <span class="question-number">7</span>
+                    <span class="question-text">¿Cómo se llama el hermano de Emma y cuántos años tiene?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(7, 'a', 'c')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Carlos, 8 años</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(7, 'b', 'c')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Lucas, 12 años</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(7, 'c', 'c')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Lucas, 8 años</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb7"></div>
+                </div>
+                
+                <div class="question-card" id="q8">
+                    <span class="question-number">8</span>
+                    <span class="question-text">La frase <span class="english-fragment">"This is"</span> se usa para:</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(8, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">Presentar a alguien: "Este/Esta es..."</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(8, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">Despedirse de alguien</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(8, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Preguntar el nombre</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb8"></div>
+                </div>
+            </div>
+            
+            <!-- NIVEL DIFÍCIL -->
+            <div class="level-section">
+                <div class="level-header hard">
+                    <span class="level-icon">🔴</span>
+                    <span class="level-title">Nivel Difícil</span>
+                    <span class="level-subtitle">Inferencia y aplicación</span>
+                </div>
+                
+                <div class="question-card" id="q9">
+                    <span class="question-number">9</span>
+                    <span class="question-text">¿Cuál es la palabra correcta para <span class="english-fragment">"hermana"</span> en inglés?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(9, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">brother</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(9, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">sister</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(9, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">mother</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb9"></div>
+                </div>
+                
+                <div class="question-card" id="q10">
+                    <span class="question-number">10</span>
+                    <span class="question-text">Presenta a TU familia. ¿Cuál es correcta?</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(10, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">This is my mother. This is my father. I love my family.</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(10, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">This my mother is. This my father is. I family love.</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(10, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">Is this my mother. Is this my father. Love I my family.</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb10"></div>
+                </div>
+                
+                <div class="question-card" id="q11">
+                    <span class="question-number">11</span>
+                    <span class="question-text">Completa: "I _____ with my family. I _____ my mother and father."</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(11, 'a', 'b')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">love / live</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(11, 'b', 'b')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">live / love</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(11, 'c', 'b')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">is / this</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb11"></div>
+                </div>
+                
+                <div class="question-card" id="q12">
+                    <span class="question-number">12</span>
+                    <span class="question-text">Relaciona correctamente:<br><br>
+                    mother = ___<br>
+                    father = ___<br>
+                    brother = ___<br>
+                    sister = ___</span>
+                    <div class="options-container">
+                        <div class="option" onclick="selectAnswer(12, 'a', 'a')">
+                            <span class="option-letter">A</span>
+                            <span class="option-text">madre / padre / hermano / hermana</span>
+                            <span class="option-icon">✓</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(12, 'b', 'a')">
+                            <span class="option-letter">B</span>
+                            <span class="option-text">padre / madre / hermana / hermano</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                        <div class="option" onclick="selectAnswer(12, 'c', 'a')">
+                            <span class="option-letter">C</span>
+                            <span class="option-text">hermana / hermano / padre / madre</span>
+                            <span class="option-icon">✗</span>
+                        </div>
+                    </div>
+                    <div class="feedback" id="fb12"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="results-panel" id="resultsPanel">
+            <div class="trophy" id="resultsTrophy">🏆</div>
+            <h2 id="resultsTitle">¡Excelente trabajo!</h2>
+            <div class="results-score" id="resultsScore">0/12</div>
+            <div class="results-breakdown">
+                <div class="breakdown-item">
+                    <div class="level">🟢 Fácil</div>
+                    <div class="score" id="easyScore">0/4</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="level">🟡 Medio</div>
+                    <div class="score" id="mediumScore">0/4</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="level">🔴 Difícil</div>
+                    <div class="score" id="hardScore">0/4</div>
+                </div>
+            </div>
+            <div class="results-message" id="resultsMessage"></div>
+            <button class="btn-retry" onclick="retryQuiz()">🔄 Intentar de nuevo</button>
+        </div>
+    </div>
+
+    <script>
+        let answered = 0, correct = 0, incorrect = 0;
+        let answeredQuestions = {};
+        let easyCorrect = 0, mediumCorrect = 0, hardCorrect = 0;
+        
+        const feedbacks = {
+            1: { correct: "✓ ¡Correcto! 'Mother' = madre/mamá.", incorrect: "✗ 'Mother' significa madre. 'Father' es padre y 'brother' es hermano." },
+            2: { correct: "✓ ¡Exacto! 'This is my father' = Este es mi padre.", incorrect: "✗ 'Father' significa padre. 'This is my father' = Este es mi padre." },
+            3: { correct: "✓ ¡Muy bien! 'Brother' = hermano.", incorrect: "✗ 'Brother' significa hermano. 'Sister' es hermana." },
+            4: { correct: "✓ ¡Perfecto! 'Love' = amar. 'I love my family' = Amo a mi familia.", incorrect: "✗ 'Love' significa amar. Es más fuerte que 'like' (gustar)." },
+            5: { correct: "✓ ¡Correcto! Emma, Sara (madre), Carlos (padre) y Lucas (hermano) = 4 miembros.", incorrect: "✗ La familia tiene 4 miembros: Emma, su madre Sara, su padre Carlos y su hermano Lucas." },
+            6: { correct: "✓ ¡Bien! 'I live with' = Vivo con. 'Parents' = padres.", incorrect: "✗ 'Live with' significa 'vivir con'. 'I live with my parents' = Vivo con mis padres." },
+            7: { correct: "✓ ¡Correcto! Lucas es el hermano y tiene 8 años ('He is 8 years old').", incorrect: "✗ Emma dice 'This is my brother Lucas. He is 8 years old.' Lucas tiene 8 años." },
+            8: { correct: "✓ ¡Excelente! 'This is' se usa para presentar: 'This is my mother' = Esta es mi madre.", incorrect: "✗ 'This is' significa 'Este/Esta es' y se usa para presentar personas o cosas." },
+            9: { correct: "✓ ¡Perfecto! 'Sister' = hermana. No aparece en la historia porque Emma solo tiene un hermano.", incorrect: "✗ 'Sister' significa hermana. 'Brother' es hermano (Lucas en la historia)." },
+            10: { correct: "✓ ¡Excelente! El orden correcto es: This is + my + [familiar]. I love + my family.", incorrect: "✗ El orden en inglés es: This is my mother. (Sujeto + verbo + complemento)" },
+            11: { correct: "✓ ¡Perfecto! 'Live WITH' = vivir con. 'Love' = amar. Tienen significados diferentes.", incorrect: "✗ 'Live' = vivir (I live with my family). 'Love' = amar (I love my mother)." },
+            12: { correct: "✓ ¡Excelente! mother=madre, father=padre, brother=hermano, sister=hermana.", incorrect: "✗ Las traducciones correctas: mother=madre, father=padre, brother=hermano, sister=hermana." }
+        };
+        
+        function selectAnswer(questionNum, selected, correctAnswer) {
+            if (answeredQuestions[questionNum]) return;
+            answeredQuestions[questionNum] = true;
+            
+            const questionCard = document.getElementById(`q${questionNum}`);
+            const options = questionCard.querySelectorAll('.option');
+            const feedback = document.getElementById(`fb${questionNum}`);
+            const isCorrect = selected === correctAnswer;
+            
+            answered++;
+            if (isCorrect) {
+                correct++;
+                if (questionNum <= 4) easyCorrect++;
+                else if (questionNum <= 8) mediumCorrect++;
+                else hardCorrect++;
+            } else { incorrect++; }
+            
+            questionCard.classList.add('answered', isCorrect ? 'correct' : 'incorrect');
+            
+            options.forEach(opt => {
+                const letter = opt.querySelector('.option-letter').textContent.toLowerCase();
+                if (letter === selected) opt.classList.add(isCorrect ? 'correct' : 'incorrect');
+                if (letter === correctAnswer && !isCorrect) opt.classList.add('show-correct');
+            });
+            
+            feedback.classList.add('show', isCorrect ? 'correct' : 'incorrect');
+            feedback.innerHTML = isCorrect ? feedbacks[questionNum].correct : feedbacks[questionNum].incorrect;
+            
+            updateScorePanel();
+            if (answered === 12) setTimeout(showResults, 800);
+        }
+        
+        function updateScorePanel() {
+            document.getElementById('answeredCount').textContent = `${answered}/12`;
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('incorrectCount').textContent = incorrect;
+        }
+        
+        function showResults() {
+            const panel = document.getElementById('resultsPanel');
+            panel.classList.add('show');
+            
+            document.getElementById('resultsScore').textContent = `${correct}/12`;
+            document.getElementById('easyScore').textContent = `${easyCorrect}/4`;
+            document.getElementById('mediumScore').textContent = `${mediumCorrect}/4`;
+            document.getElementById('hardScore').textContent = `${hardCorrect}/4`;
+            
+            const trophy = document.getElementById('resultsTrophy');
+            const title = document.getElementById('resultsTitle');
+            const message = document.getElementById('resultsMessage');
+            const percentage = (correct / 12) * 100;
+            
+            if (percentage >= 90) {
+                trophy.textContent = '🏆'; title.textContent = '¡Excelente trabajo!';
+                message.textContent = '¡Dominas el vocabulario de familia! Estás listo para el siguiente tema.';
+            } else if (percentage >= 70) {
+                trophy.textContent = '🥈'; title.textContent = '¡Muy bien!';
+                message.textContent = 'Buen progreso. Repasa la diferencia entre live y love.';
+            } else if (percentage >= 50) {
+                trophy.textContent = '🥉'; title.textContent = '¡Buen intento!';
+                message.textContent = 'Practica más: mother, father, brother, sister.';
+            } else {
+                trophy.textContent = '📚'; title.textContent = 'Sigue practicando';
+                message.textContent = 'Lee la historia de nuevo y aprende los miembros de la familia. ¡Tú puedes!';
+            }
+            
+            panel.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function retryQuiz() {
+            answered = correct = incorrect = easyCorrect = mediumCorrect = hardCorrect = 0;
+            answeredQuestions = {};
+            
+            document.querySelectorAll('.question-card').forEach(card => card.classList.remove('answered', 'correct', 'incorrect'));
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect', 'show-correct'));
+            document.querySelectorAll('.feedback').forEach(fb => { fb.classList.remove('show', 'correct', 'incorrect'); fb.innerHTML = ''; });
+            document.getElementById('resultsPanel').classList.remove('show');
+            
+            updateScorePanel();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function toggleStory() {
+            const panel = document.getElementById('storyPanel');
+            const icon = document.getElementById('toggleIcon');
+            const text = document.getElementById('toggleText');
+            
+            panel.classList.toggle('collapsed');
+            if (panel.classList.contains('collapsed')) {
+                icon.textContent = '📖'; text.textContent = 'Mostrar historia';
+            } else {
+                icon.textContent = '📕'; text.textContent = 'Ocultar historia';
+            }
+        }
+    </script>
+</body>
+</html>
