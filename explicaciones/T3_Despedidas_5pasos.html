@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Despedidas | M1 Tema 3 | Taller Inglés</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); min-height: 100vh; padding: 15px; padding-bottom: 80px; }
+        .container { max-width: 500px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); border-radius: 16px; padding: 15px; text-align: center; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4); }
+        .header h1 { color: white; font-size: 1.2rem; margin-bottom: 3px; }
+        .header .badge { display: inline-block; background: rgba(255,255,255,0.3); padding: 4px 12px; border-radius: 15px; font-size: 0.75rem; color: white; }
+        .progress-nav { display: flex; justify-content: center; gap: 6px; margin-bottom: 15px; }
+        .step-dot { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #1976D2; background: white; color: #1976D2; font-weight: bold; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+        .step-dot.active { background: #1976D2; color: white; }
+        .step-dot.completed { background: #1565C0; color: white; border-color: #1565C0; }
+        .step-card { display: none; background: white; border-radius: 16px; padding: 20px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        .step-card.active { display: block; }
+        .step-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #e3f2fd; }
+        .step-icon { font-size: 1.8rem; }
+        .step-title { color: #1565C0; font-size: 1rem; font-weight: 600; }
+        .intro-text { font-size: 0.9rem; color: #555; line-height: 1.6; margin-bottom: 15px; }
+        .quick-example { background: #f5f8ff; border-radius: 10px; padding: 12px; margin: 10px 0; border-left: 4px solid #1976D2; }
+        .quick-example .en { color: #1565C0; font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
+        .quick-example .es { color: #7f8c8d; font-size: 0.85rem; }
+        .quick-example.right { background: #f0fff4; border-left-color: #27ae60; }
+        .quick-example.wrong { background: #fff5f5; border-left-color: #e74c3c; }
+        .compare-box { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+        .compare-item { padding: 12px; border-radius: 12px; text-align: center; }
+        .compare-item.esp { background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%); border: 2px solid #fbc02d; }
+        .compare-item.eng { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border: 2px solid #1976D2; }
+        .compare-item .label { font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
+        .compare-item.esp .label { color: #f57f17; }
+        .compare-item.eng .label { color: #1565C0; }
+        .compare-item .example { font-size: 0.85rem; color: #555; }
+        .tip-box { background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-radius: 10px; padding: 12px; margin: 12px 0; font-size: 0.85rem; border-left: 4px solid #4caf50; }
+        .tip-box strong { color: #2e7d32; }
+        .tip-box.warning { background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left-color: #ff9800; }
+        .tip-box.warning strong { color: #e65100; }
+        .tip-box.blue { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left-color: #1976D2; }
+        .tip-box.blue strong { color: #1565C0; }
+        .bye-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 12px 0; }
+        .bye-card { background: white; border-radius: 10px; padding: 12px; text-align: center; border: 2px solid #e0e0e0; }
+        .bye-card .icon { font-size: 1.5rem; margin-bottom: 5px; }
+        .bye-card .word-en { font-weight: 700; font-size: 0.8rem; color: #1565C0; }
+        .bye-card .word-es { font-size: 0.7rem; color: #888; }
+        .bye-card.formal { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-color: #1976D2; }
+        .bye-card.casual { background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-color: #4caf50; }
+        .bye-card.future { background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-color: #ffc107; }
+        .bye-card.night { background: linear-gradient(135deg, #ede7f6 0%, #d1c4e9 100%); border-color: #673ab7; }
+        .vocab-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.8rem; }
+        .vocab-table th { background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); color: white; padding: 8px 6px; text-align: center; }
+        .vocab-table td { padding: 8px 6px; border-bottom: 1px solid #e0e0e0; text-align: center; }
+        .vocab-table tr:nth-child(even) { background: #f5f8ff; }
+        .vocab-table .word-en { font-weight: 600; color: #1565C0; }
+        .exercise-section { margin-top: 20px; padding-top: 15px; border-top: 2px dashed #bbdefb; }
+        .exercise-section h3 { color: #1976D2; font-size: 0.9rem; margin-bottom: 12px; }
+        .exercise { background: #fafafa; border-radius: 10px; padding: 12px; margin-bottom: 10px; border: 2px solid #e0e0e0; }
+        .exercise.correct { border-color: #27ae60; background: #f0fff4; }
+        .exercise.incorrect { border-color: #e74c3c; background: #fff5f5; }
+        .exercise-q { font-size: 0.9rem; color: #333; margin-bottom: 10px; }
+        .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .opt-btn { padding: 10px 8px; border: 2px solid #e0e0e0; border-radius: 8px; background: white; color: #555; font-size: 0.85rem; cursor: pointer; }
+        .opt-btn:disabled { cursor: not-allowed; opacity: 0.7; }
+        .opt-btn.sel-correct { background: #27ae60; color: white; border-color: #27ae60; }
+        .opt-btn.sel-wrong { background: #e74c3c; color: white; border-color: #e74c3c; }
+        .opt-btn.show-correct { background: #27ae60; color: white; border-color: #27ae60; }
+        .feedback { margin-top: 10px; padding: 10px; border-radius: 8px; font-size: 0.8rem; display: none; }
+        .feedback.show { display: block; }
+        .feedback.correct-fb { background: #d4edda; border: 1px solid #a5d6a7; }
+        .feedback.incorrect-fb { background: #f8d7da; border: 1px solid #f5c6cb; }
+        .feedback .result { font-weight: 700; margin-bottom: 5px; }
+        .feedback.correct-fb .result { color: #155724; }
+        .feedback.incorrect-fb .result { color: #721c24; }
+        .score-box { text-align: center; padding: 12px; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 10px; margin-top: 12px; }
+        .score-box .num { font-size: 1.5rem; font-weight: bold; color: #1565C0; }
+        .score-box .label { font-size: 0.8rem; color: #1976D2; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 12px 15px; box-shadow: 0 -4px 15px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
+        .nav-btn { padding: 10px 20px; border: none; border-radius: 20px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+        .nav-btn.prev { background: #e0e0e0; color: #666; }
+        .nav-btn.next { background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); color: white; }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .step-ind { font-size: 0.8rem; color: #666; }
+        .summary-list { list-style: none; }
+        .summary-list li { padding: 6px 0 6px 20px; position: relative; font-size: 0.85rem; color: #555; }
+        .summary-list li:before { content: "✓"; position: absolute; left: 0; color: #1976D2; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👋 Despedidas</h1>
+            <div class="badge">📘 Módulo 1 • Tema 3 • Clases 5-6</div>
+        </div>
+        <div class="progress-nav">
+            <div class="step-dot active" onclick="goToStep(1)">1</div>
+            <div class="step-dot" onclick="goToStep(2)">2</div>
+            <div class="step-dot" onclick="goToStep(3)">3</div>
+            <div class="step-dot" onclick="goToStep(4)">4</div>
+            <div class="step-dot" onclick="goToStep(5)">5</div>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="step-card active" id="step1">
+            <div class="step-header"><span class="step-icon">🇪🇸</span><span class="step-title">Paso 1: Repaso en Español</span></div>
+            <p class="intro-text">En español tenemos varias formas de despedirnos según la situación y cuándo pensamos vernos de nuevo.</p>
+            <div class="quick-example"><div class="en">Despedidas formales:</div><div class="es">• Adiós • Hasta luego • Que tenga buen día</div></div>
+            <div class="quick-example"><div class="en">Despedidas casuales:</div><div class="es">• ¡Chao! • ¡Nos vemos! • ¡Cuídate!</div></div>
+            <div class="quick-example"><div class="en">Con tiempo específico:</div><div class="es">• Hasta mañana • Hasta pronto • Nos vemos luego</div></div>
+            <div class="tip-box blue"><strong>💡 Recuerda:</strong> "Buenas noches" en español se usa para saludar Y para despedirse en la noche.</div>
+            <div class="exercise-section">
+                <h3>✏️ Ejercicios</h3>
+                <div class="exercise" id="ex1-1"><div class="exercise-q">1. Te vas de una reunión formal. Dices:</div><div class="opts"><button class="opt-btn" onclick="check('ex1-1','a','a')">a) Adiós/Hasta luego</button><button class="opt-btn" onclick="check('ex1-1','b','a')">b) ¡Chao, amigo!</button></div><div class="feedback correct-fb" id="fb-ex1-1"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex1-1"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex1-2"><div class="exercise-q">2. Verás a tu amigo mañana. Le dices:</div><div class="opts"><button class="opt-btn" onclick="check('ex1-2','a','a')">a) Hasta mañana</button><button class="opt-btn" onclick="check('ex1-2','b','a')">b) Adiós para siempre</button></div><div class="feedback correct-fb" id="fb-ex1-2"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex1-2"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex1-3"><div class="exercise-q">3. "¡Cuídate!" es una despedida:</div><div class="opts"><button class="opt-btn" onclick="check('ex1-3','a','b')">a) Muy formal</button><button class="opt-btn" onclick="check('ex1-3','b','b')">b) Amigable/casual</button></div><div class="feedback correct-fb" id="fb-ex1-3"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex1-3"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex1-4"><div class="exercise-q">4. Te vas a dormir. A tu familia le dices:</div><div class="opts"><button class="opt-btn" onclick="check('ex1-4','a','a')">a) Buenas noches</button><button class="opt-btn" onclick="check('ex1-4','b','a')">b) Buenos días</button></div><div class="feedback correct-fb" id="fb-ex1-4"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex1-4"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex1-5"><div class="exercise-q">5. "Hasta pronto" significa que esperas verlo:</div><div class="opts"><button class="opt-btn" onclick="check('ex1-5','a','a')">a) Pronto/en poco tiempo</button><button class="opt-btn" onclick="check('ex1-5','b','a')">b) Nunca más</button></div><div class="feedback correct-fb" id="fb-ex1-5"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex1-5"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="score-box"><div class="num" id="score1">0/5</div><div class="label">Paso 1</div></div>
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step-card" id="step2">
+            <div class="step-header"><span class="step-icon">🤝</span><span class="step-title">Paso 2: Similitudes ESP ↔ ENG</span></div>
+            <p class="intro-text">Las despedidas en inglés funcionan muy similar al español:</p>
+            <div class="quick-example"><div class="en">✅ ESP: Adiós | ENG: Goodbye / Bye</div></div>
+            <div class="quick-example"><div class="en">✅ ESP: Hasta mañana | ENG: See you tomorrow</div></div>
+            <div class="quick-example"><div class="en">✅ ESP: ¡Cuídate! | ENG: Take care!</div></div>
+            <div class="quick-example"><div class="en">✅ ESP: Hasta pronto | ENG: See you soon</div></div>
+            <div class="compare-box">
+                <div class="compare-item esp"><div class="label">🇪🇸 ESPAÑOL</div><div class="example">Adiós<br>Hasta luego<br>Hasta mañana</div></div>
+                <div class="compare-item eng"><div class="label">🇬🇧 ENGLISH</div><div class="example">Goodbye<br>See you later<br>See you tomorrow</div></div>
+            </div>
+            <div class="tip-box"><strong>💡 Patrón:</strong> "See you" + [tiempo] = "Hasta" + [tiempo]</div>
+            <div class="exercise-section">
+                <h3>✏️ Ejercicios</h3>
+                <div class="exercise" id="ex2-1"><div class="exercise-q">1. "Goodbye" es equivalente a:</div><div class="opts"><button class="opt-btn" onclick="check('ex2-1','a','a')">a) Adiós</button><button class="opt-btn" onclick="check('ex2-1','b','a')">b) Hola</button></div><div class="feedback correct-fb" id="fb-ex2-1"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex2-1"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex2-2"><div class="exercise-q">2. "See you tomorrow" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex2-2','a','a')">a) Hasta mañana</button><button class="opt-btn" onclick="check('ex2-2','b','a')">b) Hasta luego</button></div><div class="feedback correct-fb" id="fb-ex2-2"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex2-2"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex2-3"><div class="exercise-q">3. "Take care!" es similar a:</div><div class="opts"><button class="opt-btn" onclick="check('ex2-3','a','a')">a) ¡Cuídate!</button><button class="opt-btn" onclick="check('ex2-3','b','a')">b) Buenos días</button></div><div class="feedback correct-fb" id="fb-ex2-3"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex2-3"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex2-4"><div class="exercise-q">4. El patrón "See you + [tiempo]" es como:</div><div class="opts"><button class="opt-btn" onclick="check('ex2-4','a','a')">a) "Hasta + [tiempo]"</button><button class="opt-btn" onclick="check('ex2-4','b','a')">b) "Buenos + [tiempo]"</button></div><div class="feedback correct-fb" id="fb-ex2-4"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex2-4"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex2-5"><div class="exercise-q">5. "See you soon" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex2-5','a','a')">a) Hasta pronto</button><button class="opt-btn" onclick="check('ex2-5','b','a')">b) Hasta nunca</button></div><div class="feedback correct-fb" id="fb-ex2-5"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex2-5"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="score-box"><div class="num" id="score2">0/5</div><div class="label">Paso 2</div></div>
+            </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step-card" id="step3">
+            <div class="step-header"><span class="step-icon">⚠️</span><span class="step-title">Paso 3: Diferencias Importantes</span></div>
+            <div class="tip-box warning"><strong>⚠️ Diferencia #1: Good night vs Good evening</strong><br>• Good evening = Buenas noches (SALUDO)<br>• Good night = Buenas noches (DESPEDIDA)</div>
+            <div class="compare-box">
+                <div class="compare-item esp"><div class="label">GOOD EVENING</div><div class="example">Para LLEGAR 🌆</div></div>
+                <div class="compare-item eng"><div class="label">GOOD NIGHT</div><div class="example">Para IRSE 🌙</div></div>
+            </div>
+            <div class="quick-example right"><div class="en">Te vas a dormir: "Good night!"</div><div class="es">✅ Correcto</div></div>
+            <div class="quick-example wrong"><div class="en">Llegas a las 8pm: "Good night!"</div><div class="es">❌ Debes decir "Good evening!"</div></div>
+            <div class="tip-box warning"><strong>⚠️ Diferencia #2:</strong> Goodbye (formal) vs Bye (casual)</div>
+            <div class="exercise-section">
+                <h3>✏️ Ejercicios</h3>
+                <div class="exercise" id="ex3-1"><div class="exercise-q">1. Te vas a dormir. Dices:</div><div class="opts"><button class="opt-btn" onclick="check('ex3-1','a','a')">a) Good night!</button><button class="opt-btn" onclick="check('ex3-1','b','a')">b) Good evening!</button></div><div class="feedback correct-fb" id="fb-ex3-1"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex3-1"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex3-2"><div class="exercise-q">2. ¿Cuál es más casual?</div><div class="opts"><button class="opt-btn" onclick="check('ex3-2','a','b')">a) Goodbye</button><button class="opt-btn" onclick="check('ex3-2','b','b')">b) Bye</button></div><div class="feedback correct-fb" id="fb-ex3-2"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex3-2"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex3-3"><div class="exercise-q">3. "See you later" es para:</div><div class="opts"><button class="opt-btn" onclick="check('ex3-3','a','a')">a) Más tarde (indefinido)</button><button class="opt-btn" onclick="check('ex3-3','b','a')">b) Mañana específicamente</button></div><div class="feedback correct-fb" id="fb-ex3-3"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex3-3"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex3-4"><div class="exercise-q">4. "Tomorrow" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex3-4','a','a')">a) Mañana (día siguiente)</button><button class="opt-btn" onclick="check('ex3-4','b','a')">b) Pronto</button></div><div class="feedback correct-fb" id="fb-ex3-4"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex3-4"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex3-5"><div class="exercise-q">5. "Good night" se usa para:</div><div class="opts"><button class="opt-btn" onclick="check('ex3-5','a','a')">a) Despedirse en la noche</button><button class="opt-btn" onclick="check('ex3-5','b','a')">b) Saludar en la noche</button></div><div class="feedback correct-fb" id="fb-ex3-5"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex3-5"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="score-box"><div class="num" id="score3">0/5</div><div class="label">Paso 3</div></div>
+            </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step-card" id="step4">
+            <div class="step-header"><span class="step-icon">💡</span><span class="step-title">Paso 4: Consejos Prácticos</span></div>
+            <div class="tip-box blue"><strong>🎯 Vocabulario clave - 10 palabras:</strong></div>
+            <table class="vocab-table">
+                <tr><th>Inglés</th><th>Pronunciación</th><th>Español</th></tr>
+                <tr><td class="word-en">Goodbye</td><td>/gudbái/</td><td>Adiós</td></tr>
+                <tr><td class="word-en">Bye</td><td>/bái/</td><td>Chao</td></tr>
+                <tr><td class="word-en">See</td><td>/síi/</td><td>Ver</td></tr>
+                <tr><td class="word-en">Later</td><td>/léiter/</td><td>Luego</td></tr>
+                <tr><td class="word-en">Tomorrow</td><td>/tumórou/</td><td>Mañana</td></tr>
+                <tr><td class="word-en">Soon</td><td>/súun/</td><td>Pronto</td></tr>
+                <tr><td class="word-en">Take</td><td>/téik/</td><td>Tomar</td></tr>
+                <tr><td class="word-en">Care</td><td>/ker/</td><td>Cuidado</td></tr>
+                <tr><td class="word-en">Night</td><td>/náit/</td><td>Noche</td></tr>
+                <tr><td class="word-en">You</td><td>/yú/</td><td>Tú/Te</td></tr>
+            </table>
+            <div class="bye-grid">
+                <div class="bye-card formal"><div class="icon">👔</div><div class="word-en">Goodbye</div><div class="word-es">Adiós</div></div>
+                <div class="bye-card casual"><div class="icon">😊</div><div class="word-en">Bye!</div><div class="word-es">¡Chao!</div></div>
+                <div class="bye-card future"><div class="icon">📅</div><div class="word-en">See you tomorrow</div><div class="word-es">Hasta mañana</div></div>
+                <div class="bye-card night"><div class="icon">🌙</div><div class="word-en">Good night</div><div class="word-es">Buenas noches</div></div>
+            </div>
+            <div class="exercise-section">
+                <h3>✏️ Ejercicios</h3>
+                <div class="exercise" id="ex4-1"><div class="exercise-q">1. ¿Cómo se pronuncia "Goodbye"?</div><div class="opts"><button class="opt-btn" onclick="check('ex4-1','a','a')">a) /gudbái/</button><button class="opt-btn" onclick="check('ex4-1','b','a')">b) /góodbye/</button></div><div class="feedback correct-fb" id="fb-ex4-1"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex4-1"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex4-2"><div class="exercise-q">2. "Take care" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex4-2','a','a')">a) ¡Cuídate!</button><button class="opt-btn" onclick="check('ex4-2','b','a')">b) ¡Toma esto!</button></div><div class="feedback correct-fb" id="fb-ex4-2"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex4-2"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex4-3"><div class="exercise-q">3. "See you _____" (Hasta mañana)</div><div class="opts"><button class="opt-btn" onclick="check('ex4-3','a','a')">a) tomorrow</button><button class="opt-btn" onclick="check('ex4-3','b','a')">b) later</button></div><div class="feedback correct-fb" id="fb-ex4-3"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex4-3"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex4-4"><div class="exercise-q">4. "Soon" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex4-4','a','a')">a) Pronto</button><button class="opt-btn" onclick="check('ex4-4','b','a')">b) Tarde</button></div><div class="feedback correct-fb" id="fb-ex4-4"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex4-4"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex4-5"><div class="exercise-q">5. ¿Cómo se pronuncia "Night"?</div><div class="opts"><button class="opt-btn" onclick="check('ex4-5','a','a')">a) /náit/</button><button class="opt-btn" onclick="check('ex4-5','b','a')">b) /níght/</button></div><div class="feedback correct-fb" id="fb-ex4-5"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex4-5"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="score-box"><div class="num" id="score4">0/5</div><div class="label">Paso 4</div></div>
+            </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="step-card" id="step5">
+            <div class="step-header"><span class="step-icon">✨</span><span class="step-title">Paso 5: Práctica Final</span></div>
+            <div class="bye-grid">
+                <div class="bye-card formal"><div class="icon">👋</div><div class="word-en">Goodbye/Bye</div><div class="word-es">Adiós/Chao</div></div>
+                <div class="bye-card casual"><div class="icon">⏰</div><div class="word-en">See you later</div><div class="word-es">Hasta luego</div></div>
+                <div class="bye-card future"><div class="icon">📅</div><div class="word-en">See you tomorrow</div><div class="word-es">Hasta mañana</div></div>
+                <div class="bye-card night"><div class="icon">🌙</div><div class="word-en">Good night</div><div class="word-es">Buenas noches</div></div>
+            </div>
+            <div class="quick-example right"><div class="en">Bye! See you tomorrow! Take care!</div><div class="es">¡Chao! ¡Hasta mañana! ¡Cuídate!</div></div>
+            <div class="exercise-section">
+                <h3>✏️ Práctica Final</h3>
+                <div class="exercise" id="ex5-1"><div class="exercise-q">1. Te vas de la escuela. Verás a tu amigo mañana. Dices:</div><div class="opts"><button class="opt-btn" onclick="check('ex5-1','a','a')">a) Bye! See you tomorrow!</button><button class="opt-btn" onclick="check('ex5-1','b','a')">b) Good morning!</button></div><div class="feedback correct-fb" id="fb-ex5-1"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex5-1"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex5-2"><div class="exercise-q">2. Te vas a dormir. A tu hermano le dices:</div><div class="opts"><button class="opt-btn" onclick="check('ex5-2','a','a')">a) Good night!</button><button class="opt-btn" onclick="check('ex5-2','b','a')">b) Good evening!</button></div><div class="feedback correct-fb" id="fb-ex5-2"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex5-2"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex5-3"><div class="exercise-q">3. "See you _____!" (Hasta pronto)</div><div class="opts"><button class="opt-btn" onclick="check('ex5-3','a','a')">a) soon</button><button class="opt-btn" onclick="check('ex5-3','b','a')">b) night</button></div><div class="feedback correct-fb" id="fb-ex5-3"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex5-3"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex5-4"><div class="exercise-q">4. Quieres desearle que se cuide. Dices:</div><div class="opts"><button class="opt-btn" onclick="check('ex5-4','a','a')">a) Take care!</button><button class="opt-btn" onclick="check('ex5-4','b','a')">b) How are you?</button></div><div class="feedback correct-fb" id="fb-ex5-4"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex5-4"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex5-5"><div class="exercise-q">5. "_____, see you later!" (Adiós...)</div><div class="opts"><button class="opt-btn" onclick="check('ex5-5','a','b')">a) Hello</button><button class="opt-btn" onclick="check('ex5-5','b','b')">b) Goodbye</button></div><div class="feedback correct-fb" id="fb-ex5-5"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex5-5"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="score-box"><div class="num" id="score5">0/5</div><div class="label">Paso 5</div></div>
+            </div>
+            <div style="margin-top: 20px; padding: 15px; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 12px;">
+                <h3 style="color: #1565C0; font-size: 0.95rem; margin-bottom: 10px;">🎓 Resumen Final</h3>
+                <ul class="summary-list">
+                    <li><strong>Goodbye / Bye</strong> = Adiós / Chao</li>
+                    <li><strong>See you later</strong> = Hasta luego</li>
+                    <li><strong>See you tomorrow</strong> = Hasta mañana</li>
+                    <li><strong>See you soon</strong> = Hasta pronto</li>
+                    <li><strong>Take care!</strong> = ¡Cuídate!</li>
+                    <li><strong>Good night</strong> = Buenas noches (DESPEDIDA)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <button class="nav-btn prev" id="prevBtn" onclick="prevStep()" disabled>← Anterior</button>
+            <span class="step-ind"><span id="currentStep">1</span>/5</span>
+            <button class="nav-btn next" id="nextBtn" onclick="nextStep()">Siguiente →</button>
+        </div>
+    </div>
+    <script>
+        let currentStep = 1;
+        const totalSteps = 5;
+        const scores = {1:0, 2:0, 3:0, 4:0, 5:0};
+        const answered = {};
+        function goToStep(step) {
+            if (step < 1 || step > totalSteps) return;
+            document.getElementById('step'+currentStep).classList.remove('active');
+            document.querySelectorAll('.step-dot')[currentStep-1].classList.remove('active');
+            if (step > currentStep) document.querySelectorAll('.step-dot')[currentStep-1].classList.add('completed');
+            currentStep = step;
+            document.getElementById('step'+currentStep).classList.add('active');
+            document.querySelectorAll('.step-dot')[currentStep-1].classList.add('active');
+            updateNav();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        function nextStep() { if (currentStep < totalSteps) goToStep(currentStep + 1); }
+        function prevStep() { if (currentStep > 1) goToStep(currentStep - 1); }
+        function updateNav() {
+            document.getElementById('currentStep').textContent = currentStep;
+            document.getElementById('prevBtn').disabled = currentStep === 1;
+            document.getElementById('nextBtn').disabled = currentStep === totalSteps;
+            document.getElementById('nextBtn').textContent = currentStep === totalSteps ? '✓ Fin' : 'Siguiente →';
+        }
+        function check(id, sel, correct) {
+            if (answered[id]) return;
+            answered[id] = true;
+            const ex = document.getElementById(id);
+            const btns = ex.querySelectorAll('.opt-btn');
+            btns.forEach(b => b.disabled = true);
+            const stepNum = parseInt(id.split('-')[0].replace('ex',''));
+            if (sel === correct) {
+                ex.classList.add('correct');
+                btns.forEach(b => { if (b.textContent.startsWith(sel+')')) b.classList.add('sel-correct'); });
+                document.getElementById('fb-'+id).classList.add('show');
+                scores[stepNum]++;
+            } else {
+                ex.classList.add('incorrect');
+                btns.forEach(b => {
+                    if (b.textContent.startsWith(sel+')')) b.classList.add('sel-wrong');
+                    if (b.textContent.startsWith(correct+')')) b.classList.add('show-correct');
+                });
+                document.getElementById('fbi-'+id).classList.add('show');
+            }
+            document.getElementById('score'+stepNum).textContent = scores[stepNum]+'/5';
+        }
+        updateNav();
+    </script>
+</body>
+</html>

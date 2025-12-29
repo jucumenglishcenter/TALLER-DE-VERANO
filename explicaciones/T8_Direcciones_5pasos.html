@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Dónde está? | M3 Tema 8 | Taller Inglés</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); min-height: 100vh; padding: 15px; padding-bottom: 80px; }
+        .container { max-width: 500px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #388E3C 0%, #2E7D32 100%); border-radius: 16px; padding: 15px; text-align: center; margin-bottom: 15px; }
+        .header h1 { color: white; font-size: 1.2rem; }
+        .header .badge { background: rgba(255,255,255,0.3); padding: 4px 12px; border-radius: 15px; font-size: 0.75rem; color: white; display: inline-block; }
+        .progress-nav { display: flex; justify-content: center; gap: 6px; margin-bottom: 15px; }
+        .step-dot { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #388E3C; background: white; color: #388E3C; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .step-dot.active { background: #388E3C; color: white; }
+        .step-dot.completed { background: #2E7D32; color: white; }
+        .step-card { display: none; background: white; border-radius: 16px; padding: 20px 15px; margin-bottom: 15px; }
+        .step-card.active { display: block; }
+        .step-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #C8E6C9; }
+        .step-icon { font-size: 1.8rem; }
+        .step-title { color: #2E7D32; font-size: 1rem; font-weight: 600; }
+        .intro-text { font-size: 0.9rem; color: #555; line-height: 1.6; margin-bottom: 15px; }
+        .quick-example { background: #f0fff4; border-radius: 10px; padding: 12px; margin: 10px 0; border-left: 4px solid #388E3C; }
+        .quick-example .en { color: #2E7D32; font-weight: 600; margin-bottom: 4px; }
+        .quick-example .es { color: #7f8c8d; font-size: 0.85rem; }
+        .compare-box { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+        .compare-item { padding: 12px; border-radius: 12px; text-align: center; font-size: 0.85rem; }
+        .compare-item.esp { background: #fff9c4; border: 2px solid #fbc02d; }
+        .compare-item.eng { background: #C8E6C9; border: 2px solid #388E3C; }
+        .compare-item .label { font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
+        .tip-box { background: #e8f5e9; border-radius: 10px; padding: 12px; margin: 12px 0; font-size: 0.85rem; border-left: 4px solid #4caf50; }
+        .tip-box strong { color: #2e7d32; }
+        .tip-box.warning { background: #fff3e0; border-left-color: #ff9800; }
+        .tip-box.warning strong { color: #e65100; }
+        .vocab-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.8rem; }
+        .vocab-table th { background: #388E3C; color: white; padding: 8px; }
+        .vocab-table td { padding: 8px; border-bottom: 1px solid #e0e0e0; text-align: center; }
+        .vocab-table .word-en { font-weight: 600; color: #2E7D32; }
+        .direction-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
+        .direction-card { background: #f0fff4; border-radius: 10px; padding: 10px; text-align: center; border: 2px solid #C8E6C9; }
+        .direction-card .icon { font-size: 1.5rem; }
+        .direction-card .word { font-size: 0.75rem; font-weight: 600; color: #2E7D32; }
+        .exercise-section { margin-top: 20px; padding-top: 15px; border-top: 2px dashed #C8E6C9; }
+        .exercise-section h3 { color: #388E3C; font-size: 0.9rem; margin-bottom: 12px; }
+        .exercise { background: #fafafa; border-radius: 10px; padding: 12px; margin-bottom: 10px; border: 2px solid #e0e0e0; }
+        .exercise.correct { border-color: #27ae60; background: #f0fff4; }
+        .exercise.incorrect { border-color: #e74c3c; background: #fff5f5; }
+        .exercise-q { font-size: 0.9rem; color: #333; margin-bottom: 10px; }
+        .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .opt-btn { padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; background: white; cursor: pointer; font-size: 0.85rem; }
+        .opt-btn:disabled { opacity: 0.7; }
+        .opt-btn.sel-correct { background: #27ae60; color: white; border-color: #27ae60; }
+        .opt-btn.sel-wrong { background: #e74c3c; color: white; border-color: #e74c3c; }
+        .opt-btn.show-correct { background: #27ae60; color: white; border-color: #27ae60; }
+        .feedback { margin-top: 10px; padding: 10px; border-radius: 8px; display: none; font-size: 0.8rem; }
+        .feedback.show { display: block; }
+        .feedback.correct-fb { background: #d4edda; }
+        .feedback.incorrect-fb { background: #f8d7da; }
+        .score-box { text-align: center; padding: 12px; background: #C8E6C9; border-radius: 10px; margin-top: 12px; }
+        .score-box .num { font-size: 1.5rem; font-weight: bold; color: #2E7D32; }
+        .score-box .label { font-size: 0.8rem; color: #388E3C; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .nav-btn { padding: 10px 20px; border: none; border-radius: 20px; font-weight: 600; cursor: pointer; }
+        .nav-btn.prev { background: #e0e0e0; }
+        .nav-btn.next { background: #388E3C; color: white; }
+        .nav-btn:disabled { opacity: 0.5; }
+        .step-ind { font-size: 0.8rem; color: #666; }
+        .summary-list { list-style: none; }
+        .summary-list li { padding: 6px 0 6px 20px; position: relative; font-size: 0.85rem; }
+        .summary-list li:before { content: "✓"; position: absolute; left: 0; color: #388E3C; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header"><h1>🗺️ ¿Dónde está...?</h1><div class="badge">📗 Módulo 3 • Tema 8 • Clases 17-18</div></div>
+        <div class="progress-nav">
+            <div class="step-dot active" onclick="goToStep(1)">1</div>
+            <div class="step-dot" onclick="goToStep(2)">2</div>
+            <div class="step-dot" onclick="goToStep(3)">3</div>
+            <div class="step-dot" onclick="goToStep(4)">4</div>
+            <div class="step-dot" onclick="goToStep(5)">5</div>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="step-card active" id="step1">
+            <div class="step-header"><span class="step-icon">🇪🇸</span><span class="step-title">Paso 1: Repaso en Español</span></div>
+            <p class="intro-text">Para pedir y dar direcciones usamos palabras como: izquierda, derecha, derecho, cerca, lejos.</p>
+            <div class="quick-example"><div class="en">Frases típicas:</div><div class="es">• ¿Dónde está la escuela?<br>• Está aquí / Está allá<br>• Gira a la izquierda<br>• Sigue derecho</div></div>
+            <div class="direction-grid">
+                <div class="direction-card"><div class="icon">⬅️</div><div class="word">Izquierda</div></div>
+                <div class="direction-card"><div class="icon">⬆️</div><div class="word">Derecho</div></div>
+                <div class="direction-card"><div class="icon">➡️</div><div class="word">Derecha</div></div>
+            </div>
+            <div class="exercise-section"><h3>✏️ Ejercicios</h3>
+                <div class="exercise" id="ex1-1"><div class="exercise-q">1. Para preguntar ubicación dices:</div><div class="opts"><button class="opt-btn" onclick="check('ex1-1','a','a')">a) ¿Dónde está...?</button><button class="opt-btn" onclick="check('ex1-1','b','a')">b) ¿Cómo estás?</button></div><div class="feedback correct-fb" id="fb-ex1-1"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex1-1"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex1-2"><div class="exercise-q">2. Lo opuesto de "izquierda" es:</div><div class="opts"><button class="opt-btn" onclick="check('ex1-2','a','a')">a) Derecha</button><button class="opt-btn" onclick="check('ex1-2','b','a')">b) Arriba</button></div><div class="feedback correct-fb" id="fb-ex1-2"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex1-2"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex1-3"><div class="exercise-q">3. "Cerca" es lo opuesto de:</div><div class="opts"><button class="opt-btn" onclick="check('ex1-3','a','a')">a) Lejos</button><button class="opt-btn" onclick="check('ex1-3','b','a')">b) Aquí</button></div><div class="feedback correct-fb" id="fb-ex1-3"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex1-3"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex1-4"><div class="exercise-q">4. "Sigue derecho" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex1-4','a','a')">a) Continúa recto</button><button class="opt-btn" onclick="check('ex1-4','b','a')">b) Gira</button></div><div class="feedback correct-fb" id="fb-ex1-4"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex1-4"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex1-5"><div class="exercise-q">5. "¿Puede ayudarme?" es pedir:</div><div class="opts"><button class="opt-btn" onclick="check('ex1-5','a','a')">a) Ayuda</button><button class="opt-btn" onclick="check('ex1-5','b','a')">b) Comida</button></div><div class="feedback correct-fb" id="fb-ex1-5"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex1-5"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="score-box"><div class="num" id="score1">0/5</div><div class="label">Paso 1</div></div>
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step-card" id="step2">
+            <div class="step-header"><span class="step-icon">🤝</span><span class="step-title">Paso 2: Similitudes ESP ↔ ENG</span></div>
+            <p class="intro-text">Las direcciones en inglés siguen patrones similares al español:</p>
+            <div class="quick-example"><div class="en">✅ ESP: ¿Dónde está...? | ENG: Where is...?</div></div>
+            <div class="quick-example"><div class="en">✅ ESP: Está aquí | ENG: It's here</div></div>
+            <div class="quick-example"><div class="en">✅ ESP: Gira a la izquierda | ENG: Go left / Turn left</div></div>
+            <div class="compare-box">
+                <div class="compare-item esp"><div class="label">🇪🇸 ESPAÑOL</div>¿Dónde está?<br>Izquierda/Derecha<br>Cerca/Lejos</div>
+                <div class="compare-item eng"><div class="label">🇬🇧 ENGLISH</div>Where is?<br>Left/Right<br>Near/Far</div>
+            </div>
+            <div class="tip-box"><strong>💡 Patrón:</strong> "Where is...?" = "¿Dónde está...?"</div>
+            <div class="exercise-section"><h3>✏️ Ejercicios</h3>
+                <div class="exercise" id="ex2-1"><div class="exercise-q">1. "Where is the school?" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex2-1','a','a')">a) ¿Dónde está la escuela?</button><button class="opt-btn" onclick="check('ex2-1','b','a')">b) ¿Cómo está la escuela?</button></div><div class="feedback correct-fb" id="fb-ex2-1"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex2-1"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex2-2"><div class="exercise-q">2. "It's here" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex2-2','a','a')">a) Está aquí</button><button class="opt-btn" onclick="check('ex2-2','b','a')">b) Está allá</button></div><div class="feedback correct-fb" id="fb-ex2-2"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex2-2"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex2-3"><div class="exercise-q">3. "Left" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex2-3','a','a')">a) Izquierda</button><button class="opt-btn" onclick="check('ex2-3','b','a')">b) Derecha</button></div><div class="feedback correct-fb" id="fb-ex2-3"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex2-3"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex2-4"><div class="exercise-q">4. "Near" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex2-4','a','a')">a) Cerca</button><button class="opt-btn" onclick="check('ex2-4','b','a')">b) Lejos</button></div><div class="feedback correct-fb" id="fb-ex2-4"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex2-4"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex2-5"><div class="exercise-q">5. "Far" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex2-5','a','a')">a) Lejos</button><button class="opt-btn" onclick="check('ex2-5','b','a')">b) Cerca</button></div><div class="feedback correct-fb" id="fb-ex2-5"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex2-5"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="score-box"><div class="num" id="score2">0/5</div><div class="label">Paso 2</div></div>
+            </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step-card" id="step3">
+            <div class="step-header"><span class="step-icon">⚠️</span><span class="step-title">Paso 3: Diferencias Importantes</span></div>
+            <div class="tip-box warning"><strong>⚠️ Diferencia #1:</strong> "Go straight" (no "go direct")<br>Para decir "sigue derecho" usamos STRAIGHT, no DIRECT.</div>
+            <div class="tip-box warning"><strong>⚠️ Diferencia #2:</strong> "There" se pronuncia /dér/ no /ter/</div>
+            <div class="direction-grid">
+                <div class="direction-card"><div class="icon">⬅️</div><div class="word">Go left</div></div>
+                <div class="direction-card"><div class="icon">⬆️</div><div class="word">Go straight</div></div>
+                <div class="direction-card"><div class="icon">➡️</div><div class="word">Go right</div></div>
+            </div>
+            <div class="exercise-section"><h3>✏️ Ejercicios</h3>
+                <div class="exercise" id="ex3-1"><div class="exercise-q">1. "Sigue derecho" en inglés es:</div><div class="opts"><button class="opt-btn" onclick="check('ex3-1','a','a')">a) Go straight</button><button class="opt-btn" onclick="check('ex3-1','b','a')">b) Go direct</button></div><div class="feedback correct-fb" id="fb-ex3-1"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex3-1"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex3-2"><div class="exercise-q">2. "Right" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex3-2','a','a')">a) Derecha</button><button class="opt-btn" onclick="check('ex3-2','b','a')">b) Izquierda</button></div><div class="feedback correct-fb" id="fb-ex3-2"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex3-2"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex3-3"><div class="exercise-q">3. "There" se pronuncia:</div><div class="opts"><button class="opt-btn" onclick="check('ex3-3','a','a')">a) /dér/</button><button class="opt-btn" onclick="check('ex3-3','b','a')">b) /ter/</button></div><div class="feedback correct-fb" id="fb-ex3-3"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex3-3"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex3-4"><div class="exercise-q">4. "Street" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex3-4','a','a')">a) Calle</button><button class="opt-btn" onclick="check('ex3-4','b','a')">b) Casa</button></div><div class="feedback correct-fb" id="fb-ex3-4"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex3-4"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex3-5"><div class="exercise-q">5. "Help" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex3-5','a','a')">a) Ayuda</button><button class="opt-btn" onclick="check('ex3-5','b','a')">b) Hola</button></div><div class="feedback correct-fb" id="fb-ex3-5"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex3-5"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="score-box"><div class="num" id="score3">0/5</div><div class="label">Paso 3</div></div>
+            </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step-card" id="step4">
+            <div class="step-header"><span class="step-icon">💡</span><span class="step-title">Paso 4: Consejos Prácticos</span></div>
+            <table class="vocab-table">
+                <tr><th>Inglés</th><th>Pronunciación</th><th>Español</th></tr>
+                <tr><td class="word-en">Where</td><td>/wér/</td><td>Dónde</td></tr>
+                <tr><td class="word-en">Here</td><td>/jíer/</td><td>Aquí</td></tr>
+                <tr><td class="word-en">There</td><td>/dér/</td><td>Allí/Allá</td></tr>
+                <tr><td class="word-en">Left</td><td>/left/</td><td>Izquierda</td></tr>
+                <tr><td class="word-en">Right</td><td>/ráit/</td><td>Derecha</td></tr>
+                <tr><td class="word-en">Straight</td><td>/stréit/</td><td>Derecho/Recto</td></tr>
+                <tr><td class="word-en">Near</td><td>/níer/</td><td>Cerca</td></tr>
+                <tr><td class="word-en">Far</td><td>/far/</td><td>Lejos</td></tr>
+                <tr><td class="word-en">Street</td><td>/stríit/</td><td>Calle</td></tr>
+                <tr><td class="word-en">Help</td><td>/jelp/</td><td>Ayuda</td></tr>
+            </table>
+            <div class="exercise-section"><h3>✏️ Ejercicios</h3>
+                <div class="exercise" id="ex4-1"><div class="exercise-q">1. ¿Cómo se pronuncia "where"?</div><div class="opts"><button class="opt-btn" onclick="check('ex4-1','a','a')">a) /wér/</button><button class="opt-btn" onclick="check('ex4-1','b','a')">b) /güer/</button></div><div class="feedback correct-fb" id="fb-ex4-1"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex4-1"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex4-2"><div class="exercise-q">2. "Here" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex4-2','a','a')">a) Aquí</button><button class="opt-btn" onclick="check('ex4-2','b','a')">b) Allá</button></div><div class="feedback correct-fb" id="fb-ex4-2"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex4-2"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex4-3"><div class="exercise-q">3. "Straight" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex4-3','a','a')">a) Derecho/Recto</button><button class="opt-btn" onclick="check('ex4-3','b','a')">b) Izquierda</button></div><div class="feedback correct-fb" id="fb-ex4-3"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex4-3"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex4-4"><div class="exercise-q">4. "Can you help me?" es:</div><div class="opts"><button class="opt-btn" onclick="check('ex4-4','a','a')">a) ¿Puede ayudarme?</button><button class="opt-btn" onclick="check('ex4-4','b','a')">b) ¿Cómo está?</button></div><div class="feedback correct-fb" id="fb-ex4-4"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex4-4"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex4-5"><div class="exercise-q">5. "It's near the park" es:</div><div class="opts"><button class="opt-btn" onclick="check('ex4-5','a','a')">a) Está cerca del parque</button><button class="opt-btn" onclick="check('ex4-5','b','a')">b) Está lejos del parque</button></div><div class="feedback correct-fb" id="fb-ex4-5"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex4-5"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="score-box"><div class="num" id="score4">0/5</div><div class="label">Paso 4</div></div>
+            </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="step-card" id="step5">
+            <div class="step-header"><span class="step-icon">✨</span><span class="step-title">Paso 5: Práctica Final</span></div>
+            <div class="quick-example"><div class="en">Can you help me? Where is the school? Go straight, then turn left. It's near the park.</div><div class="es">¿Puede ayudarme? ¿Dónde está la escuela? Sigue derecho, luego gira a la izquierda. Está cerca del parque.</div></div>
+            <div class="exercise-section"><h3>✏️ Práctica Final</h3>
+                <div class="exercise" id="ex5-1"><div class="exercise-q">1. "_____ is the school?"</div><div class="opts"><button class="opt-btn" onclick="check('ex5-1','a','a')">a) Where</button><button class="opt-btn" onclick="check('ex5-1','b','a')">b) How</button></div><div class="feedback correct-fb" id="fb-ex5-1"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex5-1"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex5-2"><div class="exercise-q">2. "Go _____" (derecho)</div><div class="opts"><button class="opt-btn" onclick="check('ex5-2','a','a')">a) straight</button><button class="opt-btn" onclick="check('ex5-2','b','a')">b) left</button></div><div class="feedback correct-fb" id="fb-ex5-2"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex5-2"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex5-3"><div class="exercise-q">3. "Turn _____" (izquierda)</div><div class="opts"><button class="opt-btn" onclick="check('ex5-3','a','a')">a) left</button><button class="opt-btn" onclick="check('ex5-3','b','a')">b) right</button></div><div class="feedback correct-fb" id="fb-ex5-3"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex5-3"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex5-4"><div class="exercise-q">4. "It's _____ the park" (cerca)</div><div class="opts"><button class="opt-btn" onclick="check('ex5-4','a','a')">a) near</button><button class="opt-btn" onclick="check('ex5-4','b','a')">b) far</button></div><div class="feedback correct-fb" id="fb-ex5-4"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex5-4"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex5-5"><div class="exercise-q">5. "Can you _____ me?"</div><div class="opts"><button class="opt-btn" onclick="check('ex5-5','a','a')">a) help</button><button class="opt-btn" onclick="check('ex5-5','b','a')">b) eat</button></div><div class="feedback correct-fb" id="fb-ex5-5"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex5-5"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="score-box"><div class="num" id="score5">0/5</div><div class="label">Paso 5</div></div>
+            </div>
+            <div style="margin-top: 20px; padding: 15px; background: #C8E6C9; border-radius: 12px;">
+                <h3 style="color: #2E7D32; font-size: 0.95rem; margin-bottom: 10px;">🎓 Resumen Final</h3>
+                <ul class="summary-list">
+                    <li><strong>Where is...?</strong> = ¿Dónde está...?</li>
+                    <li><strong>It's here / there</strong> = Está aquí / allá</li>
+                    <li><strong>Go left / right / straight</strong> = Ve izquierda / derecha / derecho</li>
+                    <li><strong>Near / Far</strong> = Cerca / Lejos</li>
+                    <li><strong>Can you help me?</strong> = ¿Puede ayudarme?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <button class="nav-btn prev" id="prevBtn" onclick="prevStep()" disabled>← Anterior</button>
+            <span class="step-ind"><span id="currentStep">1</span>/5</span>
+            <button class="nav-btn next" id="nextBtn" onclick="nextStep()">Siguiente →</button>
+        </div>
+    </div>
+    <script>
+        let currentStep = 1; const totalSteps = 5; const scores = {1:0, 2:0, 3:0, 4:0, 5:0}; const answered = {};
+        function goToStep(step) { if (step < 1 || step > totalSteps) return; document.getElementById('step'+currentStep).classList.remove('active'); document.querySelectorAll('.step-dot')[currentStep-1].classList.remove('active'); if (step > currentStep) document.querySelectorAll('.step-dot')[currentStep-1].classList.add('completed'); currentStep = step; document.getElementById('step'+currentStep).classList.add('active'); document.querySelectorAll('.step-dot')[currentStep-1].classList.add('active'); updateNav(); window.scrollTo({top: 0, behavior: 'smooth'}); }
+        function nextStep() { if (currentStep < totalSteps) goToStep(currentStep + 1); }
+        function prevStep() { if (currentStep > 1) goToStep(currentStep - 1); }
+        function updateNav() { document.getElementById('currentStep').textContent = currentStep; document.getElementById('prevBtn').disabled = currentStep === 1; document.getElementById('nextBtn').disabled = currentStep === totalSteps; document.getElementById('nextBtn').textContent = currentStep === totalSteps ? '✓ Fin' : 'Siguiente →'; }
+        function check(id, sel, correct) { if (answered[id]) return; answered[id] = true; const ex = document.getElementById(id); const btns = ex.querySelectorAll('.opt-btn'); btns.forEach(b => b.disabled = true); const stepNum = parseInt(id.split('-')[0].replace('ex','')); if (sel === correct) { ex.classList.add('correct'); btns.forEach(b => { if (b.textContent.startsWith(sel+')')) b.classList.add('sel-correct'); }); document.getElementById('fb-'+id).classList.add('show'); scores[stepNum]++; } else { ex.classList.add('incorrect'); btns.forEach(b => { if (b.textContent.startsWith(sel+')')) b.classList.add('sel-wrong'); if (b.textContent.startsWith(correct+')')) b.classList.add('show-correct'); }); document.getElementById('fbi-'+id).classList.add('show'); } document.getElementById('score'+stepNum).textContent = scores[stepNum]+'/5'; }
+        updateNav();
+    </script>
+</body>
+</html>

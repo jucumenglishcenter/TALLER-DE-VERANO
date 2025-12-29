@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Rutina Diaria | M2 Tema 4 | Taller Inglés</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); min-height: 100vh; padding: 15px; padding-bottom: 80px; }
+        .container { max-width: 500px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #F57C00 0%, #E65100 100%); border-radius: 16px; padding: 15px; text-align: center; margin-bottom: 15px; }
+        .header h1 { color: white; font-size: 1.2rem; margin-bottom: 3px; }
+        .header .badge { display: inline-block; background: rgba(255,255,255,0.3); padding: 4px 12px; border-radius: 15px; font-size: 0.75rem; color: white; }
+        .progress-nav { display: flex; justify-content: center; gap: 6px; margin-bottom: 15px; }
+        .step-dot { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #F57C00; background: white; color: #F57C00; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+        .step-dot.active { background: #F57C00; color: white; }
+        .step-dot.completed { background: #E65100; color: white; border-color: #E65100; }
+        .step-card { display: none; background: white; border-radius: 16px; padding: 20px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        .step-card.active { display: block; }
+        .step-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #FFE0B2; }
+        .step-icon { font-size: 1.8rem; }
+        .step-title { color: #E65100; font-size: 1rem; font-weight: 600; }
+        .intro-text { font-size: 0.9rem; color: #555; line-height: 1.6; margin-bottom: 15px; }
+        .quick-example { background: #fff8f0; border-radius: 10px; padding: 12px; margin: 10px 0; border-left: 4px solid #F57C00; }
+        .quick-example .en { color: #E65100; font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
+        .quick-example .es { color: #7f8c8d; font-size: 0.85rem; }
+        .quick-example.right { background: #f0fff4; border-left-color: #27ae60; }
+        .quick-example.wrong { background: #fff5f5; border-left-color: #e74c3c; }
+        .compare-box { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+        .compare-item { padding: 12px; border-radius: 12px; text-align: center; }
+        .compare-item.esp { background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%); border: 2px solid #fbc02d; }
+        .compare-item.eng { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border: 2px solid #F57C00; }
+        .compare-item .label { font-weight: 700; font-size: 0.8rem; margin-bottom: 8px; }
+        .compare-item.esp .label { color: #f57f17; }
+        .compare-item.eng .label { color: #E65100; }
+        .compare-item .example { font-size: 0.85rem; color: #555; }
+        .tip-box { background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-radius: 10px; padding: 12px; margin: 12px 0; font-size: 0.85rem; border-left: 4px solid #4caf50; }
+        .tip-box strong { color: #2e7d32; }
+        .tip-box.warning { background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-left-color: #ff9800; }
+        .tip-box.warning strong { color: #e65100; }
+        .tip-box.blue { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border-left-color: #F57C00; }
+        .tip-box.blue strong { color: #E65100; }
+        .vocab-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.8rem; }
+        .vocab-table th { background: linear-gradient(135deg, #F57C00 0%, #E65100 100%); color: white; padding: 8px 6px; text-align: center; }
+        .vocab-table td { padding: 8px 6px; border-bottom: 1px solid #e0e0e0; text-align: center; }
+        .vocab-table tr:nth-child(even) { background: #fff8f0; }
+        .vocab-table .word-en { font-weight: 600; color: #E65100; }
+        .icon-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 12px 0; }
+        .icon-card { background: white; border-radius: 10px; padding: 12px; text-align: center; border: 2px solid #FFE0B2; }
+        .icon-card .icon { font-size: 1.5rem; margin-bottom: 5px; }
+        .icon-card .word-en { font-weight: 700; font-size: 0.8rem; color: #E65100; }
+        .icon-card .word-es { font-size: 0.7rem; color: #888; }
+        .exercise-section { margin-top: 20px; padding-top: 15px; border-top: 2px dashed #FFE0B2; }
+        .exercise-section h3 { color: #F57C00; font-size: 0.9rem; margin-bottom: 12px; }
+        .exercise { background: #fafafa; border-radius: 10px; padding: 12px; margin-bottom: 10px; border: 2px solid #e0e0e0; }
+        .exercise.correct { border-color: #27ae60; background: #f0fff4; }
+        .exercise.incorrect { border-color: #e74c3c; background: #fff5f5; }
+        .exercise-q { font-size: 0.9rem; color: #333; margin-bottom: 10px; }
+        .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .opt-btn { padding: 10px 8px; border: 2px solid #e0e0e0; border-radius: 8px; background: white; color: #555; font-size: 0.85rem; cursor: pointer; }
+        .opt-btn:disabled { cursor: not-allowed; opacity: 0.7; }
+        .opt-btn.sel-correct { background: #27ae60; color: white; border-color: #27ae60; }
+        .opt-btn.sel-wrong { background: #e74c3c; color: white; border-color: #e74c3c; }
+        .opt-btn.show-correct { background: #27ae60; color: white; border-color: #27ae60; }
+        .feedback { margin-top: 10px; padding: 10px; border-radius: 8px; font-size: 0.8rem; display: none; }
+        .feedback.show { display: block; }
+        .feedback.correct-fb { background: #d4edda; }
+        .feedback.incorrect-fb { background: #f8d7da; }
+        .feedback .result { font-weight: 700; margin-bottom: 5px; }
+        .feedback.correct-fb .result { color: #155724; }
+        .feedback.incorrect-fb .result { color: #721c24; }
+        .score-box { text-align: center; padding: 12px; background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border-radius: 10px; margin-top: 12px; }
+        .score-box .num { font-size: 1.5rem; font-weight: bold; color: #E65100; }
+        .score-box .label { font-size: 0.8rem; color: #F57C00; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 12px 15px; box-shadow: 0 -4px 15px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
+        .nav-btn { padding: 10px 20px; border: none; border-radius: 20px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+        .nav-btn.prev { background: #e0e0e0; color: #666; }
+        .nav-btn.next { background: linear-gradient(135deg, #F57C00 0%, #E65100 100%); color: white; }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .step-ind { font-size: 0.8rem; color: #666; }
+        .summary-list { list-style: none; }
+        .summary-list li { padding: 6px 0 6px 20px; position: relative; font-size: 0.85rem; color: #555; }
+        .summary-list li:before { content: "✓"; position: absolute; left: 0; color: #F57C00; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⏰ Mi Rutina Diaria</h1>
+            <div class="badge">📙 Módulo 2 • Tema 4 • Clases 8-9</div>
+        </div>
+        <div class="progress-nav">
+            <div class="step-dot active" onclick="goToStep(1)">1</div>
+            <div class="step-dot" onclick="goToStep(2)">2</div>
+            <div class="step-dot" onclick="goToStep(3)">3</div>
+            <div class="step-dot" onclick="goToStep(4)">4</div>
+            <div class="step-dot" onclick="goToStep(5)">5</div>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="step-card active" id="step1">
+            <div class="step-header"><span class="step-icon">🇪🇸</span><span class="step-title">Paso 1: Repaso en Español</span></div>
+            <p class="intro-text">En español describimos nuestra rutina diaria con verbos como despertar, comer, ir y dormir.</p>
+            <div class="quick-example"><div class="en">Mi rutina típica:</div><div class="es">• Me despierto a las 7<br>• Desayuno con mi familia<br>• Voy a la escuela/trabajo<br>• Duermo a las 9</div></div>
+            <div class="tip-box blue"><strong>💡 Observa:</strong> "Todos los días" o "cada día" indican rutinas que se repiten.</div>
+            <div class="exercise-section">
+                <h3>✏️ Ejercicios</h3>
+                <div class="exercise" id="ex1-1"><div class="exercise-q">1. "Despertarse" es una actividad de:</div><div class="opts"><button class="opt-btn" onclick="check('ex1-1','a','a')">a) La mañana</button><button class="opt-btn" onclick="check('ex1-1','b','a')">b) La noche</button></div><div class="feedback correct-fb" id="fb-ex1-1"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex1-1"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex1-2"><div class="exercise-q">2. El desayuno es la comida de:</div><div class="opts"><button class="opt-btn" onclick="check('ex1-2','a','a')">a) La mañana</button><button class="opt-btn" onclick="check('ex1-2','b','a')">b) La noche</button></div><div class="feedback correct-fb" id="fb-ex1-2"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex1-2"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex1-3"><div class="exercise-q">3. "Dormir" normalmente es de:</div><div class="opts"><button class="opt-btn" onclick="check('ex1-3','a','b')">a) La mañana</button><button class="opt-btn" onclick="check('ex1-3','b','b')">b) La noche</button></div><div class="feedback correct-fb" id="fb-ex1-3"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex1-3"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex1-4"><div class="exercise-q">4. "Cada día" indica:</div><div class="opts"><button class="opt-btn" onclick="check('ex1-4','a','a')">a) Algo que se repite</button><button class="opt-btn" onclick="check('ex1-4','b','a')">b) Algo que pasa una vez</button></div><div class="feedback correct-fb" id="fb-ex1-4"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex1-4"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex1-5"><div class="exercise-q">5. "Ir a la escuela" es parte de tu:</div><div class="opts"><button class="opt-btn" onclick="check('ex1-5','a','a')">a) Rutina diaria</button><button class="opt-btn" onclick="check('ex1-5','b','a')">b) Vacaciones</button></div><div class="feedback correct-fb" id="fb-ex1-5"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex1-5"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="score-box"><div class="num" id="score1">0/5</div><div class="label">Paso 1</div></div>
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step-card" id="step2">
+            <div class="step-header"><span class="step-icon">🤝</span><span class="step-title">Paso 2: Similitudes ESP ↔ ENG</span></div>
+            <p class="intro-text">Las rutinas en inglés siguen una estructura similar al español:</p>
+            <div class="quick-example"><div class="en">✅ ESP: Me despierto | ENG: I wake up</div></div>
+            <div class="quick-example"><div class="en">✅ ESP: Desayuno | ENG: I eat breakfast</div></div>
+            <div class="quick-example"><div class="en">✅ ESP: Voy a la escuela | ENG: I go to school</div></div>
+            <div class="quick-example"><div class="en">✅ ESP: Duermo | ENG: I sleep</div></div>
+            <div class="compare-box">
+                <div class="compare-item esp"><div class="label">🇪🇸 ESPAÑOL</div><div class="example">Cada día<br>Me despierto<br>Voy a</div></div>
+                <div class="compare-item eng"><div class="label">🇬🇧 ENGLISH</div><div class="example">Every day<br>I wake up<br>I go to</div></div>
+            </div>
+            <div class="tip-box"><strong>💡 Patrón:</strong> En inglés siempre necesitamos el pronombre "I" antes del verbo.</div>
+            <div class="exercise-section">
+                <h3>✏️ Ejercicios</h3>
+                <div class="exercise" id="ex2-1"><div class="exercise-q">1. "I wake up" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex2-1','a','a')">a) Me despierto</button><button class="opt-btn" onclick="check('ex2-1','b','a')">b) Me duermo</button></div><div class="feedback correct-fb" id="fb-ex2-1"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex2-1"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex2-2"><div class="exercise-q">2. "I eat breakfast" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex2-2','a','a')">a) Desayuno</button><button class="opt-btn" onclick="check('ex2-2','b','a')">b) Ceno</button></div><div class="feedback correct-fb" id="fb-ex2-2"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex2-2"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex2-3"><div class="exercise-q">3. "Every day" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex2-3','a','a')">a) Cada día / Todos los días</button><button class="opt-btn" onclick="check('ex2-3','b','a')">b) Algún día</button></div><div class="feedback correct-fb" id="fb-ex2-3"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex2-3"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex2-4"><div class="exercise-q">4. "I go to school" es:</div><div class="opts"><button class="opt-btn" onclick="check('ex2-4','a','a')">a) Voy a la escuela</button><button class="opt-btn" onclick="check('ex2-4','b','a')">b) Voy a casa</button></div><div class="feedback correct-fb" id="fb-ex2-4"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex2-4"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex2-5"><div class="exercise-q">5. En inglés, antes del verbo siempre ponemos:</div><div class="opts"><button class="opt-btn" onclick="check('ex2-5','a','a')">a) El pronombre (I, you, he...)</button><button class="opt-btn" onclick="check('ex2-5','b','a')">b) Nada</button></div><div class="feedback correct-fb" id="fb-ex2-5"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex2-5"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="score-box"><div class="num" id="score2">0/5</div><div class="label">Paso 2</div></div>
+            </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step-card" id="step3">
+            <div class="step-header"><span class="step-icon">⚠️</span><span class="step-title">Paso 3: Diferencias Importantes</span></div>
+            <div class="tip-box warning"><strong>⚠️ Diferencia #1: Phrasal verbs</strong><br>"Wake up" tiene DOS palabras (wake + up). En español es solo "despertar".</div>
+            <div class="quick-example right"><div class="en">I wake UP at 7.</div><div class="es">✅ "Up" es necesario</div></div>
+            <div class="quick-example wrong"><div class="en">I wake at 7.</div><div class="es">❌ Incompleto sin "up"</div></div>
+            <div class="tip-box warning"><strong>⚠️ Diferencia #2: "Breakfast" no tiene artículo</strong><br>ESP: "el desayuno" | ENG: "breakfast" (sin "the")</div>
+            <div class="quick-example right"><div class="en">I eat breakfast.</div><div class="es">✅ Sin artículo</div></div>
+            <div class="quick-example wrong"><div class="en">I eat the breakfast.</div><div class="es">❌ No se usa "the"</div></div>
+            <div class="exercise-section">
+                <h3>✏️ Ejercicios</h3>
+                <div class="exercise" id="ex3-1"><div class="exercise-q">1. "Wake up" tiene:</div><div class="opts"><button class="opt-btn" onclick="check('ex3-1','a','a')">a) Dos palabras</button><button class="opt-btn" onclick="check('ex3-1','b','a')">b) Una palabra</button></div><div class="feedback correct-fb" id="fb-ex3-1"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex3-1"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex3-2"><div class="exercise-q">2. ¿Cuál es correcta?</div><div class="opts"><button class="opt-btn" onclick="check('ex3-2','a','a')">a) I eat breakfast</button><button class="opt-btn" onclick="check('ex3-2','b','a')">b) I eat the breakfast</button></div><div class="feedback correct-fb" id="fb-ex3-2"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex3-2"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex3-3"><div class="exercise-q">3. "I wake _____ at 7"</div><div class="opts"><button class="opt-btn" onclick="check('ex3-3','a','a')">a) up</button><button class="opt-btn" onclick="check('ex3-3','b','a')">b) to</button></div><div class="feedback correct-fb" id="fb-ex3-3"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex3-3"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex3-4"><div class="exercise-q">4. "Work" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex3-4','a','a')">a) Trabajo</button><button class="opt-btn" onclick="check('ex3-4','b','a')">b) Escuela</button></div><div class="feedback correct-fb" id="fb-ex3-4"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex3-4"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex3-5"><div class="exercise-q">5. "I go to school" usa:</div><div class="opts"><button class="opt-btn" onclick="check('ex3-5','a','a')">a) "to" antes del lugar</button><button class="opt-btn" onclick="check('ex3-5','b','a')">b) Nada antes del lugar</button></div><div class="feedback correct-fb" id="fb-ex3-5"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex3-5"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="score-box"><div class="num" id="score3">0/5</div><div class="label">Paso 3</div></div>
+            </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step-card" id="step4">
+            <div class="step-header"><span class="step-icon">💡</span><span class="step-title">Paso 4: Consejos Prácticos</span></div>
+            <div class="tip-box blue"><strong>🎯 Vocabulario clave - 10 palabras:</strong></div>
+            <table class="vocab-table">
+                <tr><th>Inglés</th><th>Pronunciación</th><th>Español</th></tr>
+                <tr><td class="word-en">Wake</td><td>/wéik/</td><td>Despertar</td></tr>
+                <tr><td class="word-en">Up</td><td>/ap/</td><td>Arriba</td></tr>
+                <tr><td class="word-en">Eat</td><td>/íit/</td><td>Comer</td></tr>
+                <tr><td class="word-en">Breakfast</td><td>/brékfast/</td><td>Desayuno</td></tr>
+                <tr><td class="word-en">Go</td><td>/góu/</td><td>Ir</td></tr>
+                <tr><td class="word-en">School</td><td>/skúul/</td><td>Escuela</td></tr>
+                <tr><td class="word-en">Work</td><td>/wérk/</td><td>Trabajo</td></tr>
+                <tr><td class="word-en">Sleep</td><td>/slíip/</td><td>Dormir</td></tr>
+                <tr><td class="word-en">Every</td><td>/évri/</td><td>Cada</td></tr>
+                <tr><td class="word-en">Day</td><td>/déi/</td><td>Día</td></tr>
+            </table>
+            <div class="icon-grid">
+                <div class="icon-card"><div class="icon">🌅</div><div class="word-en">Wake up</div><div class="word-es">Despertarse</div></div>
+                <div class="icon-card"><div class="icon">🍳</div><div class="word-en">Eat breakfast</div><div class="word-es">Desayunar</div></div>
+                <div class="icon-card"><div class="icon">🏫</div><div class="word-en">Go to school</div><div class="word-es">Ir a la escuela</div></div>
+                <div class="icon-card"><div class="icon">😴</div><div class="word-en">Sleep</div><div class="word-es">Dormir</div></div>
+            </div>
+            <div class="exercise-section">
+                <h3>✏️ Ejercicios</h3>
+                <div class="exercise" id="ex4-1"><div class="exercise-q">1. ¿Cómo se pronuncia "breakfast"?</div><div class="opts"><button class="opt-btn" onclick="check('ex4-1','a','a')">a) /brékfast/</button><button class="opt-btn" onclick="check('ex4-1','b','a')">b) /brekfást/</button></div><div class="feedback correct-fb" id="fb-ex4-1"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex4-1"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex4-2"><div class="exercise-q">2. "Sleep" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex4-2','a','a')">a) Dormir</button><button class="opt-btn" onclick="check('ex4-2','b','a')">b) Despertar</button></div><div class="feedback correct-fb" id="fb-ex4-2"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex4-2"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex4-3"><div class="exercise-q">3. "Every day" es:</div><div class="opts"><button class="opt-btn" onclick="check('ex4-3','a','a')">a) Todos los días</button><button class="opt-btn" onclick="check('ex4-3','b','a')">b) Un día</button></div><div class="feedback correct-fb" id="fb-ex4-3"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex4-3"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex4-4"><div class="exercise-q">4. "Go" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex4-4','a','a')">a) Ir</button><button class="opt-btn" onclick="check('ex4-4','b','a')">b) Venir</button></div><div class="feedback correct-fb" id="fb-ex4-4"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex4-4"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex4-5"><div class="exercise-q">5. "School" significa:</div><div class="opts"><button class="opt-btn" onclick="check('ex4-5','a','a')">a) Escuela</button><button class="opt-btn" onclick="check('ex4-5','b','a')">b) Casa</button></div><div class="feedback correct-fb" id="fb-ex4-5"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex4-5"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="score-box"><div class="num" id="score4">0/5</div><div class="label">Paso 4</div></div>
+            </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="step-card" id="step5">
+            <div class="step-header"><span class="step-icon">✨</span><span class="step-title">Paso 5: Práctica Final</span></div>
+            <div class="quick-example right"><div class="en">Every day I wake up at 7. I eat breakfast. I go to school. I sleep at 9.</div><div class="es">Cada día me despierto a las 7. Desayuno. Voy a la escuela. Duermo a las 9.</div></div>
+            <div class="exercise-section">
+                <h3>✏️ Práctica Final</h3>
+                <div class="exercise" id="ex5-1"><div class="exercise-q">1. "I _____ up at 7 AM"</div><div class="opts"><button class="opt-btn" onclick="check('ex5-1','a','a')">a) wake</button><button class="opt-btn" onclick="check('ex5-1','b','a')">b) sleep</button></div><div class="feedback correct-fb" id="fb-ex5-1"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex5-1"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex5-2"><div class="exercise-q">2. "I eat _____" (desayuno)</div><div class="opts"><button class="opt-btn" onclick="check('ex5-2','a','a')">a) breakfast</button><button class="opt-btn" onclick="check('ex5-2','b','a')">b) the breakfast</button></div><div class="feedback correct-fb" id="fb-ex5-2"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex5-2"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex5-3"><div class="exercise-q">3. "I go _____ school"</div><div class="opts"><button class="opt-btn" onclick="check('ex5-3','a','a')">a) to</button><button class="opt-btn" onclick="check('ex5-3','b','a')">b) at</button></div><div class="feedback correct-fb" id="fb-ex5-3"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex5-3"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex5-4"><div class="exercise-q">4. "I _____ at 9 PM"</div><div class="opts"><button class="opt-btn" onclick="check('ex5-4','a','a')">a) sleep</button><button class="opt-btn" onclick="check('ex5-4','b','a')">b) wake</button></div><div class="feedback correct-fb" id="fb-ex5-4"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex5-4"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="exercise" id="ex5-5"><div class="exercise-q">5. "_____ day I go to school"</div><div class="opts"><button class="opt-btn" onclick="check('ex5-5','a','a')">a) Every</button><button class="opt-btn" onclick="check('ex5-5','b','a')">b) One</button></div><div class="feedback correct-fb" id="fb-ex5-5"><div class="result">✅ ¡Correcto!</div></div><div class="feedback incorrect-fb" id="fbi-ex5-5"><div class="result">❌ Incorrecto</div></div></div>
+                <div class="score-box"><div class="num" id="score5">0/5</div><div class="label">Paso 5</div></div>
+            </div>
+            <div style="margin-top: 20px; padding: 15px; background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border-radius: 12px;">
+                <h3 style="color: #E65100; font-size: 0.95rem; margin-bottom: 10px;">🎓 Resumen Final</h3>
+                <ul class="summary-list">
+                    <li><strong>I wake up</strong> = Me despierto</li>
+                    <li><strong>I eat breakfast</strong> = Desayuno</li>
+                    <li><strong>I go to school/work</strong> = Voy a la escuela/trabajo</li>
+                    <li><strong>I sleep</strong> = Duermo</li>
+                    <li><strong>Every day</strong> = Todos los días</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <button class="nav-btn prev" id="prevBtn" onclick="prevStep()" disabled>← Anterior</button>
+            <span class="step-ind"><span id="currentStep">1</span>/5</span>
+            <button class="nav-btn next" id="nextBtn" onclick="nextStep()">Siguiente →</button>
+        </div>
+    </div>
+    <script>
+        let currentStep = 1; const totalSteps = 5; const scores = {1:0, 2:0, 3:0, 4:0, 5:0}; const answered = {};
+        function goToStep(step) { if (step < 1 || step > totalSteps) return; document.getElementById('step'+currentStep).classList.remove('active'); document.querySelectorAll('.step-dot')[currentStep-1].classList.remove('active'); if (step > currentStep) document.querySelectorAll('.step-dot')[currentStep-1].classList.add('completed'); currentStep = step; document.getElementById('step'+currentStep).classList.add('active'); document.querySelectorAll('.step-dot')[currentStep-1].classList.add('active'); updateNav(); window.scrollTo({top: 0, behavior: 'smooth'}); }
+        function nextStep() { if (currentStep < totalSteps) goToStep(currentStep + 1); }
+        function prevStep() { if (currentStep > 1) goToStep(currentStep - 1); }
+        function updateNav() { document.getElementById('currentStep').textContent = currentStep; document.getElementById('prevBtn').disabled = currentStep === 1; document.getElementById('nextBtn').disabled = currentStep === totalSteps; document.getElementById('nextBtn').textContent = currentStep === totalSteps ? '✓ Fin' : 'Siguiente →'; }
+        function check(id, sel, correct) { if (answered[id]) return; answered[id] = true; const ex = document.getElementById(id); const btns = ex.querySelectorAll('.opt-btn'); btns.forEach(b => b.disabled = true); const stepNum = parseInt(id.split('-')[0].replace('ex','')); if (sel === correct) { ex.classList.add('correct'); btns.forEach(b => { if (b.textContent.startsWith(sel+')')) b.classList.add('sel-correct'); }); document.getElementById('fb-'+id).classList.add('show'); scores[stepNum]++; } else { ex.classList.add('incorrect'); btns.forEach(b => { if (b.textContent.startsWith(sel+')')) b.classList.add('sel-wrong'); if (b.textContent.startsWith(correct+')')) b.classList.add('show-correct'); }); document.getElementById('fbi-'+id).classList.add('show'); } document.getElementById('score'+stepNum).textContent = scores[stepNum]+'/5'; }
+        updateNav();
+    </script>
+</body>
+</html>

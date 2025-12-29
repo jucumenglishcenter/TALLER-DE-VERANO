@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Cómo estás hoy? | M1 Tema 2 | Taller Inglés</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            min-height: 100vh;
+            padding: 15px;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+            border-radius: 16px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4);
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 3px;
+        }
+
+        .header .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.3);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            color: white;
+        }
+
+        .progress-nav {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .step-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid #1976D2;
+            background: white;
+            color: #1976D2;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        .step-dot.active {
+            background: #1976D2;
+            color: white;
+        }
+
+        .step-dot.completed {
+            background: #1565C0;
+            color: white;
+            border-color: #1565C0;
+        }
+
+        .step-card {
+            display: none;
+            background: white;
+            border-radius: 16px;
+            padding: 20px 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+
+        .step-card.active {
+            display: block;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e3f2fd;
+        }
+
+        .step-icon {
+            font-size: 1.8rem;
+        }
+
+        .step-title {
+            color: #1565C0;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .intro-text {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .quick-example {
+            background: #f5f8ff;
+            border-radius: 10px;
+            padding: 12px;
+            margin: 10px 0;
+            border-left: 4px solid #1976D2;
+        }
+
+        .quick-example .en {
+            color: #1565C0;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .quick-example .es {
+            color: #7f8c8d;
+            font-size: 0.85rem;
+        }
+
+        .quick-example.wrong {
+            background: #fff5f5;
+            border-left-color: #e74c3c;
+        }
+
+        .quick-example.right {
+            background: #f0fff4;
+            border-left-color: #27ae60;
+        }
+
+        .compare-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .compare-item {
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .compare-item.esp {
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            border: 2px solid #fbc02d;
+        }
+
+        .compare-item.eng {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 2px solid #1976D2;
+        }
+
+        .compare-item .label {
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+        }
+
+        .compare-item.esp .label { color: #f57f17; }
+        .compare-item.eng .label { color: #1565C0; }
+
+        .compare-item .example {
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-radius: 10px;
+            padding: 12px;
+            margin: 12px 0;
+            font-size: 0.85rem;
+            border-left: 4px solid #4caf50;
+        }
+
+        .tip-box strong {
+            color: #2e7d32;
+        }
+
+        .tip-box.warning {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left-color: #ff9800;
+        }
+
+        .tip-box.warning strong {
+            color: #e65100;
+        }
+
+        .tip-box.blue {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left-color: #1976D2;
+        }
+
+        .tip-box.blue strong {
+            color: #1565C0;
+        }
+
+        .mood-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .mood-card {
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+        }
+
+        .mood-card .icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .mood-card .word-en {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #1565C0;
+        }
+
+        .mood-card .word-es {
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        .mood-card.great {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-color: #4caf50;
+        }
+
+        .mood-card.fine {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-color: #2196f3;
+        }
+
+        .mood-card.okay {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            border-color: #ffc107;
+        }
+
+        .mood-card.good {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-color: #9c27b0;
+        }
+
+        .vocab-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.85rem;
+        }
+
+        .vocab-table th {
+            background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+            color: white;
+            padding: 10px 8px;
+            text-align: center;
+        }
+
+        .vocab-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        .vocab-table tr:nth-child(even) {
+            background: #f5f8ff;
+        }
+
+        .vocab-table .word-en {
+            font-weight: 600;
+            color: #1565C0;
+        }
+
+        .vocab-table .word-pron {
+            color: #888;
+            font-style: italic;
+            font-size: 0.8rem;
+        }
+
+        .dialogue-box {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 12px 0;
+            border-left: 4px solid #9c27b0;
+        }
+
+        .dialogue-box .speaker {
+            font-weight: 700;
+            color: #7b1fa2;
+            font-size: 0.85rem;
+        }
+
+        .dialogue-box .line {
+            font-size: 0.9rem;
+            color: #333;
+            margin: 5px 0;
+        }
+
+        .exercise-section {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px dashed #bbdefb;
+        }
+
+        .exercise-section h3 {
+            color: #1976D2;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        .exercise {
+            background: #fafafa;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .exercise.correct {
+            border-color: #27ae60;
+            background: #f0fff4;
+        }
+
+        .exercise.incorrect {
+            border-color: #e74c3c;
+            background: #fff5f5;
+        }
+
+        .exercise-q {
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .exercise-q strong {
+            color: #1565C0;
+        }
+
+        .opts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .opt-btn {
+            padding: 10px 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+            color: #555;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .opt-btn:hover:not(:disabled) {
+            border-color: #1976D2;
+            background: #e3f2fd;
+        }
+
+        .opt-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .opt-btn.sel-correct {
+            background: #27ae60;
+            color: white;
+            border-color: #27ae60;
+        }
+
+        .opt-btn.sel-wrong {
+            background: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+        }
+
+        .opt-btn.show-correct {
+            background: #27ae60;
+            color: white;
+            border-color: #27ae60;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct-fb {
+            background: #d4edda;
+            border: 1px solid #a5d6a7;
+        }
+
+        .feedback.incorrect-fb {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        .feedback .result {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .feedback.correct-fb .result { color: #155724; }
+        .feedback.incorrect-fb .result { color: #721c24; }
+
+        .feedback .explanation {
+            color: #555;
+            line-height: 1.4;
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 12px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 10px;
+            margin-top: 12px;
+        }
+
+        .score-box .num {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1565C0;
+        }
+
+        .score-box .label {
+            font-size: 0.8rem;
+            color: #1976D2;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 12px 15px;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .nav-btn.prev {
+            background: #e0e0e0;
+            color: #666;
+        }
+
+        .nav-btn.next {
+            background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+            color: white;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .step-ind {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .summary-list {
+            list-style: none;
+        }
+
+        .summary-list li {
+            padding: 6px 0 6px 20px;
+            position: relative;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .summary-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #1976D2;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>😊 ¿Cómo estás hoy?</h1>
+            <div class="badge">📘 Módulo 1 • Tema 2 • Clases 3-4</div>
+        </div>
+
+        <div class="progress-nav">
+            <div class="step-dot active" onclick="goToStep(1)">1</div>
+            <div class="step-dot" onclick="goToStep(2)">2</div>
+            <div class="step-dot" onclick="goToStep(3)">3</div>
+            <div class="step-dot" onclick="goToStep(4)">4</div>
+            <div class="step-dot" onclick="goToStep(5)">5</div>
+        </div>
+
+        <!-- STEP 1: Repaso en Español -->
+        <div class="step-card active" id="step1">
+            <div class="step-header">
+                <span class="step-icon">🇪🇸</span>
+                <span class="step-title">Paso 1: Repaso en Español</span>
+            </div>
+
+            <p class="intro-text">
+                En español, después de saludar, preguntamos <strong>"¿Cómo estás?"</strong> 
+                y respondemos con diferentes expresiones según cómo nos sentimos.
+            </p>
+
+            <div class="quick-example">
+                <div class="en">Pregunta típica:</div>
+                <div class="es">
+                    • ¿Cómo estás?<br>
+                    • ¿Cómo te va?<br>
+                    • ¿Qué tal?
+                </div>
+            </div>
+
+            <div class="quick-example">
+                <div class="en">Respuestas comunes:</div>
+                <div class="es">
+                    • <strong>Muy bien</strong>, gracias.<br>
+                    • <strong>Bien</strong>, ¿y tú?<br>
+                    • <strong>Más o menos</strong>.<br>
+                    • <strong>Regular</strong>.
+                </div>
+            </div>
+
+            <div class="tip-box blue">
+                <strong>💡 Importante:</strong> En español siempre agregamos "gracias" y devolvemos la pregunta con "¿y tú?". ¡En inglés es igual!
+            </div>
+
+            <div class="exercise-section">
+                <h3>✏️ Ejercicios</h3>
+
+                <div class="exercise" id="ex1-1">
+                    <div class="exercise-q">1. Después de saludar, normalmente preguntas:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex1-1','a','a')">a) ¿Cómo estás?</button>
+                        <button class="opt-btn" onclick="check('ex1-1','b','a')">b) ¿Cómo te llamas?</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex1-1">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">Después de saludar preguntamos <strong>¿Cómo estás?</strong></div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex1-1">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">"¿Cómo te llamas?" es para presentarse. <strong>¿Cómo estás?</strong> es para saber cómo se siente.</div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex1-2">
+                    <div class="exercise-q">2. Si estás muy feliz, respondes:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex1-2','a','a')">a) ¡Muy bien!</button>
+                        <button class="opt-btn" onclick="check('ex1-2','b','a')">b) Más o menos</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex1-2">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">Muy feliz = <strong>¡Muy bien!</strong></div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex1-2">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">"Más o menos" es neutral. Muy feliz = <strong>¡Muy bien!</strong></div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex1-3">
+                    <div class="exercise-q">3. Después de responder, es cortés decir:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex1-3','a','a')">a) Gracias, ¿y tú?</button>
+                        <button class="opt-btn" onclick="check('ex1-3','b','a')">b) Adiós</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex1-3">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">Es cortés agradecer y devolver la pregunta: <strong>Gracias, ¿y tú?</strong></div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex1-3">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">"Adiós" es despedida. Lo cortés es <strong>Gracias, ¿y tú?</strong></div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex1-4">
+                    <div class="exercise-q">4. "Regular" o "más o menos" significa que estás:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex1-4','a','b')">a) Excelente</button>
+                        <button class="opt-btn" onclick="check('ex1-4','b','b')">b) Ni bien ni mal</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex1-4">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">"Regular" = <strong>ni bien ni mal</strong>, neutral.</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex1-4">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">"Regular" no es excelente. Es <strong>neutral</strong>.</div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex1-5">
+                    <div class="exercise-q">5. La secuencia correcta es:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex1-5','a','a')">a) Saludar → ¿Cómo estás? → Responder</button>
+                        <button class="opt-btn" onclick="check('ex1-5','b','a')">b) ¿Cómo estás? → Saludar → Responder</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex1-5">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">Primero saludamos, luego preguntamos cómo está.</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex1-5">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">El orden es: <strong>Saludar → ¿Cómo estás? → Responder</strong>.</div>
+                    </div>
+                </div>
+
+                <div class="score-box">
+                    <div class="num" id="score1">0/5</div>
+                    <div class="label">Paso 1</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2: Similitudes -->
+        <div class="step-card" id="step2">
+            <div class="step-header">
+                <span class="step-icon">🤝</span>
+                <span class="step-title">Paso 2: Similitudes ESP ↔ ENG</span>
+            </div>
+
+            <p class="intro-text">
+                ¡Buenas noticias! Preguntar "¿Cómo estás?" funciona casi igual en inglés:
+            </p>
+
+            <div class="quick-example">
+                <div class="en">✅ Similitud 1: La pregunta básica</div>
+                <div class="es">ESP: ¿Cómo estás? | ENG: How are you?</div>
+            </div>
+
+            <div class="quick-example">
+                <div class="en">✅ Similitud 2: Respuestas similares</div>
+                <div class="es">ESP: Bien, gracias | ENG: Fine, thank you</div>
+            </div>
+
+            <div class="quick-example">
+                <div class="en">✅ Similitud 3: Devolver la pregunta</div>
+                <div class="es">ESP: ¿Y tú? | ENG: And you?</div>
+            </div>
+
+            <div class="quick-example">
+                <div class="en">✅ Similitud 4: Diferentes niveles de "bien"</div>
+                <div class="es">ESP: Bien / Muy bien / Regular | ENG: Fine / Great / Okay</div>
+            </div>
+
+            <div class="compare-box">
+                <div class="compare-item esp">
+                    <div class="label">🇪🇸 ESPAÑOL</div>
+                    <div class="example">
+                        ¿Cómo estás?<br>
+                        Bien, gracias.<br>
+                        ¿Y tú?
+                    </div>
+                </div>
+                <div class="compare-item eng">
+                    <div class="label">🇬🇧 ENGLISH</div>
+                    <div class="example">
+                        How are you?<br>
+                        Fine, thank you.<br>
+                        And you?
+                    </div>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Ventaja:</strong> La estructura de la conversación es idéntica. 
+                Solo cambian las palabras.
+            </div>
+
+            <div class="exercise-section">
+                <h3>✏️ Ejercicios</h3>
+
+                <div class="exercise" id="ex2-1">
+                    <div class="exercise-q">1. "How are you?" es equivalente a:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex2-1','a','a')">a) ¿Cómo estás?</button>
+                        <button class="opt-btn" onclick="check('ex2-1','b','a')">b) ¿Cómo te llamas?</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex2-1">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">How are you? = <strong>¿Cómo estás?</strong></div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex2-1">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">"¿Cómo te llamas?" = What's your name? How are you? = <strong>¿Cómo estás?</strong></div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex2-2">
+                    <div class="exercise-q">2. "Fine, thank you" significa:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex2-2','a','a')">a) Bien, gracias</button>
+                        <button class="opt-btn" onclick="check('ex2-2','b','a')">b) Muy mal</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex2-2">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">Fine = Bien. Thank you = Gracias.</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex2-2">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">Fine = <strong>Bien</strong>, no mal.</div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex2-3">
+                    <div class="exercise-q">3. "And you?" es:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex2-3','a','a')">a) ¿Y tú?</button>
+                        <button class="opt-btn" onclick="check('ex2-3','b','a')">b) Adiós</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex2-3">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">And = Y. You = Tú. <strong>And you? = ¿Y tú?</strong></div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex2-3">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">And you? = <strong>¿Y tú?</strong> para devolver la pregunta.</div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex2-4">
+                    <div class="exercise-q">4. La estructura de la conversación en inglés es:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex2-4','a','a')">a) Igual al español</button>
+                        <button class="opt-btn" onclick="check('ex2-4','b','a')">b) Completamente diferente</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex2-4">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">La estructura es <strong>igual</strong>: Pregunta → Respuesta → ¿Y tú?</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex2-4">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">No es diferente. Es <strong>igual</strong> al español.</div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex2-5">
+                    <div class="exercise-q">5. "Great" en español es:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex2-5','a','a')">a) Muy bien / Excelente</button>
+                        <button class="opt-btn" onclick="check('ex2-5','b','a')">b) Regular</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex2-5">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">Great = <strong>Muy bien / Excelente</strong>. Es mejor que "fine".</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex2-5">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">Regular = Okay. Great = <strong>Muy bien</strong>.</div>
+                    </div>
+                </div>
+
+                <div class="score-box">
+                    <div class="num" id="score2">0/5</div>
+                    <div class="label">Paso 2</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3: Diferencias -->
+        <div class="step-card" id="step3">
+            <div class="step-header">
+                <span class="step-icon">⚠️</span>
+                <span class="step-title">Paso 3: Diferencias Importantes</span>
+            </div>
+
+            <p class="intro-text">
+                Aunque son similares, hay algunas diferencias clave:
+            </p>
+
+            <div class="tip-box warning">
+                <strong>⚠️ Diferencia #1: "I'm" antes de la respuesta</strong><br>
+                En español decimos "Bien". En inglés debemos decir <strong>"I'm fine"</strong> (Yo estoy bien).
+            </div>
+
+            <div class="compare-box">
+                <div class="compare-item esp">
+                    <div class="label">🇪🇸 ESPAÑOL</div>
+                    <div class="example">
+                        "Bien"<br>
+                        "Muy bien"<br>
+                        "Regular"
+                    </div>
+                </div>
+                <div class="compare-item eng">
+                    <div class="label">🇬🇧 ENGLISH</div>
+                    <div class="example">
+                        "<strong>I'm</strong> fine"<br>
+                        "<strong>I'm</strong> great"<br>
+                        "<strong>I'm</strong> okay"
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-example wrong">
+                <div class="en">❌ "Fine, thank you"</div>
+                <div class="es">Suena incompleto. Mejor: "I'm fine, thank you"</div>
+            </div>
+
+            <div class="quick-example right">
+                <div class="en">✅ "I'm fine, thank you. And you?"</div>
+                <div class="es">Respuesta completa y cortés</div>
+            </div>
+
+            <div class="tip-box warning">
+                <strong>⚠️ Diferencia #2: Varias formas de decir "bien"</strong><br>
+                • <strong>Fine</strong> = Bien (estándar)<br>
+                • <strong>Good</strong> = Bien (casual)<br>
+                • <strong>Great</strong> = Muy bien<br>
+                • <strong>Okay</strong> = Regular/Más o menos
+            </div>
+
+            <div class="tip-box warning">
+                <strong>⚠️ Diferencia #3: "Thanks" vs "Thank you"</strong><br>
+                • <strong>Thank you</strong> = Gracias (más formal)<br>
+                • <strong>Thanks</strong> = Gracias (más casual)
+            </div>
+
+            <div class="exercise-section">
+                <h3>✏️ Ejercicios</h3>
+
+                <div class="exercise" id="ex3-1">
+                    <div class="exercise-q">1. ¿Cuál es la respuesta correcta?</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex3-1','a','b')">a) Fine</button>
+                        <button class="opt-btn" onclick="check('ex3-1','b','b')">b) I'm fine</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex3-1">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">En inglés necesitamos <strong>I'm</strong> antes del adjetivo.</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex3-1">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">"Fine" solo suena incompleto. Mejor: <strong>I'm fine</strong>.</div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex3-2">
+                    <div class="exercise-q">2. "I'm great" significa:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex3-2','a','a')">a) Estoy muy bien</button>
+                        <button class="opt-btn" onclick="check('ex3-2','b','a')">b) Estoy regular</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex3-2">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">Great = Muy bien/Excelente. <strong>I'm great = Estoy muy bien</strong>.</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex3-2">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">Regular = Okay. Great = <strong>Muy bien</strong>.</div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex3-3">
+                    <div class="exercise-q">3. "I'm okay" significa:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex3-3','a','b')">a) Estoy excelente</button>
+                        <button class="opt-btn" onclick="check('ex3-3','b','b')">b) Estoy regular/más o menos</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex3-3">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">Okay = Regular, más o menos. <strong>Ni muy bien ni muy mal</strong>.</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex3-3">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">Excelente = Great. Okay = <strong>Regular</strong>.</div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex3-4">
+                    <div class="exercise-q">4. ¿Cuál es más casual?</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex3-4','a','b')">a) Thank you</button>
+                        <button class="opt-btn" onclick="check('ex3-4','b','b')">b) Thanks</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex3-4">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation"><strong>Thanks</strong> es más casual. Thank you es más formal.</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex3-4">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">Thank you es formal. <strong>Thanks</strong> es casual.</div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex3-5">
+                    <div class="exercise-q">5. ¿Qué significa "I'm good"?</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex3-5','a','a')">a) Estoy bien (casual)</button>
+                        <button class="opt-btn" onclick="check('ex3-5','b','a')">b) Soy bueno</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex3-5">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">En este contexto, "I'm good" = <strong>Estoy bien</strong> (muy casual).</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex3-5">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">En respuesta a "How are you?", I'm good = <strong>Estoy bien</strong>.</div>
+                    </div>
+                </div>
+
+                <div class="score-box">
+                    <div class="num" id="score3">0/5</div>
+                    <div class="label">Paso 3</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 4: Consejos Prácticos -->
+        <div class="step-card" id="step4">
+            <div class="step-header">
+                <span class="step-icon">💡</span>
+                <span class="step-title">Paso 4: Consejos Prácticos</span>
+            </div>
+
+            <div class="tip-box blue">
+                <strong>🎯 Vocabulario clave - 10 palabras:</strong>
+            </div>
+
+            <table class="vocab-table">
+                <tr>
+                    <th>Inglés</th>
+                    <th>Pronunciación</th>
+                    <th>Español</th>
+                </tr>
+                <tr>
+                    <td class="word-en">How</td>
+                    <td class="word-pron">/jáu/</td>
+                    <td>Cómo</td>
+                </tr>
+                <tr>
+                    <td class="word-en">Are</td>
+                    <td class="word-pron">/ar/</td>
+                    <td>Estás/Eres</td>
+                </tr>
+                <tr>
+                    <td class="word-en">You</td>
+                    <td class="word-pron">/yú/</td>
+                    <td>Tú</td>
+                </tr>
+                <tr>
+                    <td class="word-en">I'm</td>
+                    <td class="word-pron">/áim/</td>
+                    <td>Yo estoy/soy</td>
+                </tr>
+                <tr>
+                    <td class="word-en">Fine</td>
+                    <td class="word-pron">/fáin/</td>
+                    <td>Bien</td>
+                </tr>
+                <tr>
+                    <td class="word-en">Great</td>
+                    <td class="word-pron">/gréit/</td>
+                    <td>Muy bien</td>
+                </tr>
+                <tr>
+                    <td class="word-en">Okay</td>
+                    <td class="word-pron">/okéi/</td>
+                    <td>Regular</td>
+                </tr>
+                <tr>
+                    <td class="word-en">Good</td>
+                    <td class="word-pron">/gud/</td>
+                    <td>Bien (casual)</td>
+                </tr>
+                <tr>
+                    <td class="word-en">Thank you</td>
+                    <td class="word-pron">/zénk yú/</td>
+                    <td>Gracias</td>
+                </tr>
+                <tr>
+                    <td class="word-en">And</td>
+                    <td class="word-pron">/and/</td>
+                    <td>Y</td>
+                </tr>
+            </table>
+
+            <div class="mood-grid">
+                <div class="mood-card great">
+                    <div class="icon">😄</div>
+                    <div class="word-en">I'm great!</div>
+                    <div class="word-es">¡Muy bien!</div>
+                </div>
+                <div class="mood-card fine">
+                    <div class="icon">🙂</div>
+                    <div class="word-en">I'm fine</div>
+                    <div class="word-es">Bien</div>
+                </div>
+                <div class="mood-card good">
+                    <div class="icon">😊</div>
+                    <div class="word-en">I'm good</div>
+                    <div class="word-es">Bien (casual)</div>
+                </div>
+                <div class="mood-card okay">
+                    <div class="icon">😐</div>
+                    <div class="word-en">I'm okay</div>
+                    <div class="word-es">Regular</div>
+                </div>
+            </div>
+
+            <div class="dialogue-box">
+                <div class="speaker">👩 Sophie:</div>
+                <div class="line">"Hi Emma! How are you?"</div>
+                <div class="speaker">👧 Emma:</div>
+                <div class="line">"I'm fine, thank you. And you?"</div>
+                <div class="speaker">👩 Sophie:</div>
+                <div class="line">"I'm great, thanks!"</div>
+            </div>
+
+            <div class="tip-box">
+                <strong>📝 Respuesta completa:</strong><br>
+                I'm [fine/great/okay], thank you. And you?
+            </div>
+
+            <div class="exercise-section">
+                <h3>✏️ Ejercicios</h3>
+
+                <div class="exercise" id="ex4-1">
+                    <div class="exercise-q">1. ¿Cómo se pronuncia "How"?</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex4-1','a','a')">a) /jáu/</button>
+                        <button class="opt-btn" onclick="check('ex4-1','b','a')">b) /jou/</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex4-1">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">How = <strong>/jáu/</strong>.</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex4-1">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">How se pronuncia <strong>/jáu/</strong>.</div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex4-2">
+                    <div class="exercise-q">2. Si estás muy feliz, dices:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex4-2','a','a')">a) I'm great!</button>
+                        <button class="opt-btn" onclick="check('ex4-2','b','a')">b) I'm okay</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex4-2">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">Muy feliz = <strong>I'm great!</strong></div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex4-2">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">Okay = regular. Muy feliz = <strong>I'm great!</strong></div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex4-3">
+                    <div class="exercise-q">3. Para devolver la pregunta dices:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex4-3','a','a')">a) And you?</button>
+                        <button class="opt-btn" onclick="check('ex4-3','b','a')">b) I'm fine</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex4-3">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation"><strong>And you?</strong> = ¿Y tú?</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex4-3">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">"I'm fine" es tu respuesta. Para preguntar: <strong>And you?</strong></div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex4-4">
+                    <div class="exercise-q">4. "I'm" es la contracción de:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex4-4','a','a')">a) I am</button>
+                        <button class="opt-btn" onclick="check('ex4-4','b','a')">b) I will</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex4-4">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">I'm = <strong>I am</strong> = Yo soy/estoy.</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex4-4">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">I'm = <strong>I am</strong>. I will = I'll.</div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex4-5">
+                    <div class="exercise-q">5. Completa: "_____ are you?"</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex4-5','a','a')">a) How</button>
+                        <button class="opt-btn" onclick="check('ex4-5','b','a')">b) What</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex4-5">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation"><strong>How</strong> are you? = ¿Cómo estás?</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex4-5">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">"What are you?" sería "¿Qué eres?". La pregunta es <strong>How</strong> are you?</div>
+                    </div>
+                </div>
+
+                <div class="score-box">
+                    <div class="num" id="score4">0/5</div>
+                    <div class="label">Paso 4</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 5: Práctica Final -->
+        <div class="step-card" id="step5">
+            <div class="step-header">
+                <span class="step-icon">✨</span>
+                <span class="step-title">Paso 5: Práctica Final</span>
+            </div>
+
+            <div class="dialogue-box">
+                <div class="speaker">Conversación completa:</div>
+                <div class="line"><strong>A:</strong> Hello! How are you?</div>
+                <div class="line"><strong>B:</strong> I'm fine, thank you. And you?</div>
+                <div class="line"><strong>A:</strong> I'm great, thanks!</div>
+            </div>
+
+            <div class="mood-grid">
+                <div class="mood-card great">
+                    <div class="icon">😄</div>
+                    <div class="word-en">Great</div>
+                    <div class="word-es">Muy bien</div>
+                </div>
+                <div class="mood-card fine">
+                    <div class="icon">🙂</div>
+                    <div class="word-en">Fine</div>
+                    <div class="word-es">Bien</div>
+                </div>
+                <div class="mood-card good">
+                    <div class="icon">😊</div>
+                    <div class="word-en">Good</div>
+                    <div class="word-es">Bien</div>
+                </div>
+                <div class="mood-card okay">
+                    <div class="icon">😐</div>
+                    <div class="word-en">Okay</div>
+                    <div class="word-es">Regular</div>
+                </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3>✏️ Práctica Final</h3>
+
+                <div class="exercise" id="ex5-1">
+                    <div class="exercise-q">1. Tu amigo te saluda: "Hi! How are you?" Respondes:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex5-1','a','a')">a) I'm fine, thank you. And you?</button>
+                        <button class="opt-btn" onclick="check('ex5-1','b','a')">b) My name is...</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex5-1">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">Respuesta completa: <strong>I'm fine, thank you. And you?</strong></div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex5-1">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">"My name is..." es para presentarte. La respuesta correcta es <strong>I'm fine, thank you.</strong></div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex5-2">
+                    <div class="exercise-q">2. "_____ are you today?"</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex5-2','a','a')">a) How</button>
+                        <button class="opt-btn" onclick="check('ex5-2','b','a')">b) Where</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex5-2">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation"><strong>How</strong> are you today? = ¿Cómo estás hoy?</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex5-2">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">Where = Dónde. La pregunta es <strong>How</strong> are you?</div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex5-3">
+                    <div class="exercise-q">3. Estás excelente. Dices:</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex5-3','a','a')">a) I'm great!</button>
+                        <button class="opt-btn" onclick="check('ex5-3','b','a')">b) I'm okay</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex5-3">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">Excelente = <strong>I'm great!</strong></div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex5-3">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">Okay = regular. Excelente = <strong>I'm great!</strong></div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex5-4">
+                    <div class="exercise-q">4. "I'm _____, thank you." (Estoy bien)</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex5-4','a','a')">a) fine</button>
+                        <button class="opt-btn" onclick="check('ex5-4','b','a')">b) how</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex5-4">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation">I'm <strong>fine</strong> = Estoy bien.</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex5-4">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">How = Cómo (pregunta). Fine = <strong>Bien</strong>.</div>
+                    </div>
+                </div>
+
+                <div class="exercise" id="ex5-5">
+                    <div class="exercise-q">5. Para devolver la pregunta: "_____ you?"</div>
+                    <div class="opts">
+                        <button class="opt-btn" onclick="check('ex5-5','a','a')">a) And</button>
+                        <button class="opt-btn" onclick="check('ex5-5','b','a')">b) How</button>
+                    </div>
+                    <div class="feedback correct-fb" id="fb-ex5-5">
+                        <div class="result">✅ ¡Correcto!</div>
+                        <div class="explanation"><strong>And</strong> you? = ¿Y tú?</div>
+                    </div>
+                    <div class="feedback incorrect-fb" id="fbi-ex5-5">
+                        <div class="result">❌ Incorrecto</div>
+                        <div class="explanation">"How you?" no es correcto. Es <strong>And</strong> you?</div>
+                    </div>
+                </div>
+
+                <div class="score-box">
+                    <div class="num" id="score5">0/5</div>
+                    <div class="label">Paso 5</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 15px; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 12px;">
+                <h3 style="color: #1565C0; font-size: 0.95rem; margin-bottom: 10px;">🎓 Resumen Final</h3>
+                <ul class="summary-list">
+                    <li><strong>How are you?</strong> = ¿Cómo estás?</li>
+                    <li><strong>I'm fine</strong> = Estoy bien</li>
+                    <li><strong>I'm great</strong> = Estoy muy bien</li>
+                    <li><strong>I'm okay</strong> = Estoy regular</li>
+                    <li><strong>I'm good</strong> = Estoy bien (casual)</li>
+                    <li><strong>Thank you / Thanks</strong> = Gracias</li>
+                    <li><strong>And you?</strong> = ¿Y tú?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <button class="nav-btn prev" id="prevBtn" onclick="prevStep()" disabled>← Anterior</button>
+            <span class="step-ind"><span id="currentStep">1</span>/5</span>
+            <button class="nav-btn next" id="nextBtn" onclick="nextStep()">Siguiente →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 5;
+        const scores = {1:0, 2:0, 3:0, 4:0, 5:0};
+        const answered = {};
+
+        function goToStep(step) {
+            if (step < 1 || step > totalSteps) return;
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            document.querySelectorAll('.step-dot')[currentStep-1].classList.remove('active');
+            if (step > currentStep) {
+                document.querySelectorAll('.step-dot')[currentStep-1].classList.add('completed');
+            }
+            currentStep = step;
+            document.getElementById(`step${currentStep}`).classList.add('active');
+            document.querySelectorAll('.step-dot')[currentStep-1].classList.add('active');
+            updateNav();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function nextStep() { if (currentStep < totalSteps) goToStep(currentStep + 1); }
+        function prevStep() { if (currentStep > 1) goToStep(currentStep - 1); }
+
+        function updateNav() {
+            document.getElementById('currentStep').textContent = currentStep;
+            document.getElementById('prevBtn').disabled = currentStep === 1;
+            document.getElementById('nextBtn').disabled = currentStep === totalSteps;
+            document.getElementById('nextBtn').textContent = currentStep === totalSteps ? '✓ Fin' : 'Siguiente →';
+        }
+
+        function check(id, sel, correct) {
+            if (answered[id]) return;
+            answered[id] = true;
+            const ex = document.getElementById(id);
+            const btns = ex.querySelectorAll('.opt-btn');
+            const fbCorrect = document.getElementById(`fb-${id}`);
+            const fbIncorrect = document.getElementById(`fbi-${id}`);
+            btns.forEach(b => b.disabled = true);
+            const stepNum = parseInt(id.split('-')[0].replace('ex',''));
+            if (sel === correct) {
+                ex.classList.add('correct');
+                btns.forEach(b => { if (b.textContent.startsWith(sel+')')) b.classList.add('sel-correct'); });
+                fbCorrect.classList.add('show');
+                scores[stepNum]++;
+            } else {
+                ex.classList.add('incorrect');
+                btns.forEach(b => {
+                    if (b.textContent.startsWith(sel+')')) b.classList.add('sel-wrong');
+                    if (b.textContent.startsWith(correct+')')) b.classList.add('show-correct');
+                });
+                fbIncorrect.classList.add('show');
+            }
+            document.getElementById(`score${stepNum}`).textContent = `${scores[stepNum]}/5`;
+        }
+
+        updateNav();
+    </script>
+</body>
+</html>
