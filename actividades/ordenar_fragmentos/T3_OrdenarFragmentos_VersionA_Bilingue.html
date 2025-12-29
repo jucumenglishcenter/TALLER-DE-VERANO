@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenar Fragmentos | Tema 3: Despedidas | Versión A</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); min-height: 100vh; padding: 15px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4); }
+        .header h1 { color: white; font-size: 1.4rem; margin-bottom: 5px; }
+        .header .subtitle { color: rgba(255,255,255,0.9); font-size: 0.95rem; margin-bottom: 10px; }
+        .header .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: white; margin: 3px; }
+        .level-indicator { display: inline-block; background: #FF9800; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: white; margin: 3px; font-weight: 700; transition: all 0.3s ease; }
+        .level-indicator.level-2 { background: #E53935; animation: pulse 1s ease-in-out; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        .instructions { background: white; border-radius: 12px; padding: 15px; margin-bottom: 20px; border-left: 4px solid #1976D2; }
+        .instructions h3 { color: #1565C0; font-size: 0.95rem; margin-bottom: 8px; }
+        .instructions p, .instructions ol { color: #555; font-size: 0.85rem; line-height: 1.5; }
+        .instructions ol { margin-left: 20px; }
+        .instructions li { margin: 5px 0; }
+        .level-control { display: flex; justify-content: center; margin-bottom: 20px; gap: 10px; }
+        .btn-level { padding: 12px 28px; border: none; border-radius: 25px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
+        .btn-level-up { background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%); color: white; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4); }
+        .btn-level-up:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255, 152, 0, 0.5); }
+        .btn-level-down { background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%); color: white; box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4); display: none; }
+        .btn-level-down:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(76, 175, 80, 0.5); }
+        .btn-level-down.show { display: flex; }
+        .btn-level-up.hide { display: none; }
+        .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; transition: all 0.5s ease; }
+        .main-layout.full-width { grid-template-columns: 1fr; }
+        @media (max-width: 1000px) { .main-layout { grid-template-columns: 1fr; } }
+        .panel { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: all 0.5s ease; }
+        .panel-header { padding: 15px; color: white; font-weight: 600; font-size: 1rem; display: flex; align-items: center; gap: 10px; }
+        .panel-left .panel-header { background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); }
+        .panel-right .panel-header { background: linear-gradient(135deg, #43A047 0%, #388E3C 100%); }
+        .panel-content { padding: 20px; }
+        .panel-right.hidden { display: none; }
+        .fragment-item { background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); border: 2px solid #1976D2; border-radius: 10px; padding: 12px 15px; margin-bottom: 10px; cursor: grab; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px; }
+        .fragment-item:hover { transform: translateX(5px); box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3); }
+        .fragment-item.dragging { opacity: 0.5; cursor: grabbing; }
+        .fragment-item.correct { background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%); border-color: #43A047; }
+        .fragment-item.incorrect { background: linear-gradient(135deg, #FFCDD2 0%, #EF9A9A 100%); border-color: #E53935; }
+        .fragment-number { background: #1976D2; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+        .fragment-item.correct .fragment-number { background: #43A047; }
+        .fragment-item.incorrect .fragment-number { background: #E53935; }
+        .fragment-text { font-size: 0.9rem; color: #333; line-height: 1.4; }
+        .drop-zone { min-height: 400px; border: 2px dashed #BDBDBD; border-radius: 12px; padding: 15px; background: #FAFAFA; }
+        .drop-zone.drag-over { border-color: #1976D2; background: #E3F2FD; }
+        .drop-placeholder { text-align: center; color: #9E9E9E; padding: 20px; font-size: 0.9rem; }
+        .story-section { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px dashed #e0e0e0; }
+        .story-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .story-section-header { background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 8px 12px; border-radius: 8px; margin-bottom: 10px; font-weight: 600; font-size: 0.85rem; color: #2E7D32; }
+        .story-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; }
+        .story-es { background: #F5F5F5; padding: 10px; border-radius: 8px; font-size: 0.85rem; color: #555; border-left: 3px solid #9E9E9E; }
+        .story-en { background: #E3F2FD; padding: 10px; border-radius: 8px; font-size: 0.85rem; color: #1565C0; border-left: 3px solid #1976D2; font-weight: 500; }
+        .story-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; font-weight: 600; }
+        .story-es .story-label { color: #757575; }
+        .story-en .story-label { color: #1976D2; }
+        .button-row { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+        .btn { padding: 12px 24px; border: none; border-radius: 25px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+        .btn-primary { background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); color: white; }
+        .btn-secondary { background: #E0E0E0; color: #666; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .result-box { margin-top: 15px; padding: 15px; border-radius: 10px; text-align: center; display: none; }
+        .result-box.show { display: block; }
+        .result-box.success { background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%); border: 2px solid #43A047; color: #2E7D32; }
+        .result-box.partial { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border: 2px solid #FF9800; color: #E65100; }
+        .result-box h3 { font-size: 1.1rem; margin-bottom: 5px; }
+        .result-box p { font-size: 0.9rem; }
+        .source-pool { margin-bottom: 20px; }
+        .source-pool-title { font-size: 0.85rem; color: #666; margin-bottom: 10px; font-weight: 600; }
+        .challenge-banner { background: linear-gradient(135deg, #E53935 0%, #C62828 100%); color: white; padding: 12px 20px; border-radius: 10px; margin-bottom: 15px; text-align: center; display: none; animation: slideDown 0.5s ease; }
+        .challenge-banner.show { display: block; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .challenge-banner h4 { font-size: 1rem; margin-bottom: 3px; }
+        .challenge-banner p { font-size: 0.85rem; opacity: 0.9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✏️ Ejercicio: Ordenar Fragmentos</h1>
+            <div class="subtitle">Story 1: The New Student - Parte 3</div>
+            <div>
+                <span class="badge">📘 Módulo 1</span>
+                <span class="badge">🎯 Tema 3: Despedidas</span>
+                <span class="badge">📝 Versión A: Bilingüe</span>
+                <span class="level-indicator" id="levelIndicator">⭐ Nivel 1</span>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 Instrucciones</h3>
+            <ol>
+                <li><strong>Lee el cuento</strong> en el panel derecho (español e inglés en paralelo)</li>
+                <li><strong>Arrastra los fragmentos</strong> en inglés del panel izquierdo</li>
+                <li><strong>Ordénalos</strong> según aparecen en la historia</li>
+                <li><strong>Verifica</strong> tu respuesta cuando termines</li>
+            </ol>
+            <p style="margin-top: 10px;"><strong>💡 Tip:</strong> Usa el cuento en español como guía para entender el orden correcto.</p>
+        </div>
+
+        <div class="level-control">
+            <button class="btn-level btn-level-up" id="btnLevelUp" onclick="levelUp()">🚀 Subir Nivel - ¡Ocultar el cuento!</button>
+            <button class="btn-level btn-level-down" id="btnLevelDown" onclick="levelDown()">📖 Volver al Nivel 1 - Mostrar cuento</button>
+        </div>
+
+        <div class="main-layout" id="mainLayout">
+            <div class="panel panel-left">
+                <div class="panel-header">✏️ Actividad: Ordena los fragmentos en inglés</div>
+                <div class="panel-content">
+                    <div class="challenge-banner" id="challengeBanner">
+                        <h4>🔥 ¡MODO DESAFÍO ACTIVADO!</h4>
+                        <p>Ordena los fragmentos usando solo tu memoria</p>
+                    </div>
+
+                    <div class="source-pool">
+                        <div class="source-pool-title">📦 Fragmentos desordenados:</div>
+                        <div id="sourcePool">
+                            <div class="fragment-item" draggable="true" data-order="3">
+                                <div class="fragment-number">?</div>
+                                <div class="fragment-text">"Bye, Emma! See you tomorrow!"</div>
+                            </div>
+                            <div class="fragment-item" draggable="true" data-order="6">
+                                <div class="fragment-number">?</div>
+                                <div class="fragment-text">"Good night, Lucas! See you tomorrow!"</div>
+                            </div>
+                            <div class="fragment-item" draggable="true" data-order="1">
+                                <div class="fragment-number">?</div>
+                                <div class="fragment-text">"Goodbye, Mrs. Johnson! See you later!"</div>
+                            </div>
+                            <div class="fragment-item" draggable="true" data-order="4">
+                                <div class="fragment-number">?</div>
+                                <div class="fragment-text">"Take care, Emma! See you soon!"</div>
+                            </div>
+                            <div class="fragment-item" draggable="true" data-order="2">
+                                <div class="fragment-number">?</div>
+                                <div class="fragment-text">"Goodbye, Emma! It was nice to meet you! Take care!"</div>
+                            </div>
+                            <div class="fragment-item" draggable="true" data-order="5">
+                                <div class="fragment-number">?</div>
+                                <div class="fragment-text">"Good night, Emma! Sleep well!"</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="source-pool-title">📥 Suelta aquí en orden (1° arriba → último abajo):</div>
+                    <div class="drop-zone" id="dropZone">
+                        <div class="drop-placeholder">Arrastra los fragmentos aquí en el orden correcto</div>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn btn-primary" onclick="checkOrder()">✓ Verificar orden</button>
+                        <button class="btn btn-secondary" onclick="resetActivity()">↺ Reiniciar</button>
+                    </div>
+
+                    <div class="result-box" id="resultBox">
+                        <h3 id="resultTitle"></h3>
+                        <p id="resultText"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-right" id="storyPanel">
+                <div class="panel-header">📖 Cuento: Fin del día (Español | English)</div>
+                <div class="panel-content">
+                    <div class="story-section">
+                        <div class="story-section-header">🏫 Escena 1: Despedida en el salón</div>
+                        <div class="story-row">
+                            <div class="story-es"><div class="story-label">Español</div>Es el final del día escolar. La campana suena. Emma recoge sus cosas.</div>
+                            <div class="story-en"><div class="story-label">English</div>It's the end of the school day. The bell rings. Emma picks up her things.</div>
+                        </div>
+                        <div class="story-row">
+                            <div class="story-es"><div class="story-label">Español</div><strong>Emma:</strong> "¡Adiós, Mrs. Johnson! ¡Nos vemos luego!"</div>
+                            <div class="story-en"><div class="story-label">English</div><strong>Emma:</strong> "Goodbye, Mrs. Johnson! See you later!"</div>
+                        </div>
+                        <div class="story-row">
+                            <div class="story-es"><div class="story-label">Español</div><strong>Mrs. Johnson:</strong> "¡Adiós, Emma! ¡Fue un placer conocerte! ¡Cuídate!"</div>
+                            <div class="story-en"><div class="story-label">English</div><strong>Mrs. Johnson:</strong> "Goodbye, Emma! It was nice to meet you! Take care!"</div>
+                        </div>
+                    </div>
+
+                    <div class="story-section">
+                        <div class="story-section-header">👋 Escena 2: Despedida con amigos</div>
+                        <div class="story-row">
+                            <div class="story-es"><div class="story-label">Español</div>Emma ve a Sophie y Tom en la puerta de la escuela.</div>
+                            <div class="story-en"><div class="story-label">English</div>Emma sees Sophie and Tom at the school door.</div>
+                        </div>
+                        <div class="story-row">
+                            <div class="story-es"><div class="story-label">Español</div><strong>Sophie:</strong> "¡Adiós, Emma! ¡Nos vemos mañana!"</div>
+                            <div class="story-en"><div class="story-label">English</div><strong>Sophie:</strong> "Bye, Emma! See you tomorrow!"</div>
+                        </div>
+                        <div class="story-row">
+                            <div class="story-es"><div class="story-label">Español</div><strong>Tom:</strong> "¡Cuídate, Emma! ¡Nos vemos pronto!"</div>
+                            <div class="story-en"><div class="story-label">English</div><strong>Tom:</strong> "Take care, Emma! See you soon!"</div>
+                        </div>
+                    </div>
+
+                    <div class="story-section">
+                        <div class="story-section-header">🌙 Escena 3: Buenas noches en casa</div>
+                        <div class="story-row">
+                            <div class="story-es"><div class="story-label">Español</div>En la noche, Emma está en su casa. Es hora de dormir.</div>
+                            <div class="story-en"><div class="story-label">English</div>At night, Emma is at home. It's time to sleep.</div>
+                        </div>
+                        <div class="story-row">
+                            <div class="story-es"><div class="story-label">Español</div><strong>Lucas:</strong> "¡Buenas noches, Emma! ¡Duerme bien!"</div>
+                            <div class="story-en"><div class="story-label">English</div><strong>Lucas:</strong> "Good night, Emma! Sleep well!"</div>
+                        </div>
+                        <div class="story-row">
+                            <div class="story-es"><div class="story-label">Español</div><strong>Emma:</strong> "¡Buenas noches, Lucas! ¡Nos vemos mañana!"</div>
+                            <div class="story-en"><div class="story-label">English</div><strong>Emma:</strong> "Good night, Lucas! See you tomorrow!"</div>
+                        </div>
+                        <div class="story-row">
+                            <div class="story-es"><div class="story-label">Español</div>Emma sonríe. Fue un gran día. Tiene nuevos amigos y una nueva escuela.</div>
+                            <div class="story-en"><div class="story-label">English</div>Emma smiles. It was a great day. She has new friends and a new school.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let draggedItem = null;
+        let currentLevel = 1;
+
+        document.querySelectorAll('.fragment-item').forEach(item => {
+            item.addEventListener('dragstart', handleDragStart);
+            item.addEventListener('dragend', handleDragEnd);
+        });
+
+        const dropZone = document.getElementById('dropZone');
+        dropZone.addEventListener('dragover', handleDragOver);
+        dropZone.addEventListener('dragleave', handleDragLeave);
+        dropZone.addEventListener('drop', handleDrop);
+
+        function handleDragStart(e) { draggedItem = this; this.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; }
+        function handleDragEnd(e) { this.classList.remove('dragging'); draggedItem = null; }
+        function handleDragOver(e) {
+            e.preventDefault(); this.classList.add('drag-over');
+            const afterElement = getDragAfterElement(this, e.clientY);
+            if (afterElement == null) { this.appendChild(draggedItem); } else { this.insertBefore(draggedItem, afterElement); }
+        }
+        function handleDragLeave(e) { this.classList.remove('drag-over'); }
+        function handleDrop(e) {
+            e.preventDefault(); this.classList.remove('drag-over');
+            const placeholder = this.querySelector('.drop-placeholder'); if (placeholder) placeholder.remove();
+            updateNumbers();
+        }
+
+        function getDragAfterElement(container, y) {
+            const draggableElements = [...container.querySelectorAll('.fragment-item:not(.dragging)')];
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) { return { offset: offset, element: child }; }
+                else { return closest; }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+
+        function updateNumbers() {
+            const items = dropZone.querySelectorAll('.fragment-item');
+            items.forEach((item, index) => { item.querySelector('.fragment-number').textContent = index + 1; });
+        }
+
+        function checkOrder() {
+            const items = dropZone.querySelectorAll('.fragment-item');
+            if (items.length === 0) { alert('¡Arrastra los fragmentos al área de respuesta primero!'); return; }
+            if (items.length < 6) { alert('¡Faltan fragmentos! Asegúrate de ordenar todos.'); return; }
+
+            let correct = 0;
+            items.forEach((item, index) => {
+                const expectedOrder = index + 1;
+                const actualOrder = parseInt(item.dataset.order);
+                item.classList.remove('correct', 'incorrect');
+                if (actualOrder === expectedOrder) { item.classList.add('correct'); correct++; }
+                else { item.classList.add('incorrect'); }
+            });
+
+            const resultBox = document.getElementById('resultBox');
+            resultBox.classList.remove('success', 'partial');
+            resultBox.classList.add('show');
+
+            if (correct === 6) {
+                resultBox.classList.add('success');
+                document.getElementById('resultTitle').textContent = currentLevel === 2 ? '🏆 ¡INCREÍBLE!' : '🎉 ¡Excelente!';
+                document.getElementById('resultText').textContent = currentLevel === 2 ? '¡Completaste el Nivel 2 sin ayuda! ¡Eres un experto!' : '¡Ordenaste todos los fragmentos correctamente! ¿Te atreves a subir de nivel?';
+            } else {
+                resultBox.classList.add('partial');
+                document.getElementById('resultTitle').textContent = '💪 ¡Sigue intentando!';
+                document.getElementById('resultText').textContent = 'Tienes ' + correct + ' de 6 correctos. Los verdes están bien, revisa los rojos.';
+            }
+        }
+
+        function resetActivity() {
+            const sourcePool = document.getElementById('sourcePool');
+            const items = dropZone.querySelectorAll('.fragment-item');
+            items.forEach(item => { item.classList.remove('correct', 'incorrect'); item.querySelector('.fragment-number').textContent = '?'; sourcePool.appendChild(item); });
+            dropZone.innerHTML = '<div class="drop-placeholder">Arrastra los fragmentos aquí en el orden correcto</div>';
+            document.getElementById('resultBox').classList.remove('show');
+            const shuffledItems = [...sourcePool.querySelectorAll('.fragment-item')].sort(() => Math.random() - 0.5);
+            shuffledItems.forEach(item => sourcePool.appendChild(item));
+        }
+
+        function levelUp() {
+            currentLevel = 2;
+            document.getElementById('storyPanel').classList.add('hidden');
+            document.getElementById('mainLayout').classList.add('full-width');
+            document.getElementById('challengeBanner').classList.add('show');
+            document.getElementById('levelIndicator').textContent = '🔥 Nivel 2';
+            document.getElementById('levelIndicator').classList.add('level-2');
+            document.getElementById('btnLevelUp').classList.add('hide');
+            document.getElementById('btnLevelDown').classList.add('show');
+        }
+
+        function levelDown() {
+            currentLevel = 1;
+            document.getElementById('storyPanel').classList.remove('hidden');
+            document.getElementById('mainLayout').classList.remove('full-width');
+            document.getElementById('challengeBanner').classList.remove('show');
+            document.getElementById('levelIndicator').textContent = '⭐ Nivel 1';
+            document.getElementById('levelIndicator').classList.remove('level-2');
+            document.getElementById('btnLevelUp').classList.remove('hide');
+            document.getElementById('btnLevelDown').classList.remove('show');
+        }
+    </script>
+</body>
+</html>
