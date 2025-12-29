@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprensión Auditiva | Tema 4: Mi Rutina Diaria</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%); border-radius: 20px; padding: 25px; text-align: center; margin-bottom: 20px; color: white; box-shadow: 0 8px 30px rgba(255, 152, 0, 0.3); }
+        .header h1 { font-size: 1.8rem; margin-bottom: 8px; }
+        .header-info { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 10px; }
+        .badge { background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; }
+        .instructions { background: white; border-radius: 16px; padding: 20px; margin-bottom: 20px; border-left: 4px solid #FF9800; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .instructions h3 { color: #F57C00; margin-bottom: 10px; }
+        .instructions ul { margin-left: 20px; color: #555; }
+        .instructions li { margin: 8px 0; }
+        .speed-control { background: white; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
+        .speed-control h3 { color: #F57C00; margin-bottom: 15px; }
+        .speed-buttons { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .speed-btn { padding: 12px 24px; border: 2px solid #FF9800; background: white; color: #FF9800; border-radius: 25px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .speed-btn:hover { background: #FFF3E0; }
+        .speed-btn.active { background: #FF9800; color: white; }
+        .score-panel { background: white; border-radius: 12px; padding: 15px 25px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); flex-wrap: wrap; gap: 10px; }
+        .score-item { text-align: center; flex: 1; min-width: 80px; }
+        .score-item .label { font-size: 0.7rem; color: #888; text-transform: uppercase; }
+        .score-item .value { font-size: 1.3rem; font-weight: 700; color: #FF9800; }
+        .score-item .value.correct { color: #4CAF50; }
+        .score-item .value.incorrect { color: #f44336; }
+        .level-section { margin-bottom: 30px; }
+        .level-header { padding: 15px 20px; border-radius: 15px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .level-header.easy { background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); border-left: 5px solid #4CAF50; }
+        .level-header.medium { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border-left: 5px solid #FF9800; }
+        .level-header.hard { background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%); border-left: 5px solid #f44336; }
+        .level-header .icon { font-size: 1.5rem; }
+        .level-header .title { font-size: 1.1rem; font-weight: 700; }
+        .level-header.easy .title { color: #2E7D32; }
+        .level-header.medium .title { color: #E65100; }
+        .level-header.hard .title { color: #C62828; }
+        .level-header .subtitle { font-size: 0.85rem; color: #666; margin-left: auto; }
+        .audio-card { background: white; border-radius: 20px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .audio-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #FFE0B2; }
+        .audio-number { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 700; color: white; }
+        .audio-number.easy { background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%); }
+        .audio-number.medium { background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%); }
+        .audio-number.hard { background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%); }
+        .audio-title { flex: 1; }
+        .audio-title h3 { color: #333; font-size: 1rem; }
+        .audio-title p { color: #888; font-size: 0.8rem; margin-top: 3px; }
+        .audio-player { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border-radius: 15px; padding: 20px; margin-bottom: 20px; text-align: center; }
+        .play-btn { width: 70px; height: 70px; border-radius: 50%; border: none; background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%); color: white; font-size: 1.8rem; cursor: pointer; box-shadow: 0 4px 20px rgba(255, 152, 0, 0.4); transition: all 0.3s; margin: 0 auto; }
+        .play-btn:hover { transform: scale(1.1); }
+        .play-btn.playing { background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%); }
+        .text-container { margin-top: 15px; display: none; }
+        .text-container.show { display: block; }
+        .audio-text { padding: 15px; background: rgba(255,255,255,0.95); border-radius: 10px; text-align: left; border-left: 4px solid #FF9800; }
+        .audio-text p { color: #333; line-height: 1.7; font-size: 0.9rem; }
+        .audio-text .label { font-size: 0.7rem; color: #FF9800; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; }
+        .spanish-text { margin-top: 10px; padding: 15px; background: #E3F2FD; border-radius: 10px; text-align: left; border-left: 4px solid #1976D2; display: none; }
+        .spanish-text.show { display: block; }
+        .spanish-text p { color: #1565C0; line-height: 1.7; font-size: 0.9rem; }
+        .spanish-text .label { font-size: 0.7rem; color: #1976D2; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; }
+        .text-buttons { margin-top: 15px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .text-btn { padding: 8px 16px; border: 2px solid #FF9800; background: white; color: #FF9800; border-radius: 20px; font-size: 0.8rem; cursor: pointer; transition: all 0.3s; }
+        .text-btn:hover { background: #FFF3E0; }
+        .text-btn.active { background: #FF9800; color: white; }
+        .text-btn.spanish { border-color: #1976D2; color: #1976D2; }
+        .text-btn.spanish:hover { background: #E3F2FD; }
+        .text-btn.spanish.active { background: #1976D2; color: white; }
+        .question-section { margin-top: 15px; }
+        .question-section h4 { color: #F57C00; margin-bottom: 12px; font-size: 0.95rem; }
+        .question-text { background: #F5F5F5; padding: 12px 15px; border-radius: 10px; margin-bottom: 12px; font-size: 0.95rem; color: #333; }
+        .options-container { display: flex; flex-direction: column; gap: 8px; }
+        .option { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #FAFAFA; border: 2px solid #E0E0E0; border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+        .option:hover:not(.disabled) { border-color: #FF9800; background: #FFF3E0; }
+        .option.correct { border-color: #4CAF50; background: #E8F5E9; }
+        .option.incorrect { border-color: #f44336; background: #FFEBEE; }
+        .option.show-correct { border-color: #4CAF50; background: #E8F5E9; }
+        .option.disabled { pointer-events: none; }
+        .option-letter { width: 28px; height: 28px; background: #E0E0E0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; color: #666; }
+        .option.correct .option-letter, .option.show-correct .option-letter { background: #4CAF50; color: white; }
+        .option.incorrect .option-letter { background: #f44336; color: white; }
+        .option-text { flex: 1; color: #333; font-size: 0.9rem; }
+        .feedback { margin-top: 12px; padding: 12px; border-radius: 8px; display: none; font-size: 0.85rem; }
+        .feedback.show { display: block; }
+        .feedback.correct { background: #E8F5E9; border: 1px solid #A5D6A7; color: #2E7D32; }
+        .feedback.incorrect { background: #FFEBEE; border: 1px solid #EF9A9A; color: #C62828; }
+        .results-panel { display: none; background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%); border-radius: 20px; padding: 30px; text-align: center; color: white; margin-top: 20px; }
+        .results-panel.show { display: block; }
+        .results-panel .trophy { font-size: 4rem; margin-bottom: 15px; }
+        .results-panel h2 { font-size: 1.8rem; margin-bottom: 10px; }
+        .results-score { font-size: 3rem; font-weight: 700; margin: 15px 0; }
+        .results-breakdown { display: flex; justify-content: center; gap: 20px; margin: 20px 0; flex-wrap: wrap; }
+        .breakdown-item { background: rgba(255,255,255,0.2); padding: 15px 25px; border-radius: 15px; text-align: center; }
+        .breakdown-item .level-name { font-size: 0.8rem; opacity: 0.9; margin-bottom: 5px; }
+        .breakdown-item .level-score { font-size: 1.5rem; font-weight: 700; }
+        .results-message { font-size: 1rem; opacity: 0.9; margin-top: 15px; }
+        .btn-retry { margin-top: 20px; padding: 15px 40px; background: white; color: #FF9800; border: none; border-radius: 30px; font-size: 1rem; font-weight: 600; cursor: pointer; }
+        .btn-retry:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎧 Comprensión Auditiva</h1>
+            <div class="header-info">
+                <span class="badge">📙 Módulo 2</span>
+                <span class="badge">🎯 Tema 4: Mi Rutina Diaria</span>
+                <span class="badge">🔊 10 Audios</span>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 Instrucciones</h3>
+            <ul>
+                <li>Escucha cada audio presionando el botón ▶️</li>
+                <li>Puedes escuchar las veces que necesites</li>
+                <li>Ajusta la velocidad si necesitas escuchar más lento</li>
+                <li>Si necesitas ayuda, puedes ver el texto en inglés y en español</li>
+            </ul>
+        </div>
+        
+        <div class="speed-control">
+            <h3>🎚️ Velocidad del Audio</h3>
+            <div class="speed-buttons">
+                <button class="speed-btn" onclick="setSpeed(0.6)" data-speed="0.6">🐢 Muy Lento</button>
+                <button class="speed-btn" onclick="setSpeed(0.8)" data-speed="0.8">🚶 Lento</button>
+                <button class="speed-btn active" onclick="setSpeed(1)" data-speed="1">🏃 Normal</button>
+            </div>
+        </div>
+        
+        <div class="score-panel">
+            <div class="score-item"><div class="label">Respondidas</div><div class="value" id="answeredCount">0/10</div></div>
+            <div class="score-item"><div class="label">Correctas</div><div class="value correct" id="correctCount">0</div></div>
+            <div class="score-item"><div class="label">Incorrectas</div><div class="value incorrect" id="incorrectCount">0</div></div>
+        </div>
+        
+        <!-- NIVEL FÁCIL -->
+        <div class="level-section">
+            <div class="level-header easy"><span class="icon">🟢</span><span class="title">Nivel Fácil</span><span class="subtitle">Actividades 1-4</span></div>
+            
+            <div class="audio-card" id="card1">
+                <div class="audio-header"><div class="audio-number easy">1</div><div class="audio-title"><h3>Despertar</h3><p>Emma se despierta</p></div></div>
+                <div class="audio-player">
+                    <button class="play-btn" onclick="playAudio(1)" id="playBtn1">▶️</button>
+                    <div class="text-buttons">
+                        <button class="text-btn" onclick="toggleText(1)" id="textBtn1">🔤 Ver texto en inglés</button>
+                        <button class="text-btn spanish" onclick="toggleSpanish(1)" id="spanishBtn1">🇪🇸 Ver en español</button>
+                    </div>
+                    <div class="text-container" id="textContainer1">
+                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Emma said: "I wake up at seven every day."</p></div>
+                        <div class="spanish-text" id="spanish1"><div class="label">🇪🇸 Traducción</div><p>Emma dijo: "Me despierto a las siete todos los días."</p></div>
+                    </div>
+                </div>
+                <div class="question-section">
+                    <h4>❓ Pregunta</h4>
+                    <div class="question-text">¿Qué significa "I wake up"?</div>
+                    <div class="options-container" id="options1">
+                        <div class="option" onclick="selectAnswer(1, 'a', 'b')"><span class="option-letter">A</span><span class="option-text">Me duermo</span></div>
+                        <div class="option" onclick="selectAnswer(1, 'b', 'b')"><span class="option-letter">B</span><span class="option-text">Me despierto</span></div>
+                        <div class="option" onclick="selectAnswer(1, 'c', 'b')"><span class="option-letter">C</span><span class="option-text">Me levanto</span></div>
+                    </div>
+                    <div class="feedback" id="fb1"></div>
+                </div>
+            </div>
+            
+            <div class="audio-card" id="card2">
+                <div class="audio-header"><div class="audio-number easy">2</div><div class="audio-title"><h3>Desayuno</h3><p>Emma desayuna</p></div></div>
+                <div class="audio-player">
+                    <button class="play-btn" onclick="playAudio(2)" id="playBtn2">▶️</button>
+                    <div class="text-buttons">
+                        <button class="text-btn" onclick="toggleText(2)" id="textBtn2">🔤 Ver texto en inglés</button>
+                        <button class="text-btn spanish" onclick="toggleSpanish(2)" id="spanishBtn2">🇪🇸 Ver en español</button>
+                    </div>
+                    <div class="text-container" id="textContainer2">
+                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Emma said: "I eat breakfast with my family."</p></div>
+                        <div class="spanish-text" id="spanish2"><div class="label">🇪🇸 Traducción</div><p>Emma dijo: "Desayuno con mi familia."</p></div>
+                    </div>
+                </div>
+                <div class="question-section">
+                    <h4>❓ Pregunta</h4>
+                    <div class="question-text">¿Qué significa "breakfast"?</div>
+                    <div class="options-container" id="options2">
+                        <div class="option" onclick="selectAnswer(2, 'a', 'a')"><span class="option-letter">A</span><span class="option-text">Desayuno</span></div>
+                        <div class="option" onclick="selectAnswer(2, 'b', 'a')"><span class="option-letter">B</span><span class="option-text">Almuerzo</span></div>
+                        <div class="option" onclick="selectAnswer(2, 'c', 'a')"><span class="option-letter">C</span><span class="option-text">Cena</span></div>
+                    </div>
+                    <div class="feedback" id="fb2"></div>
+                </div>
+            </div>
+            
+            <div class="audio-card" id="card3">
+                <div class="audio-header"><div class="audio-number easy">3</div><div class="audio-title"><h3>Ir a la escuela</h3><p>Emma va a la escuela</p></div></div>
+                <div class="audio-player">
+                    <button class="play-btn" onclick="playAudio(3)" id="playBtn3">▶️</button>
+                    <div class="text-buttons">
+                        <button class="text-btn" onclick="toggleText(3)" id="textBtn3">🔤 Ver texto en inglés</button>
+                        <button class="text-btn spanish" onclick="toggleSpanish(3)" id="spanishBtn3">🇪🇸 Ver en español</button>
+                    </div>
+                    <div class="text-container" id="textContainer3">
+                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Emma said: "I go to school at eight."</p></div>
+                        <div class="spanish-text" id="spanish3"><div class="label">🇪🇸 Traducción</div><p>Emma dijo: "Voy a la escuela a las ocho."</p></div>
+                    </div>
+                </div>
+                <div class="question-section">
+                    <h4>❓ Pregunta</h4>
+                    <div class="question-text">¿Qué significa "I go to school"?</div>
+                    <div class="options-container" id="options3">
+                        <div class="option" onclick="selectAnswer(3, 'a', 'c')"><span class="option-letter">A</span><span class="option-text">Estoy en la escuela</span></div>
+                        <div class="option" onclick="selectAnswer(3, 'b', 'c')"><span class="option-letter">B</span><span class="option-text">Vengo de la escuela</span></div>
+                        <div class="option" onclick="selectAnswer(3, 'c', 'c')"><span class="option-letter">C</span><span class="option-text">Voy a la escuela</span></div>
+                    </div>
+                    <div class="feedback" id="fb3"></div>
+                </div>
+            </div>
+            
+            <div class="audio-card" id="card4">
+                <div class="audio-header"><div class="audio-number easy">4</div><div class="audio-title"><h3>Dormir</h3><p>Emma duerme temprano</p></div></div>
+                <div class="audio-player">
+                    <button class="play-btn" onclick="playAudio(4)" id="playBtn4">▶️</button>
+                    <div class="text-buttons">
+                        <button class="text-btn" onclick="toggleText(4)" id="textBtn4">🔤 Ver texto en inglés</button>
+                        <button class="text-btn spanish" onclick="toggleSpanish(4)" id="spanishBtn4">🇪🇸 Ver en español</button>
+                    </div>
+                    <div class="text-container" id="textContainer4">
+                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Emma said: "I sleep at nine every night."</p></div>
+                        <div class="spanish-text" id="spanish4"><div class="label">🇪🇸 Traducción</div><p>Emma dijo: "Duermo a las nueve todas las noches."</p></div>
+                    </div>
+                </div>
+                <div class="question-section">
+                    <h4>❓ Pregunta</h4>
+                    <div class="question-text">¿Qué significa "I sleep"?</div>
+                    <div class="options-container" id="options4">
+                        <div class="option" onclick="selectAnswer(4, 'a', 'b')"><span class="option-letter">A</span><span class="option-text">Me despierto</span></div>
+                        <div class="option" onclick="selectAnswer(4, 'b', 'b')"><span class="option-letter">B</span><span class="option-text">Duermo</span></div>
+                        <div class="option" onclick="selectAnswer(4, 'c', 'b')"><span class="option-letter">C</span><span class="option-text">Descanso</span></div>
+                    </div>
+                    <div class="feedback" id="fb4"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- NIVEL INTERMEDIO -->
+        <div class="level-section">
+            <div class="level-header medium"><span class="icon">🟡</span><span class="title">Nivel Intermedio</span><span class="subtitle">Actividades 5-7</span></div>
+            
+            <div class="audio-card" id="card5">
+                <div class="audio-header"><div class="audio-number medium">5</div><div class="audio-title"><h3>Todos los días</h3><p>La rutina de Emma</p></div></div>
+                <div class="audio-player">
+                    <button class="play-btn" onclick="playAudio(5)" id="playBtn5">▶️</button>
+                    <div class="text-buttons">
+                        <button class="text-btn" onclick="toggleText(5)" id="textBtn5">🔤 Ver texto en inglés</button>
+                        <button class="text-btn spanish" onclick="toggleSpanish(5)" id="spanishBtn5">🇪🇸 Ver en español</button>
+                    </div>
+                    <div class="text-container" id="textContainer5">
+                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Emma said: "Every day, I wake up, eat breakfast, and go to school."</p></div>
+                        <div class="spanish-text" id="spanish5"><div class="label">🇪🇸 Traducción</div><p>Emma dijo: "Todos los días, me despierto, desayuno y voy a la escuela."</p></div>
+                    </div>
+                </div>
+                <div class="question-section">
+                    <h4>❓ Pregunta</h4>
+                    <div class="question-text">¿Qué significa "every day"?</div>
+                    <div class="options-container" id="options5">
+                        <div class="option" onclick="selectAnswer(5, 'a', 'b')"><span class="option-letter">A</span><span class="option-text">Cada noche</span></div>
+                        <div class="option" onclick="selectAnswer(5, 'b', 'b')"><span class="option-letter">B</span><span class="option-text">Todos los días</span></div>
+                        <div class="option" onclick="selectAnswer(5, 'c', 'b')"><span class="option-letter">C</span><span class="option-text">Cada semana</span></div>
+                    </div>
+                    <div class="feedback" id="fb5"></div>
+                </div>
+            </div>
+            
+            <div class="audio-card" id="card6">
+                <div class="audio-header"><div class="audio-number medium">6</div><div class="audio-title"><h3>Los padres trabajan</h3><p>Rutina de la familia</p></div></div>
+                <div class="audio-player">
+                    <button class="play-btn" onclick="playAudio(6)" id="playBtn6">▶️</button>
+                    <div class="text-buttons">
+                        <button class="text-btn" onclick="toggleText(6)" id="textBtn6">🔤 Ver texto en inglés</button>
+                        <button class="text-btn spanish" onclick="toggleSpanish(6)" id="spanishBtn6">🇪🇸 Ver en español</button>
+                    </div>
+                    <div class="text-container" id="textContainer6">
+                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Emma said: "My mother goes to work at the hospital. My father goes to work at the office."</p></div>
+                        <div class="spanish-text" id="spanish6"><div class="label">🇪🇸 Traducción</div><p>Emma dijo: "Mi madre va a trabajar al hospital. Mi padre va a trabajar a la oficina."</p></div>
+                    </div>
+                </div>
+                <div class="question-section">
+                    <h4>❓ Pregunta</h4>
+                    <div class="question-text">¿Qué significa "go to work"?</div>
+                    <div class="options-container" id="options6">
+                        <div class="option" onclick="selectAnswer(6, 'a', 'a')"><span class="option-letter">A</span><span class="option-text">Ir a trabajar</span></div>
+                        <div class="option" onclick="selectAnswer(6, 'b', 'a')"><span class="option-letter">B</span><span class="option-text">Ir a la escuela</span></div>
+                        <div class="option" onclick="selectAnswer(6, 'c', 'a')"><span class="option-letter">C</span><span class="option-text">Ir a casa</span></div>
+                    </div>
+                    <div class="feedback" id="fb6"></div>
+                </div>
+            </div>
+            
+            <div class="audio-card" id="card7">
+                <div class="audio-header"><div class="audio-number medium">7</div><div class="audio-title"><h3>Sophie también</h3><p>Comparando rutinas</p></div></div>
+                <div class="audio-player">
+                    <button class="play-btn" onclick="playAudio(7)" id="playBtn7">▶️</button>
+                    <div class="text-buttons">
+                        <button class="text-btn" onclick="toggleText(7)" id="textBtn7">🔤 Ver texto en inglés</button>
+                        <button class="text-btn spanish" onclick="toggleSpanish(7)" id="spanishBtn7">🇪🇸 Ver en español</button>
+                    </div>
+                    <div class="text-container" id="textContainer7">
+                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Sophie said: "I wake up at seven too! I eat breakfast and go to school. We have the same routine!"</p></div>
+                        <div class="spanish-text" id="spanish7"><div class="label">🇪🇸 Traducción</div><p>Sophie dijo: "¡Yo también me despierto a las siete! Desayuno y voy a la escuela. ¡Tenemos la misma rutina!"</p></div>
+                    </div>
+                </div>
+                <div class="question-section">
+                    <h4>❓ Pregunta</h4>
+                    <div class="question-text">¿Qué tienen en común Emma y Sophie?</div>
+                    <div class="options-container" id="options7">
+                        <div class="option" onclick="selectAnswer(7, 'a', 'c')"><span class="option-letter">A</span><span class="option-text">Diferentes horarios</span></div>
+                        <div class="option" onclick="selectAnswer(7, 'b', 'c')"><span class="option-letter">B</span><span class="option-text">Diferentes escuelas</span></div>
+                        <div class="option" onclick="selectAnswer(7, 'c', 'c')"><span class="option-letter">C</span><span class="option-text">La misma rutina</span></div>
+                    </div>
+                    <div class="feedback" id="fb7"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- NIVEL DIFÍCIL -->
+        <div class="level-section">
+            <div class="level-header hard"><span class="icon">🔴</span><span class="title">Nivel Difícil</span><span class="subtitle">Actividades 8-10</span></div>
+            
+            <div class="audio-card" id="card8">
+                <div class="audio-header"><div class="audio-number hard">8</div><div class="audio-title"><h3>Rutina completa</h3><p>El día de Emma</p></div></div>
+                <div class="audio-player">
+                    <button class="play-btn" onclick="playAudio(8)" id="playBtn8">▶️</button>
+                    <div class="text-buttons">
+                        <button class="text-btn" onclick="toggleText(8)" id="textBtn8">🔤 Ver texto en inglés</button>
+                        <button class="text-btn spanish" onclick="toggleSpanish(8)" id="spanishBtn8">🇪🇸 Ver en español</button>
+                    </div>
+                    <div class="text-container" id="textContainer8">
+                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Emma said: "I wake up at seven. I eat breakfast at seven thirty. I go to school at eight. I sleep at nine."</p></div>
+                        <div class="spanish-text" id="spanish8"><div class="label">🇪🇸 Traducción</div><p>Emma dijo: "Me despierto a las siete. Desayuno a las siete y media. Voy a la escuela a las ocho. Duermo a las nueve."</p></div>
+                    </div>
+                </div>
+                <div class="question-section">
+                    <h4>❓ Pregunta</h4>
+                    <div class="question-text">¿Cuál es el orden correcto de la rutina de Emma?</div>
+                    <div class="options-container" id="options8">
+                        <div class="option" onclick="selectAnswer(8, 'a', 'a')"><span class="option-letter">A</span><span class="option-text">Wake up → Eat breakfast → Go to school → Sleep</span></div>
+                        <div class="option" onclick="selectAnswer(8, 'b', 'a')"><span class="option-letter">B</span><span class="option-text">Eat breakfast → Wake up → Sleep → Go to school</span></div>
+                        <div class="option" onclick="selectAnswer(8, 'c', 'a')"><span class="option-letter">C</span><span class="option-text">Go to school → Wake up → Eat breakfast → Sleep</span></div>
+                    </div>
+                    <div class="feedback" id="fb8"></div>
+                </div>
+            </div>
+            
+            <div class="audio-card" id="card9">
+                <div class="audio-header"><div class="audio-number hard">9</div><div class="audio-title"><h3>Familia García</h3><p>Rutina familiar</p></div></div>
+                <div class="audio-player">
+                    <button class="play-btn" onclick="playAudio(9)" id="playBtn9">▶️</button>
+                    <div class="text-buttons">
+                        <button class="text-btn" onclick="toggleText(9)" id="textBtn9">🔤 Ver texto en inglés</button>
+                        <button class="text-btn spanish" onclick="toggleSpanish(9)" id="spanishBtn9">🇪🇸 Ver en español</button>
+                    </div>
+                    <div class="text-container" id="textContainer9">
+                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Emma said: "Every day, my family wakes up early. We eat breakfast together. Then my mother goes to work, my father goes to work, and I go to school."</p></div>
+                        <div class="spanish-text" id="spanish9"><div class="label">🇪🇸 Traducción</div><p>Emma dijo: "Todos los días, mi familia se despierta temprano. Desayunamos juntos. Luego mi madre va a trabajar, mi padre va a trabajar, y yo voy a la escuela."</p></div>
+                    </div>
+                </div>
+                <div class="question-section">
+                    <h4>❓ Pregunta</h4>
+                    <div class="question-text">¿Qué hacen todos juntos antes de salir?</div>
+                    <div class="options-container" id="options9">
+                        <div class="option" onclick="selectAnswer(9, 'a', 'b')"><span class="option-letter">A</span><span class="option-text">Van a la escuela</span></div>
+                        <div class="option" onclick="selectAnswer(9, 'b', 'b')"><span class="option-letter">B</span><span class="option-text">Desayunan juntos</span></div>
+                        <div class="option" onclick="selectAnswer(9, 'c', 'b')"><span class="option-letter">C</span><span class="option-text">Van al trabajo</span></div>
+                    </div>
+                    <div class="feedback" id="fb9"></div>
+                </div>
+            </div>
+            
+            <div class="audio-card" id="card10">
+                <div class="audio-header"><div class="audio-number hard">10</div><div class="audio-title"><h3>Conversación sobre rutinas</h3><p>Emma y Sophie comparan</p></div></div>
+                <div class="audio-player">
+                    <button class="play-btn" onclick="playAudio(10)" id="playBtn10">▶️</button>
+                    <div class="text-buttons">
+                        <button class="text-btn" onclick="toggleText(10)" id="textBtn10">🔤 Ver texto en inglés</button>
+                        <button class="text-btn spanish" onclick="toggleSpanish(10)" id="spanishBtn10">🇪🇸 Ver en español</button>
+                    </div>
+                    <div class="text-container" id="textContainer10">
+                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Sophie asked: "What time do you wake up?" Emma said: "I wake up at seven. And you?" Sophie replied: "I wake up at seven too! What time do you sleep?" Emma said: "I sleep at nine." Sophie said: "Me too! Every day is the same!"</p></div>
+                        <div class="spanish-text" id="spanish10"><div class="label">🇪🇸 Traducción</div><p>Sophie preguntó: "¿A qué hora te despiertas?" Emma dijo: "Me despierto a las siete. ¿Y tú?" Sophie respondió: "¡Yo también me despierto a las siete! ¿A qué hora duermes?" Emma dijo: "Duermo a las nueve." Sophie dijo: "¡Yo también! ¡Todos los días es igual!"</p></div>
+                    </div>
+                </div>
+                <div class="question-section">
+                    <h4>❓ Pregunta</h4>
+                    <div class="question-text">¿A qué hora duermen Emma y Sophie?</div>
+                    <div class="options-container" id="options10">
+                        <div class="option" onclick="selectAnswer(10, 'a', 'c')"><span class="option-letter">A</span><span class="option-text">A las siete</span></div>
+                        <div class="option" onclick="selectAnswer(10, 'b', 'c')"><span class="option-letter">B</span><span class="option-text">A las ocho</span></div>
+                        <div class="option" onclick="selectAnswer(10, 'c', 'c')"><span class="option-letter">C</span><span class="option-text">A las nueve</span></div>
+                    </div>
+                    <div class="feedback" id="fb10"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="results-panel" id="resultsPanel">
+            <div class="trophy" id="trophy">🏆</div>
+            <h2 id="resultsTitle">¡Excelente!</h2>
+            <div class="results-score" id="resultsScore">0/10</div>
+            <div class="results-breakdown">
+                <div class="breakdown-item"><div class="level-name">🟢 Fácil</div><div class="level-score" id="easyScore">0/4</div></div>
+                <div class="breakdown-item"><div class="level-name">🟡 Intermedio</div><div class="level-score" id="mediumScore">0/3</div></div>
+                <div class="breakdown-item"><div class="level-name">🔴 Difícil</div><div class="level-score" id="hardScore">0/3</div></div>
+            </div>
+            <div class="results-message" id="resultsMessage"></div>
+            <button class="btn-retry" onclick="location.reload()">🔄 Intentar de nuevo</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSpeed = 1, answered = 0, correct = 0, incorrect = 0;
+        let easyCorrect = 0, mediumCorrect = 0, hardCorrect = 0;
+        let answeredQuestions = {};
+        let synthesis = window.speechSynthesis, voices = [], englishVoice = null, isPlaying = false;
+        
+        const audioTexts = {
+            1: 'Emma said: "I wake up at seven every day."',
+            2: 'Emma said: "I eat breakfast with my family."',
+            3: 'Emma said: "I go to school at eight."',
+            4: 'Emma said: "I sleep at nine every night."',
+            5: 'Emma said: "Every day, I wake up, eat breakfast, and go to school."',
+            6: 'Emma said: "My mother goes to work at the hospital. My father goes to work at the office."',
+            7: 'Sophie said: "I wake up at seven too! I eat breakfast and go to school. We have the same routine!"',
+            8: 'Emma said: "I wake up at seven. I eat breakfast at seven thirty. I go to school at eight. I sleep at nine."',
+            9: 'Emma said: "Every day, my family wakes up early. We eat breakfast together. Then my mother goes to work, my father goes to work, and I go to school."',
+            10: 'Sophie asked: "What time do you wake up?" Emma said: "I wake up at seven. And you?" Sophie replied: "I wake up at seven too! What time do you sleep?" Emma said: "I sleep at nine." Sophie said: "Me too! Every day is the same!"'
+        };
+        
+        const feedbacks = {
+            1: { correct: "✓ ¡Correcto! 'Wake up' = despertarse.", incorrect: "✗ 'Wake up' significa 'despertarse'." },
+            2: { correct: "✓ ¡Exacto! 'Breakfast' = desayuno.", incorrect: "✗ 'Breakfast' es la primera comida del día: el desayuno." },
+            3: { correct: "✓ ¡Perfecto! 'I go to school' = Voy a la escuela.", incorrect: "✗ 'Go to' significa 'ir a', entonces 'I go to school' = Voy a la escuela." },
+            4: { correct: "✓ ¡Correcto! 'Sleep' = dormir.", incorrect: "✗ 'Sleep' significa 'dormir'." },
+            5: { correct: "✓ ¡Muy bien! 'Every day' = todos los días.", incorrect: "✗ 'Every' = cada/todos, 'day' = día. 'Every day' = todos los días." },
+            6: { correct: "✓ ¡Perfecto! 'Go to work' = ir a trabajar.", incorrect: "✗ 'Work' = trabajo. 'Go to work' = ir a trabajar." },
+            7: { correct: "✓ ¡Excelente! Sophie dijo 'We have the same routine' = Tenemos la misma rutina.", incorrect: "✗ Sophie dice que se despiertan a la misma hora y hacen lo mismo: misma rutina." },
+            8: { correct: "✓ ¡Perfecto! El orden es: despertar → desayunar → ir a escuela → dormir.", incorrect: "✗ El orden lógico es: Wake up (7:00) → Breakfast (7:30) → School (8:00) → Sleep (9:00)." },
+            9: { correct: "✓ ¡Correcto! 'We eat breakfast together' = Desayunamos juntos.", incorrect: "✗ Emma dijo 'We eat breakfast TOGETHER' = desayunamos juntos." },
+            10: { correct: "✓ ¡Excelente! Ambas duermen a las nueve ('I sleep at nine').", incorrect: "✗ Emma dijo 'I sleep at nine' y Sophie dijo 'Me too!' = a las nueve." }
+        };
+        
+        function loadVoices() {
+            voices = synthesis.getVoices();
+            if (voices.length === 0) { setTimeout(loadVoices, 100); return; }
+            const pref = ['Google US English', 'Google UK English Female', 'Microsoft Zira', 'Samantha'];
+            for (let n of pref) { let v = voices.find(x => x.name.includes(n)); if (v) { englishVoice = v; break; } }
+            if (!englishVoice) englishVoice = voices.find(v => v.lang.startsWith('en')) || voices[0];
+        }
+        if (synthesis) { loadVoices(); synthesis.onvoiceschanged = loadVoices; }
+        
+        function setSpeed(s) { currentSpeed = s; document.querySelectorAll('.speed-btn').forEach(b => { b.classList.remove('active'); if (b.dataset.speed == s) b.classList.add('active'); }); }
+        
+        function playAudio(n) {
+            const btn = document.getElementById(`playBtn${n}`);
+            if (isPlaying) { synthesis.cancel(); isPlaying = false; document.querySelectorAll('.play-btn').forEach(b => { b.classList.remove('playing'); b.textContent = '▶️'; }); return; }
+            const u = new SpeechSynthesisUtterance(audioTexts[n]);
+            u.voice = englishVoice; u.rate = currentSpeed; u.pitch = 1; u.volume = 1;
+            isPlaying = true; btn.classList.add('playing'); btn.textContent = '⏹️';
+            u.onend = () => { isPlaying = false; btn.classList.remove('playing'); btn.textContent = '▶️'; };
+            u.onerror = () => { isPlaying = false; btn.classList.remove('playing'); btn.textContent = '▶️'; };
+            synthesis.speak(u);
+        }
+        
+        function toggleText(n) {
+            const c = document.getElementById(`textContainer${n}`), b = document.getElementById(`textBtn${n}`);
+            if (c.classList.contains('show')) { c.classList.remove('show'); b.classList.remove('active'); b.textContent = '🔤 Ver texto en inglés'; }
+            else { c.classList.add('show'); b.classList.add('active'); b.textContent = '🔤 Ocultar texto'; }
+        }
+        
+        function toggleSpanish(n) {
+            const s = document.getElementById(`spanish${n}`), b = document.getElementById(`spanishBtn${n}`), c = document.getElementById(`textContainer${n}`);
+            if (!c.classList.contains('show')) { c.classList.add('show'); document.getElementById(`textBtn${n}`).classList.add('active'); document.getElementById(`textBtn${n}`).textContent = '🔤 Ocultar texto'; }
+            if (s.classList.contains('show')) { s.classList.remove('show'); b.classList.remove('active'); b.textContent = '🇪🇸 Ver en español'; }
+            else { s.classList.add('show'); b.classList.add('active'); b.textContent = '🇪🇸 Ocultar español'; }
+        }
+        
+        function selectAnswer(n, sel, cor) {
+            if (answeredQuestions[n]) return;
+            answeredQuestions[n] = true;
+            const opts = document.querySelectorAll(`#options${n} .option`), fb = document.getElementById(`fb${n}`), ok = sel === cor;
+            answered++;
+            if (ok) { correct++; if (n <= 4) easyCorrect++; else if (n <= 7) mediumCorrect++; else hardCorrect++; } else incorrect++;
+            opts.forEach(o => { o.classList.add('disabled'); const l = o.querySelector('.option-letter').textContent.toLowerCase(); if (l === sel) o.classList.add(ok ? 'correct' : 'incorrect'); if (l === cor && !ok) o.classList.add('show-correct'); });
+            fb.innerHTML = ok ? feedbacks[n].correct : feedbacks[n].incorrect;
+            fb.classList.add('show', ok ? 'correct' : 'incorrect');
+            updateScore();
+            if (answered === 10) setTimeout(showResults, 1000);
+        }
+        
+        function updateScore() { document.getElementById('answeredCount').textContent = `${answered}/10`; document.getElementById('correctCount').textContent = correct; document.getElementById('incorrectCount').textContent = incorrect; }
+        
+        function showResults() {
+            const p = document.getElementById('resultsPanel'), pct = (correct / 10) * 100;
+            document.getElementById('resultsScore').textContent = `${correct}/10`;
+            document.getElementById('easyScore').textContent = `${easyCorrect}/4`;
+            document.getElementById('mediumScore').textContent = `${mediumCorrect}/3`;
+            document.getElementById('hardScore').textContent = `${hardCorrect}/3`;
+            const tr = document.getElementById('trophy'), ti = document.getElementById('resultsTitle'), ms = document.getElementById('resultsMessage');
+            if (pct >= 90) { tr.textContent = '🏆'; ti.textContent = '¡Excelente oído!'; ms.textContent = 'Dominas el vocabulario de rutinas.'; }
+            else if (pct >= 70) { tr.textContent = '🥈'; ti.textContent = '¡Muy bien!'; ms.textContent = 'Buen progreso en comprensión auditiva.'; }
+            else if (pct >= 50) { tr.textContent = '🥉'; ti.textContent = '¡Buen intento!'; ms.textContent = 'Practica más con los audios.'; }
+            else { tr.textContent = '📚'; ti.textContent = 'Sigue practicando'; ms.textContent = 'Escucha con velocidad lenta.'; }
+            p.classList.add('show'); p.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
