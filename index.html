@@ -14,305 +14,86 @@
             padding: 20px;
         }
         
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+        .container { max-width: 900px; margin: 0 auto; }
         
-        /* Logo Header */
-        .logo-header {
-            text-align: center;
-            padding: 20px;
-            margin-bottom: 15px;
-        }
+        .logo-header { text-align: center; padding: 20px; margin-bottom: 15px; }
+        .logo-header .logo-text { color: white; font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
         
-        .logo-header .logo-text {
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
+        .main-header { text-align: center; padding: 30px 20px; background: white; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .main-header .jucum-badge { display: inline-block; background: linear-gradient(135deg, #1E3A5F 0%, #2E86AB 100%); color: white; padding: 8px 20px; border-radius: 25px; font-size: 0.85rem; font-weight: 600; margin-bottom: 15px; letter-spacing: 1px; }
+        .main-header h1 { color: #1E3A5F; font-size: 1.8rem; margin-bottom: 10px; }
+        .main-header .subtitle { color: #666; font-size: 1rem; margin-bottom: 15px; }
+        .main-header .info-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .info-badge { background: linear-gradient(135deg, #F18F01 0%, #e67e00 100%); color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 500; }
         
-        .logo-header .logo-subtitle {
-            color: #F18F01;
-            font-size: 1rem;
-            font-weight: 600;
-            margin-top: 5px;
-        }
-        
-        /* Header Principal */
-        .main-header {
-            text-align: center;
-            padding: 30px 20px;
-            background: white;
-            border-radius: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        .main-header .jucum-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #1E3A5F 0%, #2E86AB 100%);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-        }
-        
-        .main-header h1 {
-            color: #1E3A5F;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-        
-        .main-header .subtitle {
-            color: #666;
-            font-size: 1rem;
-            margin-bottom: 15px;
-        }
-        
-        .main-header .info-badges {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        
-        .info-badge {
-            background: linear-gradient(135deg, #F18F01 0%, #e67e00 100%);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        
-        /* Módulos */
-        .module {
-            background: white;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-        }
-        
-        .module-header {
-            padding: 20px;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
+        .module { background: white; border-radius: 16px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.15); }
+        .module-header { padding: 20px; color: white; display: flex; align-items: center; gap: 15px; }
         .module-header.m1 { background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); }
         .module-header.m2 { background: linear-gradient(135deg, #F57C00 0%, #E65100 100%); }
         .module-header.m3 { background: linear-gradient(135deg, #388E3C 0%, #2E7D32 100%); }
+        .module-icon { font-size: 2.5rem; }
+        .module-info h2 { font-size: 1.3rem; margin-bottom: 5px; }
+        .module-info span { font-size: 0.85rem; opacity: 0.9; }
         
-        .module-icon {
-            font-size: 2.5rem;
-        }
+        .themes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; padding: 20px; }
         
-        .module-info h2 {
-            font-size: 1.3rem;
-            margin-bottom: 5px;
-        }
-        
-        .module-info span {
-            font-size: 0.85rem;
-            opacity: 0.9;
-        }
-        
-        /* Temas Grid */
-        .themes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            padding: 20px;
-        }
-        
-        .theme-card {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            display: block;
-        }
-        
-        .theme-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-        
+        .theme-card { background: #f8f9fa; border-radius: 12px; padding: 20px; text-decoration: none; color: inherit; transition: all 0.3s ease; border: 2px solid transparent; display: block; }
+        .theme-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
         .theme-card.m1:hover { border-color: #1976D2; background: #e3f2fd; }
         .theme-card.m2:hover { border-color: #F57C00; background: #fff3e0; }
         .theme-card.m3:hover { border-color: #388E3C; background: #e8f5e9; }
         
-        .theme-number {
-            display: inline-block;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            color: white;
-            font-weight: bold;
-            text-align: center;
-            line-height: 35px;
-            margin-bottom: 10px;
-            font-size: 1rem;
-        }
-        
+        .theme-number { display: inline-block; width: 35px; height: 35px; border-radius: 50%; color: white; font-weight: bold; text-align: center; line-height: 35px; margin-bottom: 10px; font-size: 1rem; }
         .theme-number.m1 { background: #1976D2; }
         .theme-number.m2 { background: #F57C00; }
         .theme-number.m3 { background: #388E3C; }
         
-        .theme-card h3 {
-            color: #333;
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-        }
+        .theme-card h3 { color: #333; font-size: 1.1rem; margin-bottom: 8px; }
+        .theme-card .classes { color: #666; font-size: 0.85rem; margin-bottom: 10px; }
+        .theme-card .vocab-preview { font-size: 0.8rem; color: #888; font-style: italic; margin-bottom: 12px; }
         
-        .theme-card .classes {
-            color: #666;
-            font-size: 0.85rem;
-            margin-bottom: 10px;
-        }
+        .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+        .btn-open { display: inline-block; padding: 8px 14px; border-radius: 20px; color: white; font-size: 0.8rem; font-weight: 600; text-decoration: none; }
+        .btn-open.explicacion { background: #1976D2; }
+        .btn-open.story { background: #9C27B0; }
+        .theme-card.m1 .btn-open.explicacion { background: #1976D2; }
+        .theme-card.m2 .btn-open.explicacion { background: #F57C00; }
+        .theme-card.m3 .btn-open.explicacion { background: #388E3C; }
         
-        .theme-card .vocab-preview {
-            font-size: 0.8rem;
-            color: #888;
-            font-style: italic;
-        }
+        .footer { text-align: center; padding: 25px 20px; background: rgba(255,255,255,0.1); border-radius: 16px; margin-top: 10px; }
+        .footer .jucum-logo { font-size: 1.3rem; font-weight: 700; color: white; letter-spacing: 2px; margin-bottom: 5px; }
+        .footer p { color: rgba(255,255,255,0.7); font-size: 0.85rem; }
+        .footer .copyright { margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); font-size: 0.8rem; }
         
-        .theme-card .btn-open {
-            display: inline-block;
-            margin-top: 12px;
-            padding: 8px 20px;
-            border-radius: 20px;
-            color: white;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-        
-        .theme-card.m1 .btn-open { background: #1976D2; }
-        .theme-card.m2 .btn-open { background: #F57C00; }
-        .theme-card.m3 .btn-open { background: #388E3C; }
-        
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 25px 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 16px;
-            margin-top: 10px;
-        }
-        
-        .footer .jucum-logo {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: white;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-        }
-        
-        .footer .jucum-full {
-            color: #F18F01;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .footer p {
-            color: rgba(255,255,255,0.7);
-            font-size: 0.85rem;
-        }
-        
-        .footer .copyright {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            color: rgba(255,255,255,0.6);
-            font-size: 0.8rem;
-        }
-        
-        /* Progress Overview */
-        .progress-overview {
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-        }
-        
-        .progress-overview h3 {
-            color: #1E3A5F;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-        
-        .progress-bar-container {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 10px;
-        }
-        
-        .progress-segment {
-            flex: 1;
-            height: 12px;
-            border-radius: 6px;
-            background: #e0e0e0;
-        }
-        
+        .progress-overview { background: white; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.15); }
+        .progress-overview h3 { color: #1E3A5F; margin-bottom: 15px; font-size: 1.1rem; }
+        .progress-bar-container { display: flex; gap: 5px; margin-bottom: 10px; }
+        .progress-segment { flex: 1; height: 12px; border-radius: 6px; }
         .progress-segment.m1 { background: #1976D2; }
         .progress-segment.m2 { background: #F57C00; }
         .progress-segment.m3 { background: #388E3C; }
-        
-        .progress-legend {
-            display: flex;
-            justify-content: space-around;
-            font-size: 0.8rem;
-            color: #666;
-        }
-        
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .legend-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-        
+        .progress-legend { display: flex; justify-content: space-around; font-size: 0.8rem; color: #666; }
+        .legend-item { display: flex; align-items: center; gap: 5px; }
+        .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
         .legend-dot.m1 { background: #1976D2; }
         .legend-dot.m2 { background: #F57C00; }
         .legend-dot.m3 { background: #388E3C; }
 
-        /* Responsive */
         @media (max-width: 600px) {
             .main-header h1 { font-size: 1.4rem; }
             .themes-grid { grid-template-columns: 1fr; }
             .module-header { flex-direction: column; text-align: center; }
             .progress-legend { flex-direction: column; gap: 8px; align-items: center; }
+            .btn-group { justify-content: center; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Logo JUCUM -->
         <div class="logo-header">
             <div class="logo-text">🌍 JUCUM ENGLISH CENTER</div>
-
         </div>
         
-        <!-- Header Principal -->
         <div class="main-header">
             <div class="jucum-badge">✨ JUCUM ENGLISH CENTER</div>
             <h1>🎓 Taller de Inglés de Verano 2025</h1>
@@ -325,7 +106,6 @@
             </div>
         </div>
         
-        <!-- Progress Overview -->
         <div class="progress-overview">
             <h3>📊 Estructura del Curso</h3>
             <div class="progress-bar-container">
@@ -356,27 +136,36 @@
                 </div>
             </div>
             <div class="themes-grid">
-                <a href="explicaciones/T1_Saludos_Basicos_5pasos.html" class="theme-card m1">
+                <div class="theme-card m1">
                     <span class="theme-number m1">T1</span>
                     <h3>👋 Saludos Básicos</h3>
                     <p class="classes">Clases 1-2</p>
                     <p class="vocab-preview">hello, hi, good morning, name, nice, meet...</p>
-                    <span class="btn-open">Abrir Tema →</span>
-                </a>
-                <a href="explicaciones/T2_Como_Estas_5pasos.html" class="theme-card m1">
+                    <div class="btn-group">
+                        <a href="explicaciones/T1_Saludos_Basicos_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
+                        <a href="stories/M1_T1_Story1_Parte1_Saludos.html" class="btn-open story">📖 Story</a>
+                    </div>
+                </div>
+                <div class="theme-card m1">
                     <span class="theme-number m1">T2</span>
                     <h3>😊 ¿Cómo estás hoy?</h3>
                     <p class="classes">Clases 3-4</p>
                     <p class="vocab-preview">how, are, you, I'm, fine, great, thank you...</p>
-                    <span class="btn-open">Abrir Tema →</span>
-                </a>
-                <a href="explicaciones/T3_Despedidas_5pasos.html" class="theme-card m1">
+                    <div class="btn-group">
+                        <a href="explicaciones/T2_Como_Estas_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
+                        <a href="stories/M1_T2_Story1_Parte2_ComoEstas.html" class="btn-open story">📖 Story</a>
+                    </div>
+                </div>
+                <div class="theme-card m1">
                     <span class="theme-number m1">T3</span>
                     <h3>👋 Despedidas</h3>
                     <p class="classes">Clases 5-6</p>
                     <p class="vocab-preview">goodbye, bye, see you, later, tomorrow, soon...</p>
-                    <span class="btn-open">Abrir Tema →</span>
-                </a>
+                    <div class="btn-group">
+                        <a href="explicaciones/T3_Despedidas_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
+                        <a href="stories/M1_T3_Story1_Parte3_Despedidas.html" class="btn-open story">📖 Story</a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -390,27 +179,36 @@
                 </div>
             </div>
             <div class="themes-grid">
-                <a href="explicaciones/T4_Rutina_5pasos.html" class="theme-card m2">
+                <div class="theme-card m2">
                     <span class="theme-number m2">T4</span>
                     <h3>⏰ Mi Rutina Diaria</h3>
                     <p class="classes">Clases 8-9</p>
                     <p class="vocab-preview">wake up, eat, breakfast, go, school, sleep...</p>
-                    <span class="btn-open">Abrir Tema →</span>
-                </a>
-                <a href="explicaciones/T5_Familia_5pasos.html" class="theme-card m2">
+                    <div class="btn-group">
+                        <a href="explicaciones/T4_Rutina_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
+                        <a href="stories/M2_T4_Story2_Parte1_Rutina.html" class="btn-open story">📖 Story</a>
+                    </div>
+                </div>
+                <div class="theme-card m2">
                     <span class="theme-number m2">T5</span>
                     <h3>👨‍👩‍👧‍👦 Mi Familia</h3>
                     <p class="classes">Clases 10-11</p>
                     <p class="vocab-preview">mother, father, sister, brother, family, love...</p>
-                    <span class="btn-open">Abrir Tema →</span>
-                </a>
-                <a href="explicaciones/T6_Gustos_5pasos.html" class="theme-card m2">
+                    <div class="btn-group">
+                        <a href="explicaciones/T5_Familia_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
+                        <a href="stories/M2_T5_Story2_Parte2_Familia.html" class="btn-open story">📖 Story</a>
+                    </div>
+                </div>
+                <div class="theme-card m2">
                     <span class="theme-number m2">T6</span>
                     <h3>🎮 ¿Qué te gusta hacer?</h3>
                     <p class="classes">Clases 12-13</p>
                     <p class="vocab-preview">like, play, watch, read, listen, music, games...</p>
-                    <span class="btn-open">Abrir Tema →</span>
-                </a>
+                    <div class="btn-group">
+                        <a href="explicaciones/T6_Gustos_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
+                        <a href="stories/M2_T6_Story2_Parte3_Gustos.html" class="btn-open story">📖 Story</a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -424,39 +222,44 @@
                 </div>
             </div>
             <div class="themes-grid">
-                <a href="explicaciones/T7_Restaurante_5pasos.html" class="theme-card m3">
+                <div class="theme-card m3">
                     <span class="theme-number m3">T7</span>
                     <h3>🍽️ En el Restaurante</h3>
                     <p class="classes">Clases 15-16</p>
                     <p class="vocab-preview">food, water, want, please, menu, delicious...</p>
-                    <span class="btn-open">Abrir Tema →</span>
-                </a>
-                <a href="explicaciones/T8_Direcciones_5pasos.html" class="theme-card m3">
+                    <div class="btn-group">
+                        <a href="explicaciones/T7_Restaurante_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
+                        <a href="stories/M3_T7_Story3_Parte1_Restaurante.html" class="btn-open story">📖 Story</a>
+                    </div>
+                </div>
+                <div class="theme-card m3">
                     <span class="theme-number m3">T8</span>
                     <h3>🗺️ ¿Dónde está...?</h3>
                     <p class="classes">Clases 17-18</p>
                     <p class="vocab-preview">where, here, there, left, right, straight, near...</p>
-                    <span class="btn-open">Abrir Tema →</span>
-                </a>
-                <a href="explicaciones/T9_Planes_5pasos.html" class="theme-card m3">
+                    <div class="btn-group">
+                        <a href="explicaciones/T8_Direcciones_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
+                        <a href="stories/M3_T8_Story3_Parte2_Direcciones.html" class="btn-open story">📖 Story</a>
+                    </div>
+                </div>
+                <div class="theme-card m3">
                     <span class="theme-number m3">T9</span>
                     <h3>🌟 Planes y Despedidas</h3>
                     <p class="classes">Clases 19-20</p>
                     <p class="vocab-preview">tomorrow, next, will, visit, travel, excited, miss...</p>
-                    <span class="btn-open">Abrir Tema →</span>
-                </a>
+                    <div class="btn-group">
+                        <a href="explicaciones/T9_Planes_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
+                        <a href="stories/M3_T9_Story3_Parte3_Planes.html" class="btn-open story">📖 Story</a>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Footer -->
         <div class="footer">
             <div class="jucum-logo">🌍 JUCUM ENGLISH CENTER</div>
-
             <p>Taller de Inglés de Verano 2025</p>
             <p>Enero - Febrero 2025</p>
-            <div class="copyright">
-                © 2025 JUCUM English Center. Creado con ❤️ para principiantes.
-            </div>
+            <div class="copyright">© 2025 JUCUM English Center. Creado con ❤️ para principiantes.</div>
         </div>
     </div>
 </body>
