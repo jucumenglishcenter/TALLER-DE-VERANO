@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story 2: Emma's Week - Parte 2 | Mi Familia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            min-height: 100vh;
+            padding: 15px;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #F57C00 0%, #EF6C00 100%);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(245, 124, 0, 0.4);
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .header .subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .header .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: white;
+            margin: 3px;
+        }
+
+        /* Story Info */
+        .story-info {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #F57C00;
+        }
+
+        .story-info h3 {
+            color: #E65100;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .story-info p {
+            color: #555;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* Characters */
+        .characters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .character-tag {
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #E65100;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Scene Card */
+        .scene-card {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .scene-header {
+            background: linear-gradient(135deg, #F57C00 0%, #FF9800 100%);
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scene-number {
+            background: white;
+            color: #F57C00;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .scene-title {
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .scene-content {
+            padding: 20px;
+        }
+
+        /* Dialogue Row */
+        .dialogue-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+
+        .dialogue-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .dialogue-box {
+            padding: 12px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .dialogue-box.spanish {
+            background: linear-gradient(135deg, #F5F5F5 0%, #EEEEEE 100%);
+            border-left: 3px solid #9E9E9E;
+        }
+
+        .dialogue-box.english {
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            border-left: 3px solid #F57C00;
+        }
+
+        .dialogue-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .dialogue-box.spanish .dialogue-label {
+            color: #757575;
+        }
+
+        .dialogue-box.english .dialogue-label {
+            color: #E65100;
+        }
+
+        .speaker {
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dialogue-box.spanish .speaker {
+            color: #424242;
+        }
+
+        .dialogue-box.english .speaker {
+            color: #E65100;
+        }
+
+        .dialogue-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .dialogue-box.spanish .dialogue-text {
+            color: #555;
+        }
+
+        .dialogue-box.english .dialogue-text {
+            color: #333;
+        }
+
+        /* Highlighted vocabulary */
+        .vocab-highlight {
+            background: linear-gradient(135deg, #FFF9C4 0%, #FFF59D 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #F57F17;
+        }
+
+        /* Narration */
+        .narration {
+            background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-style: italic;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .narration-es {
+            color: #757575;
+            font-size: 0.85rem;
+            padding-right: 15px;
+            border-right: 1px dashed #ccc;
+        }
+
+        .narration-en {
+            color: #E65100;
+            font-size: 0.85rem;
+        }
+
+        /* Tip Box */
+        .tip-box {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .tip-box .tip-title {
+            color: #2E7D32;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tip-box .tip-content {
+            color: #555;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* Navigation */
+        .nav-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .nav-btn.prev {
+            background: #E0E0E0;
+            color: #666;
+        }
+
+        .nav-btn.next {
+            background: linear-gradient(135deg, #F57C00 0%, #EF6C00 100%);
+            color: white;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Toggle Button */
+        .toggle-container {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .toggle-btn {
+            background: white;
+            border: 2px solid #F57C00;
+            color: #F57C00;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background: #F57C00;
+            color: white;
+        }
+
+        .toggle-btn.active {
+            background: #F57C00;
+            color: white;
+        }
+
+        /* Hide Spanish when toggled */
+        .hide-spanish .dialogue-box.spanish,
+        .hide-spanish .narration-es {
+            visibility: hidden;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .dialogue-row {
+                grid-template-columns: 1fr;
+            }
+
+            .narration {
+                grid-template-columns: 1fr;
+            }
+
+            .narration-es {
+                border-right: none;
+                border-bottom: 1px dashed #ccc;
+                padding-bottom: 10px;
+                padding-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📖 Story 2: Emma's Week</h1>
+            <div class="subtitle">Parte 2: La familia García</div>
+            <div>
+                <span class="badge">📙 Módulo 2</span>
+                <span class="badge">🎯 Tema 5: Mi Familia</span>
+            </div>
+        </div>
+
+        <!-- Story Info -->
+        <div class="story-info">
+            <h3>📍 Contexto de la historia</h3>
+            <p>Sophie visita la casa de Emma por primera vez para hacer un proyecto escolar. Emma le presenta a toda su familia: su mamá Sara, su papá Carlos y su hermano menor Lucas. También le muestra fotos familiares y le cuenta sobre sus abuelos.</p>
+            
+            <div class="characters">
+                <span class="character-tag">👧 Emma García</span>
+                <span class="character-tag">👧 Sophie Miller</span>
+                <span class="character-tag">👩 Sara (mamá)</span>
+                <span class="character-tag">👨 Carlos (papá)</span>
+                <span class="character-tag">👦 Lucas (hermano)</span>
+            </div>
+        </div>
+
+        <!-- Toggle Button -->
+        <div class="toggle-container">
+            <button class="toggle-btn" onclick="toggleSpanish()">
+                👁️ Ocultar español (modo desafío)
+            </button>
+        </div>
+
+        <!-- SCENE 1 -->
+        <div class="scene-card">
+            <div class="scene-header">
+                <div class="scene-number">1</div>
+                <div class="scene-title">🏠 Sophie llega a casa de Emma</div>
+            </div>
+            <div class="scene-content">
+                <div class="narration">
+                    <div class="narration-es">Es sábado por la tarde. Sophie llega a la casa de Emma para hacer un proyecto escolar juntas.</div>
+                    <div class="narration-en">It's Saturday afternoon. Sophie arrives at Emma's house to do a school project together.</div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">¡Sophie! ¡Bienvenida a mi casa!</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Sophie! Welcome to my house!</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">¡Gracias, Emma! ¡Tu casa es muy bonita!</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">Thank you, Emma! Your house <span class="vocab-highlight">is</span> very nice!</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Ven, quiero presentarte a mi familia.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Come, I want to introduce you to my <span class="vocab-highlight">family</span>.</div>
+                    </div>
+                </div>
+
+                <div class="narration">
+                    <div class="narration-es">Emma lleva a Sophie a la cocina donde está su mamá.</div>
+                    <div class="narration-en">Emma takes Sophie to the kitchen where her mom is.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 2 -->
+        <div class="scene-card">
+            <div class="scene-header">
+                <div class="scene-number">2</div>
+                <div class="scene-title">👩 Conociendo a mamá</div>
+            </div>
+            <div class="scene-content">
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Sophie, esta es mi mamá. Su nombre es Sara.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Sophie, <span class="vocab-highlight">this is</span> my <span class="vocab-highlight">mother</span>. Her name <span class="vocab-highlight">is</span> Sara.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👩 Sara:</div>
+                        <div class="dialogue-text">¡Hola, Sophie! ¡Mucho gusto! Emma me cuenta mucho sobre ti.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👩 Sara:</div>
+                        <div class="dialogue-text">Hello, Sophie! Nice to meet you! Emma tells me a lot about you.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">¡Mucho gusto, señora García! Emma es mi mejor amiga.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">Nice to meet you, Mrs. García! Emma <span class="vocab-highlight">is</span> my best friend.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👩 Sara:</div>
+                        <div class="dialogue-text">¡Qué lindo! Voy a preparar un snack para ustedes.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👩 Sara:</div>
+                        <div class="dialogue-text">How sweet! I'm going to make a snack for you.</div>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-title">💡 "This is my mother"</div>
+                    <div class="tip-content">
+                        <strong>"This is"</strong> <em>(dis is)</em> se usa para presentar a alguien. "This is my mother" = "Esta es mi mamá". También puedes decir <strong>"This is my mom"</strong> (más informal).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 3 -->
+        <div class="scene-card">
+            <div class="scene-header">
+                <div class="scene-number">3</div>
+                <div class="scene-title">👨 Conociendo a papá y al hermano</div>
+            </div>
+            <div class="scene-content">
+                <div class="narration">
+                    <div class="narration-es">Emma lleva a Sophie a la sala donde su papá está trabajando en su computadora.</div>
+                    <div class="narration-en">Emma takes Sophie to the living room where her dad is working on his computer.</div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Sophie, este es mi papá. Su nombre es Carlos.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Sophie, <span class="vocab-highlight">this is</span> my <span class="vocab-highlight">father</span>. His name <span class="vocab-highlight">is</span> Carlos.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👨 Carlos:</div>
+                        <div class="dialogue-text">¡Hola, Sophie! Bienvenida a nuestra casa.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👨 Carlos:</div>
+                        <div class="dialogue-text">Hello, Sophie! Welcome to our house.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">¡Gracias, señor García! Mucho gusto.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">Thank you, Mr. García! Nice to meet you.</div>
+                    </div>
+                </div>
+
+                <div class="narration">
+                    <div class="narration-es">De repente, un niño entra corriendo desde el jardín.</div>
+                    <div class="narration-en">Suddenly, a boy runs in from the garden.</div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👦 Lucas:</div>
+                        <div class="dialogue-text">¡Emma! ¿Quién es ella?</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👦 Lucas:</div>
+                        <div class="dialogue-text">Emma! Who <span class="vocab-highlight">is</span> she?</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Sophie, este es mi hermano Lucas. Lucas, ella es Sophie, mi amiga de la escuela.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Sophie, <span class="vocab-highlight">this is</span> my <span class="vocab-highlight">brother</span> Lucas. Lucas, this <span class="vocab-highlight">is</span> Sophie, my friend from school.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👦 Lucas:</div>
+                        <div class="dialogue-text">¡Hola! ¿Quieres jugar fútbol conmigo después?</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👦 Lucas:</div>
+                        <div class="dialogue-text">Hi! Do you want to play soccer <span class="vocab-highlight">with</span> me later?</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">¡Claro! Tu hermano es muy simpático, Emma.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">Sure! Your <span class="vocab-highlight">brother</span> <span class="vocab-highlight">is</span> very nice, Emma.</div>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-title">💡 Familia en inglés</div>
+                    <div class="tip-content">
+                        👩 <strong>Mother / Mom</strong> = Mamá<br>
+                        👨 <strong>Father / Dad</strong> = Papá<br>
+                        👧 <strong>Sister</strong> = Hermana<br>
+                        👦 <strong>Brother</strong> = Hermano
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 4 -->
+        <div class="scene-card">
+            <div class="scene-header">
+                <div class="scene-number">4</div>
+                <div class="scene-title">📸 Fotos familiares</div>
+            </div>
+            <div class="scene-content">
+                <div class="narration">
+                    <div class="narration-es">Emma lleva a Sophie a su habitación. En la pared hay muchas fotos de su familia.</div>
+                    <div class="narration-en">Emma takes Sophie to her room. On the wall there are many photos of her family.</div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">¡Wow! ¡Tienes muchas fotos! ¿Quiénes son ellos?</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">Wow! You have many photos! Who are they?</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Esta es mi familia. Vivo con mi mamá, mi papá y mi hermano.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text"><span class="vocab-highlight">This is</span> my <span class="vocab-highlight">family</span>. I <span class="vocab-highlight">live with</span> my mom, my dad, and my <span class="vocab-highlight">brother</span>.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">¿Y esta foto? ¿Son tus abuelos?</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">And this photo? Are they your grandparents?</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">¡Sí! Ellos viven en otra ciudad. Los extraño mucho.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Yes! They <span class="vocab-highlight">live</span> in another city. I miss them a lot.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">Tu familia es muy linda, Emma.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">Your <span class="vocab-highlight">family</span> <span class="vocab-highlight">is</span> very nice, Emma.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">¡Gracias! Amo a mi familia. Son lo mejor.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Thanks! I <span class="vocab-highlight">love</span> my <span class="vocab-highlight">family</span>. They are the best.</div>
+                    </div>
+                </div>
+
+                <div class="narration">
+                    <div class="narration-es">Sophie sonríe. Le encanta conocer a la familia de su mejor amiga.</div>
+                    <div class="narration-en">Sophie smiles. She loves meeting her best friend's family.</div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-title">💡 "Live with" - Vivir con</div>
+                    <div class="tip-content">
+                        <strong>"I live with my family"</strong> = Vivo con mi familia.<br>
+                        <strong>"Live"</strong> <em>(liv)</em> significa "vivir".<br>
+                        <strong>"With"</strong> <em>(wid)</em> significa "con".
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-section">
+            <a href="#" class="nav-btn prev">← Parte 1: Un día en la vida de Emma</a>
+            <a href="#" class="nav-btn next">Parte 3: Tiempo libre →</a>
+        </div>
+    </div>
+
+    <script>
+        let spanishHidden = false;
+
+        function toggleSpanish() {
+            const btn = document.querySelector('.toggle-btn');
+            
+            spanishHidden = !spanishHidden;
+            
+            if (spanishHidden) {
+                document.querySelectorAll('.scene-card').forEach(card => {
+                    card.classList.add('hide-spanish');
+                });
+                btn.textContent = '👁️ Mostrar español';
+                btn.classList.add('active');
+            } else {
+                document.querySelectorAll('.scene-card').forEach(card => {
+                    card.classList.remove('hide-spanish');
+                });
+                btn.textContent = '👁️ Ocultar español (modo desafío)';
+                btn.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story 2: Emma's Week - Parte 3 | ¿Qué te gusta hacer?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            min-height: 100vh;
+            padding: 15px;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #F57C00 0%, #EF6C00 100%);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(245, 124, 0, 0.4);
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .header .subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .header .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: white;
+            margin: 3px;
+        }
+
+        /* Story Info */
+        .story-info {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #F57C00;
+        }
+
+        .story-info h3 {
+            color: #E65100;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .story-info p {
+            color: #555;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* Characters */
+        .characters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .character-tag {
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #E65100;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Scene Card */
+        .scene-card {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .scene-header {
+            background: linear-gradient(135deg, #F57C00 0%, #FF9800 100%);
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scene-number {
+            background: white;
+            color: #F57C00;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .scene-title {
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .scene-content {
+            padding: 20px;
+        }
+
+        /* Dialogue Row */
+        .dialogue-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+
+        .dialogue-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .dialogue-box {
+            padding: 12px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .dialogue-box.spanish {
+            background: linear-gradient(135deg, #F5F5F5 0%, #EEEEEE 100%);
+            border-left: 3px solid #9E9E9E;
+        }
+
+        .dialogue-box.english {
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            border-left: 3px solid #F57C00;
+        }
+
+        .dialogue-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .dialogue-box.spanish .dialogue-label {
+            color: #757575;
+        }
+
+        .dialogue-box.english .dialogue-label {
+            color: #E65100;
+        }
+
+        .speaker {
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dialogue-box.spanish .speaker {
+            color: #424242;
+        }
+
+        .dialogue-box.english .speaker {
+            color: #E65100;
+        }
+
+        .dialogue-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .dialogue-box.spanish .dialogue-text {
+            color: #555;
+        }
+
+        .dialogue-box.english .dialogue-text {
+            color: #333;
+        }
+
+        /* Highlighted vocabulary */
+        .vocab-highlight {
+            background: linear-gradient(135deg, #FFF9C4 0%, #FFF59D 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #F57F17;
+        }
+
+        /* Narration */
+        .narration {
+            background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-style: italic;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .narration-es {
+            color: #757575;
+            font-size: 0.85rem;
+            padding-right: 15px;
+            border-right: 1px dashed #ccc;
+        }
+
+        .narration-en {
+            color: #E65100;
+            font-size: 0.85rem;
+        }
+
+        /* Tip Box */
+        .tip-box {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .tip-box .tip-title {
+            color: #2E7D32;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tip-box .tip-content {
+            color: #555;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* Story Complete Badge */
+        .story-complete {
+            background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+        }
+
+        .story-complete h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .story-complete p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        .nav-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .nav-btn.prev {
+            background: #E0E0E0;
+            color: #666;
+        }
+
+        .nav-btn.next {
+            background: linear-gradient(135deg, #F57C00 0%, #EF6C00 100%);
+            color: white;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Toggle Button */
+        .toggle-container {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .toggle-btn {
+            background: white;
+            border: 2px solid #F57C00;
+            color: #F57C00;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background: #F57C00;
+            color: white;
+        }
+
+        .toggle-btn.active {
+            background: #F57C00;
+            color: white;
+        }
+
+        /* Hide Spanish when toggled */
+        .hide-spanish .dialogue-box.spanish,
+        .hide-spanish .narration-es {
+            visibility: hidden;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .dialogue-row {
+                grid-template-columns: 1fr;
+            }
+
+            .narration {
+                grid-template-columns: 1fr;
+            }
+
+            .narration-es {
+                border-right: none;
+                border-bottom: 1px dashed #ccc;
+                padding-bottom: 10px;
+                padding-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📖 Story 2: Emma's Week</h1>
+            <div class="subtitle">Parte 3: Tiempo libre</div>
+            <div>
+                <span class="badge">📙 Módulo 2</span>
+                <span class="badge">🎯 Tema 6: ¿Qué te gusta hacer?</span>
+            </div>
+        </div>
+
+        <!-- Story Info -->
+        <div class="story-info">
+            <h3>📍 Contexto de la historia</h3>
+            <p>Después de terminar el proyecto escolar, Emma y Sophie hablan sobre sus pasatiempos favoritos. Descubren que a ambas les gusta la misma música. Lucas interrumpe porque quiere jugar deportes, y Tom llega de sorpresa. Todos deciden pasar el tiempo juntos.</p>
+            
+            <div class="characters">
+                <span class="character-tag">👧 Emma García</span>
+                <span class="character-tag">👧 Sophie Miller</span>
+                <span class="character-tag">👦 Lucas (hermano)</span>
+                <span class="character-tag">👦 Tom Wilson</span>
+            </div>
+        </div>
+
+        <!-- Toggle Button -->
+        <div class="toggle-container">
+            <button class="toggle-btn" onclick="toggleSpanish()">
+                👁️ Ocultar español (modo desafío)
+            </button>
+        </div>
+
+        <!-- SCENE 1 -->
+        <div class="scene-card">
+            <div class="scene-header">
+                <div class="scene-number">1</div>
+                <div class="scene-title">✅ Proyecto terminado</div>
+            </div>
+            <div class="scene-content">
+                <div class="narration">
+                    <div class="narration-es">Emma y Sophie terminan su proyecto escolar. Ahora tienen tiempo libre para conversar.</div>
+                    <div class="narration-en">Emma and Sophie finish their school project. Now they have free time to talk.</div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">¡Por fin terminamos! Oye Emma, ¿qué te gusta hacer en tu tiempo libre?</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">We finally finished! Hey Emma, what do you <span class="vocab-highlight">like</span> to do in your free time?</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">¡Buena pregunta! Me gusta leer libros. Leo mucho.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Good question! I <span class="vocab-highlight">like</span> to <span class="vocab-highlight">read books</span>. I <span class="vocab-highlight">read</span> a lot.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">¡Qué interesante! ¿Qué tipo de libros te gustan?</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">How interesting! What kind of <span class="vocab-highlight">books</span> do you <span class="vocab-highlight">like</span>?</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Me gustan los libros de aventuras y fantasía. ¿Y a ti? ¿Qué te gusta hacer?</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">I <span class="vocab-highlight">like</span> adventure and fantasy <span class="vocab-highlight">books</span>. And you? What do you <span class="vocab-highlight">like</span> to do?</div>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-title">💡 "I like to..." vs "I like..."</div>
+                    <div class="tip-content">
+                        <strong>"I like to read"</strong> = Me gusta leer (verbo)<br>
+                        <strong>"I like books"</strong> = Me gustan los libros (sustantivo)<br>
+                        Ambas formas son correctas dependiendo de lo que sigue.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 2 -->
+        <div class="scene-card">
+            <div class="scene-header">
+                <div class="scene-number">2</div>
+                <div class="scene-title">📺 Los gustos de Sophie</div>
+            </div>
+            <div class="scene-content">
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">A mí me gusta ver televisión. Veo muchas series.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">I <span class="vocab-highlight">like</span> to <span class="vocab-highlight">watch TV</span>. I <span class="vocab-highlight">watch</span> many shows.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">¡Yo también veo TV a veces! ¿Qué más te gusta?</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">I also <span class="vocab-highlight">watch TV</span> sometimes! What else do you <span class="vocab-highlight">like</span>?</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">Me gusta jugar videojuegos. ¡Son muy divertidos!</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">I <span class="vocab-highlight">like</span> to <span class="vocab-highlight">play</span> video <span class="vocab-highlight">games</span>. They are so fun!</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">¡A mí también me gustan los videojuegos! ¿Cuál es tu favorito?</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">I also <span class="vocab-highlight">like</span> video <span class="vocab-highlight">games</span>! What's your favorite?</div>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-title">💡 "Play" - Jugar</div>
+                    <div class="tip-content">
+                        🎮 <strong>Play games</strong> = Jugar juegos<br>
+                        ⚽ <strong>Play sports</strong> = Jugar deportes<br>
+                        🎸 <strong>Play music</strong> = Tocar música<br>
+                        "Play" se usa para juegos, deportes e instrumentos.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 3 -->
+        <div class="scene-card">
+            <div class="scene-header">
+                <div class="scene-number">3</div>
+                <div class="scene-title">🎵 ¡Les gusta la misma música!</div>
+            </div>
+            <div class="scene-content">
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Sophie, ¿te gusta la música?</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Sophie, do you <span class="vocab-highlight">like</span> <span class="vocab-highlight">music</span>?</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">¡Me encanta la música! Escucho música todos los días.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">I love <span class="vocab-highlight">music</span>! I <span class="vocab-highlight">listen</span> to <span class="vocab-highlight">music</span> every day.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">¡Yo también! A mí me gusta escuchar pop y rock.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Me too! I <span class="vocab-highlight">like</span> to <span class="vocab-highlight">listen</span> to pop and rock.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">¡No puede ser! ¿Te gusta la banda "Star Lights"?</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">No way! Do you <span class="vocab-highlight">like</span> the band "Star Lights"?</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">¡Es mi banda favorita! ¡Me encanta su música!</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">They are my favorite band! I love their <span class="vocab-highlight">music</span>!</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">¡A mí también! ¡Tenemos mucho en común!</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">Me too! We have so much in common!</div>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-title">💡 "Listen to" - Escuchar</div>
+                    <div class="tip-content">
+                        <strong>"Listen to music"</strong> = Escuchar música.<br>
+                        En inglés, siempre usamos <strong>"to"</strong> después de "listen".<br>
+                        ✅ I listen <strong>to</strong> music.<br>
+                        ❌ I listen music.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 4 -->
+        <div class="scene-card">
+            <div class="scene-header">
+                <div class="scene-number">4</div>
+                <div class="scene-title">⚽ Lucas y Tom se unen</div>
+            </div>
+            <div class="scene-content">
+                <div class="narration">
+                    <div class="narration-es">De repente, Lucas entra corriendo a la habitación.</div>
+                    <div class="narration-en">Suddenly, Lucas runs into the room.</div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👦 Lucas:</div>
+                        <div class="dialogue-text">¡Emma! ¡Sophie! ¿Quieren jugar deportes conmigo? ¡Estoy aburrido!</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👦 Lucas:</div>
+                        <div class="dialogue-text">Emma! Sophie! Do you want to <span class="vocab-highlight">play</span> <span class="vocab-highlight">sports</span> with me? I'm bored!</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">A mí no me gustan mucho los deportes, Lucas...</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">I don't <span class="vocab-highlight">like</span> <span class="vocab-highlight">sports</span> very much, Lucas...</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">¡A mí sí me gustan los deportes! ¡Podemos jugar un poco!</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">I do <span class="vocab-highlight">like</span> <span class="vocab-highlight">sports</span>! We can <span class="vocab-highlight">play</span> a little!</div>
+                    </div>
+                </div>
+
+                <div class="narration">
+                    <div class="narration-es">En ese momento, suena el timbre. Es Tom.</div>
+                    <div class="narration-en">At that moment, the doorbell rings. It's Tom.</div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="dialogue-text">¡Hola a todos! Sophie me invitó. ¿Qué están haciendo?</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="dialogue-text">Hi everyone! Sophie invited me. What are you doing?</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">¡Tom! Estamos hablando de lo que nos gusta hacer. ¿A ti qué te gusta?</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Tom! We're talking about what we <span class="vocab-highlight">like</span> to do. What do you <span class="vocab-highlight">like</span>?</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="dialogue-text">¡Me gustan los videojuegos! Y también me gusta ver TV.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👦 Tom:</div>
+                        <div class="dialogue-text">I <span class="vocab-highlight">like</span> video <span class="vocab-highlight">games</span>! And I also <span class="vocab-highlight">like</span> to <span class="vocab-highlight">watch TV</span>.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👦 Lucas:</div>
+                        <div class="dialogue-text">¡Genial! Podemos jugar videojuegos y después jugar deportes afuera.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👦 Lucas:</div>
+                        <div class="dialogue-text">Great! We can <span class="vocab-highlight">play</span> video <span class="vocab-highlight">games</span> and then <span class="vocab-highlight">play</span> <span class="vocab-highlight">sports</span> outside.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧👧👦👦 Todos:</div>
+                        <div class="dialogue-text">¡Sí! ¡Buena idea!</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧👧👦👦 Everyone:</div>
+                        <div class="dialogue-text">Yes! Good idea!</div>
+                    </div>
+                </div>
+
+                <div class="narration">
+                    <div class="narration-es">Los cuatro amigos pasan una tarde increíble jugando y divirtiéndose juntos.</div>
+                    <div class="narration-en">The four friends spend an amazing afternoon playing and having fun together.</div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-title">💡 Resumen de gustos</div>
+                    <div class="tip-content">
+                        📚 <strong>I like to read books</strong> = Me gusta leer libros<br>
+                        📺 <strong>I like to watch TV</strong> = Me gusta ver televisión<br>
+                        🎵 <strong>I like to listen to music</strong> = Me gusta escuchar música<br>
+                        🎮 <strong>I like to play games</strong> = Me gusta jugar juegos<br>
+                        ⚽ <strong>I like sports</strong> = Me gustan los deportes
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story Complete -->
+        <div class="story-complete">
+            <h3>🎉 ¡Felicidades! Has completado Story 2</h3>
+            <p>"Emma's Week" - Emma compartió su rutina, su familia y sus gustos con sus amigos.</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-section">
+            <a href="#" class="nav-btn prev">← Parte 2: La familia García</a>
+            <a href="#" class="nav-btn next">Story 3: Emma's Adventure →</a>
+        </div>
+    </div>
+
+    <script>
+        let spanishHidden = false;
+
+        function toggleSpanish() {
+            const btn = document.querySelector('.toggle-btn');
+            
+            spanishHidden = !spanishHidden;
+            
+            if (spanishHidden) {
+                document.querySelectorAll('.scene-card').forEach(card => {
+                    card.classList.add('hide-spanish');
+                });
+                btn.textContent = '👁️ Mostrar español';
+                btn.classList.add('active');
+            } else {
+                document.querySelectorAll('.scene-card').forEach(card => {
+                    card.classList.remove('hide-spanish');
+                });
+                btn.textContent = '👁️ Ocultar español (modo desafío)';
+                btn.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story 1: The New Student - Parte 1 | Saludos Básicos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            min-height: 100vh;
+            padding: 15px;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4);
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .header .subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .header .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: white;
+            margin: 3px;
+        }
+
+        /* Story Info */
+        .story-info {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #1976D2;
+        }
+
+        .story-info h3 {
+            color: #1565C0;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .story-info p {
+            color: #555;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* Characters */
+        .characters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .character-tag {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #1565C0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Scene Card */
+        .scene-card {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .scene-header {
+            background: linear-gradient(135deg, #1976D2 0%, #2196F3 100%);
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scene-number {
+            background: white;
+            color: #1976D2;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .scene-title {
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .scene-content {
+            padding: 20px;
+        }
+
+        /* Dialogue Row */
+        .dialogue-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+
+        .dialogue-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .dialogue-box {
+            padding: 12px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .dialogue-box.spanish {
+            background: linear-gradient(135deg, #F5F5F5 0%, #EEEEEE 100%);
+            border-left: 3px solid #9E9E9E;
+        }
+
+        .dialogue-box.english {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            border-left: 3px solid #1976D2;
+        }
+
+        .dialogue-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .dialogue-box.spanish .dialogue-label {
+            color: #757575;
+        }
+
+        .dialogue-box.english .dialogue-label {
+            color: #1565C0;
+        }
+
+        .speaker {
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dialogue-box.spanish .speaker {
+            color: #424242;
+        }
+
+        .dialogue-box.english .speaker {
+            color: #1565C0;
+        }
+
+        .dialogue-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .dialogue-box.spanish .dialogue-text {
+            color: #555;
+        }
+
+        .dialogue-box.english .dialogue-text {
+            color: #333;
+        }
+
+        /* Highlighted vocabulary */
+        .vocab-highlight {
+            background: linear-gradient(135deg, #FFF9C4 0%, #FFF59D 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #F57F17;
+        }
+
+        /* Narration */
+        .narration {
+            background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-style: italic;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .narration-es {
+            color: #757575;
+            font-size: 0.85rem;
+            padding-right: 15px;
+            border-right: 1px dashed #ccc;
+        }
+
+        .narration-en {
+            color: #1565C0;
+            font-size: 0.85rem;
+        }
+
+        /* Tip Box */
+        .tip-box {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .tip-box .tip-title {
+            color: #2E7D32;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tip-box .tip-content {
+            color: #555;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* Pronunciation Guide */
+        .pronunciation {
+            color: #9C27B0;
+            font-size: 0.75rem;
+            font-style: italic;
+        }
+
+        /* Navigation */
+        .nav-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .nav-btn.prev {
+            background: #E0E0E0;
+            color: #666;
+        }
+
+        .nav-btn.next {
+            background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+            color: white;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Toggle Button */
+        .toggle-container {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .toggle-btn {
+            background: white;
+            border: 2px solid #1976D2;
+            color: #1976D2;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background: #1976D2;
+            color: white;
+        }
+
+        .toggle-btn.active {
+            background: #1976D2;
+            color: white;
+        }
+
+        /* Hide Spanish when toggled */
+        .hide-spanish .dialogue-box.spanish,
+        .hide-spanish .narration-es {
+            visibility: hidden;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .dialogue-row {
+                grid-template-columns: 1fr;
+            }
+
+            .narration {
+                grid-template-columns: 1fr;
+            }
+
+            .narration-es {
+                border-right: none;
+                border-bottom: 1px dashed #ccc;
+                padding-bottom: 10px;
+                padding-right: 0;
+            }
+
+            .phrase-item {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📖 Story 1: The New Student</h1>
+            <div class="subtitle">Parte 1: Llegando a la escuela</div>
+            <div>
+                <span class="badge">📘 Módulo 1</span>
+                <span class="badge">🎯 Tema 1: Saludos Básicos</span>
+            </div>
+        </div>
+
+        <!-- Story Info -->
+        <div class="story-info">
+            <h3>📍 Contexto de la historia</h3>
+            <p>Es lunes por la mañana. Emma García llega a su nueva escuela con su madre. Está nerviosa pero emocionada. En la entrada, conoce a Mrs. Johnson, su nueva maestra, quien la saluda amablemente y la presenta a sus compañeros de clase.</p>
+            
+            <div class="characters">
+                <span class="character-tag">👧 Emma García</span>
+                <span class="character-tag">👩 Sara (mamá)</span>
+                <span class="character-tag">👩‍🏫 Mrs. Johnson</span>
+                <span class="character-tag">👦👧 Compañeros</span>
+            </div>
+        </div>
+
+        <!-- Toggle Button -->
+        <div class="toggle-container">
+            <button class="toggle-btn" onclick="toggleSpanish()">
+                👁️ Ocultar español (modo desafío)
+            </button>
+        </div>
+
+        <!-- SCENE 1 -->
+        <div class="scene-card" id="story-content">
+            <div class="scene-header">
+                <div class="scene-number">1</div>
+                <div class="scene-title">🏫 Llegando a la escuela</div>
+            </div>
+            <div class="scene-content">
+                <div class="narration">
+                    <div class="narration-es">Es una mañana soleada de lunes. Emma y su madre llegan a la escuela nueva. Emma está un poco nerviosa.</div>
+                    <div class="narration-en">It's a sunny Monday morning. Emma and her mother arrive at the new school. Emma is a little nervous.</div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👩 Sara (mamá):</div>
+                        <div class="dialogue-text">¡Mira, Emma! Esta es tu nueva escuela. ¡Es muy bonita!</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👩 Sara (mom):</div>
+                        <div class="dialogue-text">Look, Emma! This is your new school. It's very nice!</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Sí, mamá. Estoy un poco nerviosa...</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Yes, mom. I'm a little nervous...</div>
+                    </div>
+                </div>
+
+                <div class="narration">
+                    <div class="narration-es">Una mujer amable se acerca a ellas en la entrada.</div>
+                    <div class="narration-en">A friendly woman approaches them at the entrance.</div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👩‍🏫 Mrs. Johnson:</div>
+                        <div class="dialogue-text">¡Buenos días! ¡Bienvenidas!</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👩‍🏫 Mrs. Johnson:</div>
+                        <div class="dialogue-text"><span class="vocab-highlight">Good morning</span>! Welcome!</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👩 Sara:</div>
+                        <div class="dialogue-text">¡Buenos días! Mi nombre es Sara García.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👩 Sara:</div>
+                        <div class="dialogue-text"><span class="vocab-highlight">Good morning</span>! <span class="vocab-highlight">My name</span> is Sara García.</div>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-title">💡 Tip de pronunciación</div>
+                    <div class="tip-content"><strong>"Good morning"</strong> se pronuncia <em>"gud mórning"</em>. Es el saludo que usamos desde que amanece hasta el mediodía (12:00 pm).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 2 -->
+        <div class="scene-card">
+            <div class="scene-header">
+                <div class="scene-number">2</div>
+                <div class="scene-title">🤝 Las presentaciones</div>
+            </div>
+            <div class="scene-content">
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👩‍🏫 Mrs. Johnson:</div>
+                        <div class="dialogue-text">¡Hola! Mi nombre es Mrs. Johnson. Soy la maestra de Emma.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👩‍🏫 Mrs. Johnson:</div>
+                        <div class="dialogue-text"><span class="vocab-highlight">Hello</span>! <span class="vocab-highlight">My name</span> is Mrs. Johnson. I'm Emma's teacher.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👩 Sara:</div>
+                        <div class="dialogue-text">¡Mucho gusto en conocerla!</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👩 Sara:</div>
+                        <div class="dialogue-text"><span class="vocab-highlight">Nice</span> to <span class="vocab-highlight">meet</span> you!</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👩‍🏫 Mrs. Johnson:</div>
+                        <div class="dialogue-text">¡Igualmente! Y tú debes ser Emma.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👩‍🏫 Mrs. Johnson:</div>
+                        <div class="dialogue-text"><span class="vocab-highlight">Nice</span> to <span class="vocab-highlight">meet</span> you too! And you must be Emma.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">¡Hola! Sí, mi nombre es Emma. Mucho gusto.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text"><span class="vocab-highlight">Hi</span>! Yes, <span class="vocab-highlight">my name</span> is Emma. <span class="vocab-highlight">Nice</span> to <span class="vocab-highlight">meet</span> you.</div>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-title">💡 ¿"Hello" o "Hi"?</div>
+                    <div class="tip-content">
+                        <strong>"Hello"</strong> <em>(jelóu)</em> es más formal. <strong>"Hi"</strong> <em>(jái)</em> es informal y amigable. Emma usa "Hi" porque está hablando con alguien que quiere ser su amiga.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 3 -->
+        <div class="scene-card">
+            <div class="scene-header">
+                <div class="scene-number">3</div>
+                <div class="scene-title">📚 En el salón de clases</div>
+            </div>
+            <div class="scene-content">
+                <div class="narration">
+                    <div class="narration-es">Mrs. Johnson lleva a Emma al salón de clases. Los estudiantes están sentados y miran con curiosidad.</div>
+                    <div class="narration-en">Mrs. Johnson takes Emma to the classroom. The students are sitting and looking with curiosity.</div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👩‍🏫 Mrs. Johnson:</div>
+                        <div class="dialogue-text">¡Buenas tardes, clase!</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👩‍🏫 Mrs. Johnson:</div>
+                        <div class="dialogue-text"><span class="vocab-highlight">Good afternoon</span>, class!</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👦👧 Clase:</div>
+                        <div class="dialogue-text">¡Buenas tardes, Mrs. Johnson!</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👦👧 Class:</div>
+                        <div class="dialogue-text"><span class="vocab-highlight">Good afternoon</span>, Mrs. Johnson!</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👩‍🏫 Mrs. Johnson:</div>
+                        <div class="dialogue-text">Tenemos una estudiante nueva hoy. Emma, por favor preséntate.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👩‍🏫 Mrs. Johnson:</div>
+                        <div class="dialogue-text">We have a new student today. Emma, please introduce yourself.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">Hola a todos. Mi nombre es Emma García. Mucho gusto en conocerlos.</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text"><span class="vocab-highlight">Hello</span> everyone. <span class="vocab-highlight">My name</span> is Emma García. <span class="vocab-highlight">Nice</span> to <span class="vocab-highlight">meet</span> you.</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👦👧 Clase:</div>
+                        <div class="dialogue-text">¡Hola, Emma! ¡Mucho gusto!</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👦👧 Class:</div>
+                        <div class="dialogue-text"><span class="vocab-highlight">Hi</span>, Emma! <span class="vocab-highlight">Nice</span> to <span class="vocab-highlight">meet</span> you!</div>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-title">💡 ¿Cuándo usar cada saludo?</div>
+                    <div class="tip-content">
+                        🌅 <strong>Good morning</strong> = Desde el amanecer hasta las 12:00 pm<br>
+                        ☀️ <strong>Good afternoon</strong> = Desde las 12:00 pm hasta las 6:00 pm<br>
+                        🌙 <strong>Good evening</strong> = Desde las 6:00 pm en adelante
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCENE 4 -->
+        <div class="scene-card">
+            <div class="scene-header">
+                <div class="scene-number">4</div>
+                <div class="scene-title">😊 Un nuevo comienzo</div>
+            </div>
+            <div class="scene-content">
+                <div class="narration">
+                    <div class="narration-es">Emma se sienta en su nuevo escritorio. Una niña a su lado le sonríe.</div>
+                    <div class="narration-en">Emma sits at her new desk. A girl next to her smiles.</div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text">¡Hola! Mi nombre es Sophie. ¡Bienvenida!</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Sophie:</div>
+                        <div class="dialogue-text"><span class="vocab-highlight">Hi</span>! <span class="vocab-highlight">My name</span> is Sophie. Welcome!</div>
+                    </div>
+                </div>
+
+                <div class="dialogue-row">
+                    <div class="dialogue-box spanish">
+                        <div class="dialogue-label">Español</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text">¡Hola, Sophie! Mucho gusto. ¡Gracias!</div>
+                    </div>
+                    <div class="dialogue-box english">
+                        <div class="dialogue-label">English</div>
+                        <div class="speaker">👧 Emma:</div>
+                        <div class="dialogue-text"><span class="vocab-highlight">Hi</span>, Sophie! <span class="vocab-highlight">Nice</span> to <span class="vocab-highlight">meet</span> you. Thank you!</div>
+                    </div>
+                </div>
+
+                <div class="narration">
+                    <div class="narration-es">Emma sonríe. Este nuevo comienzo no parece tan malo después de todo.</div>
+                    <div class="narration-en">Emma smiles. This new beginning doesn't seem so bad after all.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-section">
+            <button class="nav-btn prev" disabled>← Parte anterior</button>
+            <a href="#" class="nav-btn next">Parte 2: Conociendo amigos →</a>
+        </div>
+    </div>
+
+    <script>
+        let spanishHidden = false;
+
+        function toggleSpanish() {
+            const content = document.getElementById('story-content').parentElement;
+            const btn = document.querySelector('.toggle-btn');
+            
+            spanishHidden = !spanishHidden;
+            
+            if (spanishHidden) {
+                document.querySelectorAll('.scene-card').forEach(card => {
+                    card.classList.add('hide-spanish');
+                });
+                btn.textContent = '👁️ Mostrar español';
+                btn.classList.add('active');
+            } else {
+                document.querySelectorAll('.scene-card').forEach(card => {
+                    card.classList.remove('hide-spanish');
+                });
+                btn.textContent = '👁️ Ocultar español (modo desafío)';
+                btn.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
