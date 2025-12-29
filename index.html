@@ -3,29 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taller de Inglés de Verano 2025 | JUCUM English Center</title>
+    <title>Taller de Inglés de Verano | JUCUM English Center</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1E3A5F 0%, #2E86AB 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #1E3A5F 0%, #2E86AB 100%); min-height: 100vh; padding: 20px; }
         .container { max-width: 900px; margin: 0 auto; }
-        
         .logo-header { text-align: center; padding: 20px; margin-bottom: 15px; }
         .logo-header .logo-text { color: white; font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        
         .main-header { text-align: center; padding: 30px 20px; background: white; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .main-header .jucum-badge { display: inline-block; background: linear-gradient(135deg, #1E3A5F 0%, #2E86AB 100%); color: white; padding: 8px 20px; border-radius: 25px; font-size: 0.85rem; font-weight: 600; margin-bottom: 15px; letter-spacing: 1px; }
         .main-header h1 { color: #1E3A5F; font-size: 1.8rem; margin-bottom: 10px; }
         .main-header .subtitle { color: #666; font-size: 1rem; margin-bottom: 15px; }
         .main-header .info-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
         .info-badge { background: linear-gradient(135deg, #F18F01 0%, #e67e00 100%); color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 500; }
-        
         .module { background: white; border-radius: 16px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.15); }
         .module-header { padding: 20px; color: white; display: flex; align-items: center; gap: 15px; }
         .module-header.m1 { background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); }
@@ -34,39 +24,31 @@
         .module-icon { font-size: 2.5rem; }
         .module-info h2 { font-size: 1.3rem; margin-bottom: 5px; }
         .module-info span { font-size: 0.85rem; opacity: 0.9; }
-        
         .themes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; padding: 20px; }
-        
-        .theme-card { background: #f8f9fa; border-radius: 12px; padding: 20px; color: inherit; transition: all 0.3s ease; border: 2px solid transparent; }
+        .theme-card { background: #f8f9fa; border-radius: 12px; padding: 20px; transition: all 0.3s ease; border: 2px solid transparent; }
         .theme-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
         .theme-card.m1:hover { border-color: #1976D2; background: #e3f2fd; }
         .theme-card.m2:hover { border-color: #F57C00; background: #fff3e0; }
         .theme-card.m3:hover { border-color: #388E3C; background: #e8f5e9; }
-        
         .theme-number { display: inline-block; width: 35px; height: 35px; border-radius: 50%; color: white; font-weight: bold; text-align: center; line-height: 35px; margin-bottom: 10px; font-size: 1rem; }
         .theme-number.m1 { background: #1976D2; }
         .theme-number.m2 { background: #F57C00; }
         .theme-number.m3 { background: #388E3C; }
-        
         .theme-card h3 { color: #333; font-size: 1.1rem; margin-bottom: 8px; }
         .theme-card .classes { color: #666; font-size: 0.85rem; margin-bottom: 10px; }
         .theme-card .vocab-preview { font-size: 0.8rem; color: #888; font-style: italic; margin-bottom: 12px; }
-        
         .btn-group { display: flex; gap: 6px; flex-wrap: wrap; }
         .btn-open { display: inline-block; padding: 8px 12px; border-radius: 20px; color: white; font-size: 0.75rem; font-weight: 600; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; border: none; cursor: pointer; }
         .btn-open:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .btn-open.explicacion { background: #1976D2; }
         .btn-open.story { background: #9C27B0; }
         .btn-open.actividades { background: #E91E63; }
         .theme-card.m1 .btn-open.explicacion { background: #1976D2; }
         .theme-card.m2 .btn-open.explicacion { background: #F57C00; }
         .theme-card.m3 .btn-open.explicacion { background: #388E3C; }
-        
         .footer { text-align: center; padding: 25px 20px; background: rgba(255,255,255,0.1); border-radius: 16px; margin-top: 10px; }
         .footer .jucum-logo { font-size: 1.3rem; font-weight: 700; color: white; letter-spacing: 2px; margin-bottom: 5px; }
         .footer p { color: rgba(255,255,255,0.7); font-size: 0.85rem; }
         .footer .copyright { margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); font-size: 0.8rem; }
-        
         .progress-overview { background: white; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.15); }
         .progress-overview h3 { color: #1E3A5F; margin-bottom: 15px; font-size: 1.1rem; }
         .progress-bar-container { display: flex; gap: 5px; margin-bottom: 10px; }
@@ -80,115 +62,44 @@
         .legend-dot.m1 { background: #1976D2; }
         .legend-dot.m2 { background: #F57C00; }
         .legend-dot.m3 { background: #388E3C; }
-
-        /* Modal de Actividades */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
         .modal-overlay.active { display: flex; }
-        
-        .modal-content {
-            background: white;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 100%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-        
-        .modal-header {
-            padding: 20px;
-            background: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);
-            color: white;
-            border-radius: 20px 20px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .modal-header h2 { font-size: 1.2rem; }
-        .modal-close {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
+        .modal-content { background: white; border-radius: 20px; max-width: 550px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .modal-header { padding: 20px; background: linear-gradient(135deg, #E91E63 0%, #C2185B 100%); color: white; border-radius: 20px 20px 0 0; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; }
+        .modal-header h2 { font-size: 1.1rem; }
+        .modal-close { background: rgba(255,255,255,0.2); border: none; color: white; width: 35px; height: 35px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; }
         .modal-close:hover { background: rgba(255,255,255,0.3); }
-        
         .modal-body { padding: 20px; }
-        
-        .activity-item {
-            display: block;
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 10px;
-            text-decoration: none;
-            color: inherit;
-            border: 2px solid transparent;
-            transition: all 0.3s;
-        }
-        .activity-item:hover {
-            border-color: #E91E63;
-            background: #fce4ec;
-            transform: translateX(5px);
-        }
-        .activity-item .activity-icon { font-size: 1.5rem; margin-right: 10px; }
-        .activity-item .activity-name { font-weight: 600; color: #333; }
-        .activity-item .activity-desc { font-size: 0.8rem; color: #666; margin-top: 5px; }
-        
         .activity-section { margin-bottom: 20px; }
-        .activity-section h3 { 
-            color: #E91E63; 
-            font-size: 0.95rem; 
-            margin-bottom: 10px; 
-            padding-bottom: 8px;
-            border-bottom: 2px solid #fce4ec;
-        }
-        
-        .coming-soon {
-            background: #fff3e0;
-            border: 2px dashed #F57C00;
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            color: #E65100;
-            font-size: 0.9rem;
-        }
-
+        .activity-section h3 { color: #333; font-size: 0.95rem; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #f0f0f0; display: flex; align-items: center; gap: 8px; }
+        .activity-section h3 .icon { font-size: 1.2rem; }
+        .version-group { background: #f8f9fa; border-radius: 12px; padding: 12px; margin-bottom: 10px; }
+        .version-group h4 { color: #666; font-size: 0.8rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .version-link { display: block; background: white; border-radius: 10px; padding: 12px 15px; margin-bottom: 8px; text-decoration: none; color: #333; border: 2px solid #e0e0e0; transition: all 0.3s; }
+        .version-link:hover { border-color: #E91E63; background: #fce4ec; transform: translateX(5px); }
+        .version-link:last-child { margin-bottom: 0; }
+        .version-link .version-title { font-weight: 600; font-size: 0.85rem; }
+        .version-link .version-desc { font-size: 0.75rem; color: #888; margin-top: 3px; }
+        .activity-link { display: block; background: #f8f9fa; border-radius: 12px; padding: 15px; text-decoration: none; color: #333; border: 2px solid #e0e0e0; transition: all 0.3s; }
+        .activity-link:hover { border-color: #E91E63; background: #fce4ec; transform: translateX(5px); }
+        .activity-link .activity-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+        .activity-link .activity-desc { font-size: 0.8rem; color: #666; margin-top: 5px; margin-left: 28px; }
         @media (max-width: 600px) {
             .main-header h1 { font-size: 1.4rem; }
             .themes-grid { grid-template-columns: 1fr; }
             .module-header { flex-direction: column; text-align: center; }
             .progress-legend { flex-direction: column; gap: 8px; align-items: center; }
             .btn-group { justify-content: center; }
+            .modal-content { max-height: 95vh; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="logo-header">
-            <div class="logo-text">🌍 JUCUM ENGLISH CENTER</div>
-        </div>
-        
+        <div class="logo-header"><div class="logo-text">🌍 JUCUM ENGLISH CENTER</div></div>
         <div class="main-header">
             <div class="jucum-badge">✨ JUCUM ENGLISH CENTER</div>
-            <h1>🎓 Taller de Inglés de Verano 2025</h1>
+            <h1>🎓 Taller de Inglés de Verano</h1>
             <p class="subtitle">Programa completo para principiantes absolutos</p>
             <div class="info-badges">
                 <span class="info-badge">📅 7 Semanas</span>
@@ -197,19 +108,12 @@
                 <span class="info-badge">📖 3 Stories</span>
             </div>
         </div>
-        
         <div class="progress-overview">
             <h3>📊 Estructura del Curso</h3>
             <div class="progress-bar-container">
-                <div class="progress-segment m1"></div>
-                <div class="progress-segment m1"></div>
-                <div class="progress-segment m1"></div>
-                <div class="progress-segment m2"></div>
-                <div class="progress-segment m2"></div>
-                <div class="progress-segment m2"></div>
-                <div class="progress-segment m3"></div>
-                <div class="progress-segment m3"></div>
-                <div class="progress-segment m3"></div>
+                <div class="progress-segment m1"></div><div class="progress-segment m1"></div><div class="progress-segment m1"></div>
+                <div class="progress-segment m2"></div><div class="progress-segment m2"></div><div class="progress-segment m2"></div>
+                <div class="progress-segment m3"></div><div class="progress-segment m3"></div><div class="progress-segment m3"></div>
             </div>
             <div class="progress-legend">
                 <div class="legend-item"><div class="legend-dot m1"></div> M1: Primeros Contactos</div>
@@ -220,228 +124,88 @@
 
         <!-- MÓDULO 1 -->
         <div class="module">
-            <div class="module-header m1">
-                <span class="module-icon">📘</span>
-                <div class="module-info">
-                    <h2>Módulo 1: Primeros Contactos</h2>
-                    <span>Story: "The New Student" • Clases 1-7</span>
-                </div>
-            </div>
+            <div class="module-header m1"><span class="module-icon">📘</span><div class="module-info"><h2>Módulo 1: Primeros Contactos</h2><span>Story: "The New Student" • Clases 1-7</span></div></div>
             <div class="themes-grid">
-                <div class="theme-card m1">
-                    <span class="theme-number m1">T1</span>
-                    <h3>👋 Saludos Básicos</h3>
-                    <p class="classes">Clases 1-2</p>
-                    <p class="vocab-preview">hello, hi, good morning, name, nice, meet...</p>
-                    <div class="btn-group">
-                        <a href="explicaciones/T1_Saludos_Basicos_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
-                        <a href="stories/M1_T1_Story1_Parte1_Saludos.html" class="btn-open story">📖 Story</a>
-                        <button onclick="openModal('T1')" class="btn-open actividades">✏️ Actividades</button>
-                    </div>
-                </div>
-                <div class="theme-card m1">
-                    <span class="theme-number m1">T2</span>
-                    <h3>😊 ¿Cómo estás hoy?</h3>
-                    <p class="classes">Clases 3-4</p>
-                    <p class="vocab-preview">how, are, you, I'm, fine, great, thank you...</p>
-                    <div class="btn-group">
-                        <a href="explicaciones/T2_Como_Estas_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
-                        <a href="stories/M1_T2_Story1_Parte2_ComoEstas.html" class="btn-open story">📖 Story</a>
-                        <button onclick="openModal('T2')" class="btn-open actividades">✏️ Actividades</button>
-                    </div>
-                </div>
-                <div class="theme-card m1">
-                    <span class="theme-number m1">T3</span>
-                    <h3>👋 Despedidas</h3>
-                    <p class="classes">Clases 5-6</p>
-                    <p class="vocab-preview">goodbye, bye, see you, later, tomorrow, soon...</p>
-                    <div class="btn-group">
-                        <a href="explicaciones/T3_Despedidas_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
-                        <a href="stories/M1_T3_Story1_Parte3_Despedidas.html" class="btn-open story">📖 Story</a>
-                        <button onclick="openModal('T3')" class="btn-open actividades">✏️ Actividades</button>
-                    </div>
-                </div>
+                <div class="theme-card m1"><span class="theme-number m1">T1</span><h3>👋 Saludos Básicos</h3><p class="classes">Clases 1-2</p><p class="vocab-preview">hello, hi, good morning, name, nice, meet...</p><div class="btn-group"><a href="explicaciones/T1_Saludos_Basicos_5pasos.html" class="btn-open explicacion">📚 Explicación</a><a href="stories/M1_T1_Story1_Parte1_Saludos.html" class="btn-open story">📖 Story</a><button onclick="openModal('T1')" class="btn-open actividades">✏️ Actividades</button></div></div>
+                <div class="theme-card m1"><span class="theme-number m1">T2</span><h3>😊 ¿Cómo estás hoy?</h3><p class="classes">Clases 3-4</p><p class="vocab-preview">how, are, you, I'm, fine, great, thank you...</p><div class="btn-group"><a href="explicaciones/T2_Como_Estas_5pasos.html" class="btn-open explicacion">📚 Explicación</a><a href="stories/M1_T2_Story1_Parte2_ComoEstas.html" class="btn-open story">📖 Story</a><button onclick="openModal('T2')" class="btn-open actividades">✏️ Actividades</button></div></div>
+                <div class="theme-card m1"><span class="theme-number m1">T3</span><h3>👋 Despedidas</h3><p class="classes">Clases 5-6</p><p class="vocab-preview">goodbye, bye, see you, later, tomorrow, soon...</p><div class="btn-group"><a href="explicaciones/T3_Despedidas_5pasos.html" class="btn-open explicacion">📚 Explicación</a><a href="stories/M1_T3_Story1_Parte3_Despedidas.html" class="btn-open story">📖 Story</a><button onclick="openModal('T3')" class="btn-open actividades">✏️ Actividades</button></div></div>
             </div>
         </div>
 
         <!-- MÓDULO 2 -->
         <div class="module">
-            <div class="module-header m2">
-                <span class="module-icon">📙</span>
-                <div class="module-info">
-                    <h2>Módulo 2: Mi Mundo Diario</h2>
-                    <span>Story: "Emma's Week" • Clases 8-14</span>
-                </div>
-            </div>
+            <div class="module-header m2"><span class="module-icon">📙</span><div class="module-info"><h2>Módulo 2: Mi Mundo Diario</h2><span>Story: "Emma's Week" • Clases 8-14</span></div></div>
             <div class="themes-grid">
-                <div class="theme-card m2">
-                    <span class="theme-number m2">T4</span>
-                    <h3>⏰ Mi Rutina Diaria</h3>
-                    <p class="classes">Clases 8-9</p>
-                    <p class="vocab-preview">wake up, eat, breakfast, go, school, sleep...</p>
-                    <div class="btn-group">
-                        <a href="explicaciones/T4_Rutina_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
-                        <a href="stories/M2_T4_Story2_Parte1_Rutina.html" class="btn-open story">📖 Story</a>
-                        <button onclick="openModal('T4')" class="btn-open actividades">✏️ Actividades</button>
-                    </div>
-                </div>
-                <div class="theme-card m2">
-                    <span class="theme-number m2">T5</span>
-                    <h3>👨‍👩‍👧‍👦 Mi Familia</h3>
-                    <p class="classes">Clases 10-11</p>
-                    <p class="vocab-preview">mother, father, sister, brother, family, love...</p>
-                    <div class="btn-group">
-                        <a href="explicaciones/T5_Familia_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
-                        <a href="stories/M2_T5_Story2_Parte2_Familia.html" class="btn-open story">📖 Story</a>
-                        <button onclick="openModal('T5')" class="btn-open actividades">✏️ Actividades</button>
-                    </div>
-                </div>
-                <div class="theme-card m2">
-                    <span class="theme-number m2">T6</span>
-                    <h3>🎮 ¿Qué te gusta hacer?</h3>
-                    <p class="classes">Clases 12-13</p>
-                    <p class="vocab-preview">like, play, watch, read, listen, music, games...</p>
-                    <div class="btn-group">
-                        <a href="explicaciones/T6_Gustos_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
-                        <a href="stories/M2_T6_Story2_Parte3_Gustos.html" class="btn-open story">📖 Story</a>
-                        <button onclick="openModal('T6')" class="btn-open actividades">✏️ Actividades</button>
-                    </div>
-                </div>
+                <div class="theme-card m2"><span class="theme-number m2">T4</span><h3>⏰ Mi Rutina Diaria</h3><p class="classes">Clases 8-9</p><p class="vocab-preview">wake up, eat, breakfast, go, school, sleep...</p><div class="btn-group"><a href="explicaciones/T4_Rutina_5pasos.html" class="btn-open explicacion">📚 Explicación</a><a href="stories/M2_T4_Story2_Parte1_Rutina.html" class="btn-open story">📖 Story</a><button onclick="openModal('T4')" class="btn-open actividades">✏️ Actividades</button></div></div>
+                <div class="theme-card m2"><span class="theme-number m2">T5</span><h3>👨‍👩‍👧‍👦 Mi Familia</h3><p class="classes">Clases 10-11</p><p class="vocab-preview">mother, father, sister, brother, family, love...</p><div class="btn-group"><a href="explicaciones/T5_Familia_5pasos.html" class="btn-open explicacion">📚 Explicación</a><a href="stories/M2_T5_Story2_Parte2_Familia.html" class="btn-open story">📖 Story</a><button onclick="openModal('T5')" class="btn-open actividades">✏️ Actividades</button></div></div>
+                <div class="theme-card m2"><span class="theme-number m2">T6</span><h3>🎮 ¿Qué te gusta hacer?</h3><p class="classes">Clases 12-13</p><p class="vocab-preview">like, play, watch, read, listen, music, games...</p><div class="btn-group"><a href="explicaciones/T6_Gustos_5pasos.html" class="btn-open explicacion">📚 Explicación</a><a href="stories/M2_T6_Story2_Parte3_Gustos.html" class="btn-open story">📖 Story</a><button onclick="openModal('T6')" class="btn-open actividades">✏️ Actividades</button></div></div>
             </div>
         </div>
 
         <!-- MÓDULO 3 -->
         <div class="module">
-            <div class="module-header m3">
-                <span class="module-icon">📗</span>
-                <div class="module-info">
-                    <h2>Módulo 3: Explorando el Mundo</h2>
-                    <span>Story: "Emma's Adventure" • Clases 15-21</span>
-                </div>
-            </div>
+            <div class="module-header m3"><span class="module-icon">📗</span><div class="module-info"><h2>Módulo 3: Explorando el Mundo</h2><span>Story: "Emma's Adventure" • Clases 15-21</span></div></div>
             <div class="themes-grid">
-                <div class="theme-card m3">
-                    <span class="theme-number m3">T7</span>
-                    <h3>🍽️ En el Restaurante</h3>
-                    <p class="classes">Clases 15-16</p>
-                    <p class="vocab-preview">food, water, want, please, menu, delicious...</p>
-                    <div class="btn-group">
-                        <a href="explicaciones/T7_Restaurante_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
-                        <a href="stories/M3_T7_Story3_Parte1_Restaurante.html" class="btn-open story">📖 Story</a>
-                        <button onclick="openModal('T7')" class="btn-open actividades">✏️ Actividades</button>
-                    </div>
-                </div>
-                <div class="theme-card m3">
-                    <span class="theme-number m3">T8</span>
-                    <h3>🗺️ ¿Dónde está...?</h3>
-                    <p class="classes">Clases 17-18</p>
-                    <p class="vocab-preview">where, here, there, left, right, straight, near...</p>
-                    <div class="btn-group">
-                        <a href="explicaciones/T8_Direcciones_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
-                        <a href="stories/M3_T8_Story3_Parte2_Direcciones.html" class="btn-open story">📖 Story</a>
-                        <button onclick="openModal('T8')" class="btn-open actividades">✏️ Actividades</button>
-                    </div>
-                </div>
-                <div class="theme-card m3">
-                    <span class="theme-number m3">T9</span>
-                    <h3>🌟 Planes y Despedidas</h3>
-                    <p class="classes">Clases 19-20</p>
-                    <p class="vocab-preview">tomorrow, next, will, visit, travel, excited, miss...</p>
-                    <div class="btn-group">
-                        <a href="explicaciones/T9_Planes_5pasos.html" class="btn-open explicacion">📚 Explicación</a>
-                        <a href="stories/M3_T9_Story3_Parte3_Planes.html" class="btn-open story">📖 Story</a>
-                        <button onclick="openModal('T9')" class="btn-open actividades">✏️ Actividades</button>
-                    </div>
-                </div>
+                <div class="theme-card m3"><span class="theme-number m3">T7</span><h3>🍽️ En el Restaurante</h3><p class="classes">Clases 15-16</p><p class="vocab-preview">food, water, want, please, menu, delicious...</p><div class="btn-group"><a href="explicaciones/T7_Restaurante_5pasos.html" class="btn-open explicacion">📚 Explicación</a><a href="stories/M3_T7_Story3_Parte1_Restaurante.html" class="btn-open story">📖 Story</a><button onclick="openModal('T7')" class="btn-open actividades">✏️ Actividades</button></div></div>
+                <div class="theme-card m3"><span class="theme-number m3">T8</span><h3>🗺️ ¿Dónde está...?</h3><p class="classes">Clases 17-18</p><p class="vocab-preview">where, here, there, left, right, straight, near...</p><div class="btn-group"><a href="explicaciones/T8_Direcciones_5pasos.html" class="btn-open explicacion">📚 Explicación</a><a href="stories/M3_T8_Story3_Parte2_Direcciones.html" class="btn-open story">📖 Story</a><button onclick="openModal('T8')" class="btn-open actividades">✏️ Actividades</button></div></div>
+                <div class="theme-card m3"><span class="theme-number m3">T9</span><h3>🌟 Planes y Despedidas</h3><p class="classes">Clases 19-20</p><p class="vocab-preview">tomorrow, next, will, visit, travel, excited, miss...</p><div class="btn-group"><a href="explicaciones/T9_Planes_5pasos.html" class="btn-open explicacion">📚 Explicación</a><a href="stories/M3_T9_Story3_Parte3_Planes.html" class="btn-open story">📖 Story</a><button onclick="openModal('T9')" class="btn-open actividades">✏️ Actividades</button></div></div>
             </div>
         </div>
 
-        <div class="footer">
-            <div class="jucum-logo">🌍 JUCUM ENGLISH CENTER</div>
-            <p>Taller de Inglés de Verano 2025</p>
-            <p>Enero - Febrero 2025</p>
-            <div class="copyright">© 2025 JUCUM English Center. Creado con ❤️ para principiantes.</div>
-        </div>
+        <div class="footer"><div class="jucum-logo">🌍 JUCUM ENGLISH CENTER</div><p>Taller de Inglés de Verano</p><div class="copyright">© JUCUM English Center. Creado con ❤️ para principiantes.</div></div>
     </div>
 
-    <!-- Modal de Actividades -->
+    <!-- Modal -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <div class="modal-header">
-                <h2 id="modalTitle">✏️ Actividades - Tema 1</h2>
-                <button class="modal-close" onclick="closeModal()">✕</button>
-            </div>
-            <div class="modal-body" id="modalBody">
-            </div>
+            <div class="modal-header"><h2 id="modalTitle">✏️ Actividades</h2><button class="modal-close" onclick="closeModal()">✕</button></div>
+            <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
 
     <script>
-        const actividadesData = {
-            'T1': { titulo: '👋 Saludos Básicos', actividades: [
-                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T1_Lectura.html' },
-                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T1_Auditiva.html' },
-                { tipo: 'ordenar', nombre: 'Ordenar Fragmentos', desc: 'Ordena los fragmentos del cuento en el orden correcto', url: 'actividades/ordenar-fragmentos/T1_Ordenar.html' }
-            ]},
-            'T2': { titulo: '😊 ¿Cómo estás hoy?', actividades: [
-                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T2_Lectura.html' },
-                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T2_Auditiva.html' },
-                { tipo: 'ordenar', nombre: 'Ordenar Fragmentos', desc: 'Ordena los fragmentos del cuento en el orden correcto', url: 'actividades/ordenar-fragmentos/T2_Ordenar.html' }
-            ]},
-            'T3': { titulo: '👋 Despedidas', actividades: [
-                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T3_Lectura.html' },
-                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T3_Auditiva.html' },
-                { tipo: 'ordenar', nombre: 'Ordenar Fragmentos', desc: 'Ordena los fragmentos del cuento en el orden correcto', url: 'actividades/ordenar-fragmentos/T3_Ordenar.html' }
-            ]},
-            'T4': { titulo: '⏰ Mi Rutina Diaria', actividades: [
-                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T4_Lectura.html' },
-                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T4_Auditiva.html' },
-                { tipo: 'ordenar', nombre: 'Ordenar Fragmentos', desc: 'Ordena los fragmentos del cuento en el orden correcto', url: 'actividades/ordenar-fragmentos/T4_Ordenar.html' }
-            ]},
-            'T5': { titulo: '👨‍👩‍👧‍👦 Mi Familia', actividades: [
-                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T5_Lectura.html' },
-                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T5_Auditiva.html' },
-                { tipo: 'ordenar', nombre: 'Ordenar Fragmentos', desc: 'Ordena los fragmentos del cuento en el orden correcto', url: 'actividades/ordenar-fragmentos/T5_Ordenar.html' }
-            ]},
-            'T6': { titulo: '🎮 ¿Qué te gusta hacer?', actividades: [
-                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T6_Lectura.html' },
-                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T6_Auditiva.html' },
-                { tipo: 'ordenar', nombre: 'Ordenar Fragmentos', desc: 'Ordena los fragmentos del cuento en el orden correcto', url: 'actividades/ordenar-fragmentos/T6_Ordenar.html' }
-            ]},
-            'T7': { titulo: '🍽️ En el Restaurante', actividades: [
-                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T7_Lectura.html' },
-                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T7_Auditiva.html' },
-                { tipo: 'ordenar', nombre: 'Ordenar Fragmentos', desc: 'Ordena los fragmentos del cuento en el orden correcto', url: 'actividades/ordenar-fragmentos/T7_Ordenar.html' }
-            ]},
-            'T8': { titulo: '🗺️ ¿Dónde está...?', actividades: [
-                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T8_Lectura.html' },
-                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T8_Auditiva.html' },
-                { tipo: 'ordenar', nombre: 'Ordenar Fragmentos', desc: 'Ordena los fragmentos del cuento en el orden correcto', url: 'actividades/ordenar-fragmentos/T8_Ordenar.html' }
-            ]},
-            'T9': { titulo: '🌟 Planes y Despedidas', actividades: [
-                { tipo: 'lectura', nombre: 'Comprensión Lectora', desc: 'Lee y responde preguntas sobre la historia', url: 'actividades/comprension-lectora/T9_Lectura.html' },
-                { tipo: 'auditiva', nombre: 'Comprensión Auditiva', desc: 'Escucha y practica la pronunciación', url: 'actividades/comprension-auditiva/T9_Auditiva.html' },
-                { tipo: 'ordenar', nombre: 'Ordenar Fragmentos', desc: 'Ordena los fragmentos del cuento en el orden correcto', url: 'actividades/ordenar-fragmentos/T9_Ordenar.html' }
-            ]}
+        const temas = {
+            'T1': '👋 Saludos Básicos', 'T2': '😊 ¿Cómo estás hoy?', 'T3': '👋 Despedidas',
+            'T4': '⏰ Mi Rutina Diaria', 'T5': '👨‍👩‍👧‍👦 Mi Familia', 'T6': '🎮 ¿Qué te gusta hacer?',
+            'T7': '🍽️ En el Restaurante', 'T8': '🗺️ ¿Dónde está...?', 'T9': '🌟 Planes y Despedidas'
         };
 
-        const iconos = { 'lectura': '📖', 'auditiva': '🎧', 'ordenar': '🧩' };
-
         function openModal(tema) {
-            const data = actividadesData[tema];
-            document.getElementById('modalTitle').textContent = `✏️ Actividades - ${data.titulo}`;
+            document.getElementById('modalTitle').textContent = '✏️ ' + temas[tema];
             
-            let html = '<div class="activity-section"><h3>📝 Actividades disponibles</h3>';
-            data.actividades.forEach(act => {
-                html += `<a href="${act.url}" class="activity-item">
-                    <span class="activity-icon">${iconos[act.tipo]}</span>
-                    <span class="activity-name">${act.nombre}</span>
-                    <p class="activity-desc">${act.desc}</p>
-                </a>`;
-            });
-            html += '</div><div class="coming-soon">🚧 Más actividades próximamente...</div>';
+            document.getElementById('modalBody').innerHTML = 
+                '<div class="activity-section">' +
+                    '<h3><span class="icon">🧩</span> Ordenar Fragmentos del Cuento</h3>' +
+                    '<div class="version-group">' +
+                        '<h4>👶 Para Niños (Bilingüe)</h4>' +
+                        '<a href="actividades/ordenar_fragmentos/' + tema + '_OrdenarFragmentos_VersionA_Bilingue.html" class="version-link">' +
+                            '<div class="version-title">📗 Versión A: Español + Inglés</div>' +
+                            '<div class="version-desc">Cuento paralelo visible para guiarse</div>' +
+                        '</a>' +
+                    '</div>' +
+                    '<div class="version-group">' +
+                        '<h4>🧑 Para Jóvenes/Adultos</h4>' +
+                        '<a href="actividades/ordenar_fragmentos/' + tema + '_OrdenarFragmentos_VersionB_SoloEspanol.html" class="version-link">' +
+                            '<div class="version-title">📘 Versión B: Solo Español</div>' +
+                            '<div class="version-desc">Mayor desafío - cuento solo en español</div>' +
+                        '</a>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="activity-section">' +
+                    '<h3><span class="icon">📖</span> Comprensión Lectora</h3>' +
+                    '<a href="actividades/comprension_lectora/' + tema + '_ComprensionLectora.html" class="activity-link">' +
+                        '<div class="activity-title">📖 Leer y Responder</div>' +
+                        '<div class="activity-desc">Lee la historia y responde preguntas interactivas</div>' +
+                    '</a>' +
+                '</div>' +
+                '<div class="activity-section">' +
+                    '<h3><span class="icon">🎧</span> Comprensión Auditiva</h3>' +
+                    '<a href="actividades/comprension_auditiva/' + tema + '_ComprensionAuditiva.html" class="activity-link">' +
+                        '<div class="activity-title">🎧 Escuchar y Practicar</div>' +
+                        '<div class="activity-desc">Escucha el audio y practica la pronunciación</div>' +
+                    '</a>' +
+                '</div>';
             
-            document.getElementById('modalBody').innerHTML = html;
             document.getElementById('modalOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -452,7 +216,6 @@
                 document.body.style.overflow = 'auto';
             }
         }
-
         document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
     </script>
 </body>
