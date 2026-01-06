@@ -12,6 +12,10 @@
         .header h1 { font-size: 1.8rem; margin-bottom: 8px; }
         .header-info { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 10px; }
         .badge { background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; }
+        .nav-buttons { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; }
+        .nav-btn { padding: 12px 24px; border: none; border-radius: 25px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+        .nav-btn.home { background: linear-gradient(135deg, #607D8B 0%, #455A64 100%); color: white; }
+        .nav-btn.home:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(69, 90, 100, 0.4); }
         .instructions { background: white; border-radius: 16px; padding: 20px; margin-bottom: 20px; border-left: 4px solid #1976D2; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .instructions h3 { color: #1976D2; margin-bottom: 10px; }
         .instructions ul { margin-left: 20px; color: #555; }
@@ -48,19 +52,10 @@
         .audio-title { flex: 1; }
         .audio-title h3 { color: #333; font-size: 1rem; }
         .audio-title p { color: #888; font-size: 0.8rem; margin-top: 3px; }
-        .audio-player { background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); border-radius: 15px; padding: 20px; margin-bottom: 20px; text-align: center; }
-        .play-btn { width: 70px; height: 70px; border-radius: 50%; border: none; background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); color: white; font-size: 1.8rem; cursor: pointer; box-shadow: 0 4px 20px rgba(25, 118, 210, 0.4); transition: all 0.3s; margin: 0 auto; }
+        .audio-player { background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); border-radius: 15px; padding: 20px; margin-bottom: 15px; text-align: center; }
+        .play-btn { width: 70px; height: 70px; border-radius: 50%; border: none; background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); color: white; font-size: 1.8rem; cursor: pointer; box-shadow: 0 4px 20px rgba(25, 118, 210, 0.4); transition: all 0.3s; }
         .play-btn:hover { transform: scale(1.1); }
         .play-btn.playing { background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%); }
-        .text-container { margin-top: 15px; display: none; }
-        .text-container.show { display: block; }
-        .audio-text { padding: 15px; background: rgba(255,255,255,0.95); border-radius: 10px; text-align: left; border-left: 4px solid #1976D2; }
-        .audio-text p { color: #333; line-height: 1.7; font-size: 0.9rem; }
-        .audio-text .label { font-size: 0.7rem; color: #1976D2; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; }
-        .spanish-text { margin-top: 10px; padding: 15px; background: #FFF8E1; border-radius: 10px; text-align: left; border-left: 4px solid #FFA000; display: none; }
-        .spanish-text.show { display: block; }
-        .spanish-text p { color: #5D4037; line-height: 1.7; font-size: 0.9rem; }
-        .spanish-text .label { font-size: 0.7rem; color: #F57C00; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; }
         .text-buttons { margin-top: 15px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
         .text-btn { padding: 8px 16px; border: 2px solid #1976D2; background: white; color: #1976D2; border-radius: 20px; font-size: 0.8rem; cursor: pointer; transition: all 0.3s; }
         .text-btn:hover { background: #E3F2FD; }
@@ -68,7 +63,17 @@
         .text-btn.spanish { border-color: #FFA000; color: #F57C00; }
         .text-btn.spanish:hover { background: #FFF8E1; }
         .text-btn.spanish.active { background: #FFA000; color: white; }
-        .question-section { margin-top: 15px; }
+        .text-container { margin-top: 15px; }
+        .audio-text { padding: 15px; background: rgba(255,255,255,0.95); border-radius: 10px; text-align: left; border-left: 4px solid #1976D2; display: none; margin-bottom: 10px; }
+        .audio-text.show { display: block; }
+        .audio-text p { color: #333; line-height: 1.7; font-size: 0.9rem; }
+        .audio-text .label { font-size: 0.7rem; color: #1976D2; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; }
+        .spanish-text { padding: 15px; background: #FFF8E1; border-radius: 10px; text-align: left; border-left: 4px solid #FFA000; display: none; }
+        .spanish-text.show { display: block; }
+        .spanish-text p { color: #5D4037; line-height: 1.7; font-size: 0.9rem; }
+        .spanish-text .label { font-size: 0.7rem; color: #F57C00; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; }
+        .question-section { margin-top: 15px; display: none; }
+        .question-section.show { display: block; }
         .question-section h4 { color: #1976D2; margin-bottom: 12px; font-size: 0.95rem; }
         .question-text { background: #F5F5F5; padding: 12px 15px; border-radius: 10px; margin-bottom: 12px; font-size: 0.95rem; color: #333; }
         .options-container { display: flex; flex-direction: column; gap: 8px; }
@@ -82,6 +87,9 @@
         .option.correct .option-letter, .option.show-correct .option-letter { background: #4CAF50; color: white; }
         .option.incorrect .option-letter { background: #f44336; color: white; }
         .option-text { flex: 1; color: #333; font-size: 0.9rem; }
+        .show-question-btn { width: 100%; padding: 15px; border: 2px dashed #9C27B0; background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%); color: #7B1FA2; border-radius: 12px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .show-question-btn:hover { background: linear-gradient(135deg, #E1BEE7 0%, #CE93D8 100%); transform: translateY(-2px); }
+        .show-question-btn.active { background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%); color: white; border-style: solid; }
         .feedback { margin-top: 12px; padding: 12px; border-radius: 8px; display: none; font-size: 0.85rem; }
         .feedback.show { display: block; }
         .feedback.correct { background: #E8F5E9; border: 1px solid #A5D6A7; color: #2E7D32; }
@@ -111,13 +119,17 @@
             </div>
         </div>
         
+        <div class="nav-buttons">
+            <a href="https://jucumenglishcenter.github.io/TALLER-DE-VERANO/" class="nav-btn home">🏠 Volver al Panel Principal</a>
+        </div>
+        
         <div class="instructions">
             <h3>📋 Instrucciones</h3>
             <ul>
                 <li>Escucha cada audio presionando el botón ▶️</li>
                 <li>Puedes escuchar las veces que necesites</li>
-                <li>Ajusta la velocidad si necesitas escuchar más lento</li>
-                <li>Si necesitas ayuda, puedes ver el texto en inglés y en español</li>
+                <li>Cuando estés listo, presiona <strong>"❓ Mostrar Pregunta"</strong></li>
+                <li>Si necesitas ayuda, puedes ver el texto en inglés y/o en español</li>
             </ul>
         </div>
         
@@ -136,270 +148,7 @@
             <div class="score-item"><div class="label">Incorrectas</div><div class="value incorrect" id="incorrectCount">0</div></div>
         </div>
         
-        <!-- NIVEL FÁCIL -->
-        <div class="level-section">
-            <div class="level-header easy"><span class="icon">🟢</span><span class="title">Nivel Fácil</span><span class="subtitle">Actividades 1-4</span></div>
-            
-            <div class="audio-card" id="card1">
-                <div class="audio-header"><div class="audio-number easy">1</div><div class="audio-title"><h3>¿Cómo estás?</h3><p>Sophie pregunta a Emma</p></div></div>
-                <div class="audio-player">
-                    <button class="play-btn" onclick="playAudio(1)" id="playBtn1">▶️</button>
-                    <div class="text-buttons">
-                        <button class="text-btn" onclick="toggleText(1)" id="textBtn1">🔤 Ver texto en inglés</button>
-                        <button class="text-btn spanish" onclick="toggleSpanish(1)" id="spanishBtn1">🇪🇸 Ver en español</button>
-                    </div>
-                    <div class="text-container" id="textContainer1">
-                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Sophie asked: "How are you, Emma?"</p></div>
-                        <div class="spanish-text" id="spanish1"><div class="label">🇪🇸 Traducción</div><p>Sophie preguntó: "¿Cómo estás, Emma?"</p></div>
-                    </div>
-                </div>
-                <div class="question-section">
-                    <h4>❓ Pregunta</h4>
-                    <div class="question-text">¿Qué significa "How are you?"</div>
-                    <div class="options-container" id="options1">
-                        <div class="option" onclick="selectAnswer(1, 'a', 'b')"><span class="option-letter">A</span><span class="option-text">¿Cómo te llamas?</span></div>
-                        <div class="option" onclick="selectAnswer(1, 'b', 'b')"><span class="option-letter">B</span><span class="option-text">¿Cómo estás?</span></div>
-                        <div class="option" onclick="selectAnswer(1, 'c', 'b')"><span class="option-letter">C</span><span class="option-text">¿Dónde estás?</span></div>
-                    </div>
-                    <div class="feedback" id="fb1"></div>
-                </div>
-            </div>
-            
-            <div class="audio-card" id="card2">
-                <div class="audio-header"><div class="audio-number easy">2</div><div class="audio-title"><h3>Estoy bien</h3><p>Emma responde</p></div></div>
-                <div class="audio-player">
-                    <button class="play-btn" onclick="playAudio(2)" id="playBtn2">▶️</button>
-                    <div class="text-buttons">
-                        <button class="text-btn" onclick="toggleText(2)" id="textBtn2">🔤 Ver texto en inglés</button>
-                        <button class="text-btn spanish" onclick="toggleSpanish(2)" id="spanishBtn2">🇪🇸 Ver en español</button>
-                    </div>
-                    <div class="text-container" id="textContainer2">
-                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Emma replied: "I'm fine, thank you!"</p></div>
-                        <div class="spanish-text" id="spanish2"><div class="label">🇪🇸 Traducción</div><p>Emma respondió: "¡Estoy bien, gracias!"</p></div>
-                    </div>
-                </div>
-                <div class="question-section">
-                    <h4>❓ Pregunta</h4>
-                    <div class="question-text">¿Cómo está Emma?</div>
-                    <div class="options-container" id="options2">
-                        <div class="option" onclick="selectAnswer(2, 'a', 'a')"><span class="option-letter">A</span><span class="option-text">Fine (bien)</span></div>
-                        <div class="option" onclick="selectAnswer(2, 'b', 'a')"><span class="option-letter">B</span><span class="option-text">Bad (mal)</span></div>
-                        <div class="option" onclick="selectAnswer(2, 'c', 'a')"><span class="option-letter">C</span><span class="option-text">Tired (cansada)</span></div>
-                    </div>
-                    <div class="feedback" id="fb2"></div>
-                </div>
-            </div>
-            
-            <div class="audio-card" id="card3">
-                <div class="audio-header"><div class="audio-number easy">3</div><div class="audio-title"><h3>¡Muy bien!</h3><p>Sophie está muy bien</p></div></div>
-                <div class="audio-player">
-                    <button class="play-btn" onclick="playAudio(3)" id="playBtn3">▶️</button>
-                    <div class="text-buttons">
-                        <button class="text-btn" onclick="toggleText(3)" id="textBtn3">🔤 Ver texto en inglés</button>
-                        <button class="text-btn spanish" onclick="toggleSpanish(3)" id="spanishBtn3">🇪🇸 Ver en español</button>
-                    </div>
-                    <div class="text-container" id="textContainer3">
-                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Sophie said: "I'm great! Today is my birthday!"</p></div>
-                        <div class="spanish-text" id="spanish3"><div class="label">🇪🇸 Traducción</div><p>Sophie dijo: "¡Estoy muy bien! ¡Hoy es mi cumpleaños!"</p></div>
-                    </div>
-                </div>
-                <div class="question-section">
-                    <h4>❓ Pregunta</h4>
-                    <div class="question-text">¿Qué significa "I'm great"?</div>
-                    <div class="options-container" id="options3">
-                        <div class="option" onclick="selectAnswer(3, 'a', 'c')"><span class="option-letter">A</span><span class="option-text">Estoy mal</span></div>
-                        <div class="option" onclick="selectAnswer(3, 'b', 'c')"><span class="option-letter">B</span><span class="option-text">Estoy cansado</span></div>
-                        <div class="option" onclick="selectAnswer(3, 'c', 'c')"><span class="option-letter">C</span><span class="option-text">Estoy muy bien</span></div>
-                    </div>
-                    <div class="feedback" id="fb3"></div>
-                </div>
-            </div>
-            
-            <div class="audio-card" id="card4">
-                <div class="audio-header"><div class="audio-number easy">4</div><div class="audio-title"><h3>Gracias</h3><p>Agradeciendo</p></div></div>
-                <div class="audio-player">
-                    <button class="play-btn" onclick="playAudio(4)" id="playBtn4">▶️</button>
-                    <div class="text-buttons">
-                        <button class="text-btn" onclick="toggleText(4)" id="textBtn4">🔤 Ver texto en inglés</button>
-                        <button class="text-btn spanish" onclick="toggleSpanish(4)" id="spanishBtn4">🇪🇸 Ver en español</button>
-                    </div>
-                    <div class="text-container" id="textContainer4">
-                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Tom said: "Thank you, Emma!"</p></div>
-                        <div class="spanish-text" id="spanish4"><div class="label">🇪🇸 Traducción</div><p>Tom dijo: "¡Gracias, Emma!"</p></div>
-                    </div>
-                </div>
-                <div class="question-section">
-                    <h4>❓ Pregunta</h4>
-                    <div class="question-text">¿Qué significa "Thank you"?</div>
-                    <div class="options-container" id="options4">
-                        <div class="option" onclick="selectAnswer(4, 'a', 'b')"><span class="option-letter">A</span><span class="option-text">Por favor</span></div>
-                        <div class="option" onclick="selectAnswer(4, 'b', 'b')"><span class="option-letter">B</span><span class="option-text">Gracias</span></div>
-                        <div class="option" onclick="selectAnswer(4, 'c', 'b')"><span class="option-letter">C</span><span class="option-text">De nada</span></div>
-                    </div>
-                    <div class="feedback" id="fb4"></div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- NIVEL INTERMEDIO -->
-        <div class="level-section">
-            <div class="level-header medium"><span class="icon">🟡</span><span class="title">Nivel Intermedio</span><span class="subtitle">Actividades 5-7</span></div>
-            
-            <div class="audio-card" id="card5">
-                <div class="audio-header"><div class="audio-number medium">5</div><div class="audio-title"><h3>¿Y tú?</h3><p>Preguntando de vuelta</p></div></div>
-                <div class="audio-player">
-                    <button class="play-btn" onclick="playAudio(5)" id="playBtn5">▶️</button>
-                    <div class="text-buttons">
-                        <button class="text-btn" onclick="toggleText(5)" id="textBtn5">🔤 Ver texto en inglés</button>
-                        <button class="text-btn spanish" onclick="toggleSpanish(5)" id="spanishBtn5">🇪🇸 Ver en español</button>
-                    </div>
-                    <div class="text-container" id="textContainer5">
-                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Sophie asked: "How are you?" Emma replied: "I'm fine, thank you. And you?"</p></div>
-                        <div class="spanish-text" id="spanish5"><div class="label">🇪🇸 Traducción</div><p>Sophie preguntó: "¿Cómo estás?" Emma respondió: "Estoy bien, gracias. ¿Y tú?"</p></div>
-                    </div>
-                </div>
-                <div class="question-section">
-                    <h4>❓ Pregunta</h4>
-                    <div class="question-text">¿Qué significa "And you?"</div>
-                    <div class="options-container" id="options5">
-                        <div class="option" onclick="selectAnswer(5, 'a', 'a')"><span class="option-letter">A</span><span class="option-text">¿Y tú?</span></div>
-                        <div class="option" onclick="selectAnswer(5, 'b', 'a')"><span class="option-letter">B</span><span class="option-text">¿Quién eres?</span></div>
-                        <div class="option" onclick="selectAnswer(5, 'c', 'a')"><span class="option-letter">C</span><span class="option-text">¿Dónde estás?</span></div>
-                    </div>
-                    <div class="feedback" id="fb5"></div>
-                </div>
-            </div>
-            
-            <div class="audio-card" id="card6">
-                <div class="audio-header"><div class="audio-number medium">6</div><div class="audio-title"><h3>Tom está bien</h3><p>Conversación con Tom</p></div></div>
-                <div class="audio-player">
-                    <button class="play-btn" onclick="playAudio(6)" id="playBtn6">▶️</button>
-                    <div class="text-buttons">
-                        <button class="text-btn" onclick="toggleText(6)" id="textBtn6">🔤 Ver texto en inglés</button>
-                        <button class="text-btn spanish" onclick="toggleSpanish(6)" id="spanishBtn6">🇪🇸 Ver en español</button>
-                    </div>
-                    <div class="text-container" id="textContainer6">
-                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Emma asked Tom: "How are you today?" Tom replied: "I'm good, thanks!"</p></div>
-                        <div class="spanish-text" id="spanish6"><div class="label">🇪🇸 Traducción</div><p>Emma preguntó a Tom: "¿Cómo estás hoy?" Tom respondió: "¡Estoy bien, gracias!"</p></div>
-                    </div>
-                </div>
-                <div class="question-section">
-                    <h4>❓ Pregunta</h4>
-                    <div class="question-text">¿Qué respondió Tom?</div>
-                    <div class="options-container" id="options6">
-                        <div class="option" onclick="selectAnswer(6, 'a', 'b')"><span class="option-letter">A</span><span class="option-text">I'm fine</span></div>
-                        <div class="option" onclick="selectAnswer(6, 'b', 'b')"><span class="option-letter">B</span><span class="option-text">I'm good</span></div>
-                        <div class="option" onclick="selectAnswer(6, 'c', 'b')"><span class="option-letter">C</span><span class="option-text">I'm great</span></div>
-                    </div>
-                    <div class="feedback" id="fb6"></div>
-                </div>
-            </div>
-            
-            <div class="audio-card" id="card7">
-                <div class="audio-header"><div class="audio-number medium">7</div><div class="audio-title"><h3>Estoy okay</h3><p>Una respuesta neutral</p></div></div>
-                <div class="audio-player">
-                    <button class="play-btn" onclick="playAudio(7)" id="playBtn7">▶️</button>
-                    <div class="text-buttons">
-                        <button class="text-btn" onclick="toggleText(7)" id="textBtn7">🔤 Ver texto en inglés</button>
-                        <button class="text-btn spanish" onclick="toggleSpanish(7)" id="spanishBtn7">🇪🇸 Ver en español</button>
-                    </div>
-                    <div class="text-container" id="textContainer7">
-                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Mrs. Johnson asked: "How are you, Tom?" Tom said: "I'm okay. I'm a little tired today."</p></div>
-                        <div class="spanish-text" id="spanish7"><div class="label">🇪🇸 Traducción</div><p>La Sra. Johnson preguntó: "¿Cómo estás, Tom?" Tom dijo: "Estoy bien. Estoy un poco cansado hoy."</p></div>
-                    </div>
-                </div>
-                <div class="question-section">
-                    <h4>❓ Pregunta</h4>
-                    <div class="question-text">¿Cómo se siente Tom?</div>
-                    <div class="options-container" id="options7">
-                        <div class="option" onclick="selectAnswer(7, 'a', 'c')"><span class="option-letter">A</span><span class="option-text">Muy bien y con energía</span></div>
-                        <div class="option" onclick="selectAnswer(7, 'b', 'c')"><span class="option-letter">B</span><span class="option-text">Muy mal</span></div>
-                        <div class="option" onclick="selectAnswer(7, 'c', 'c')"><span class="option-letter">C</span><span class="option-text">Okay, pero un poco cansado</span></div>
-                    </div>
-                    <div class="feedback" id="fb7"></div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- NIVEL DIFÍCIL -->
-        <div class="level-section">
-            <div class="level-header hard"><span class="icon">🔴</span><span class="title">Nivel Difícil</span><span class="subtitle">Actividades 8-10</span></div>
-            
-            <div class="audio-card" id="card8">
-                <div class="audio-header"><div class="audio-number hard">8</div><div class="audio-title"><h3>Conversación completa</h3><p>Emma y Sophie</p></div></div>
-                <div class="audio-player">
-                    <button class="play-btn" onclick="playAudio(8)" id="playBtn8">▶️</button>
-                    <div class="text-buttons">
-                        <button class="text-btn" onclick="toggleText(8)" id="textBtn8">🔤 Ver texto en inglés</button>
-                        <button class="text-btn spanish" onclick="toggleSpanish(8)" id="spanishBtn8">🇪🇸 Ver en español</button>
-                    </div>
-                    <div class="text-container" id="textContainer8">
-                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Sophie said: "Hi, Emma! How are you today?" Emma replied: "I'm great, thank you! And you?" Sophie said: "I'm fine, thanks!"</p></div>
-                        <div class="spanish-text" id="spanish8"><div class="label">🇪🇸 Traducción</div><p>Sophie dijo: "¡Hola, Emma! ¿Cómo estás hoy?" Emma respondió: "¡Estoy muy bien, gracias! ¿Y tú?" Sophie dijo: "¡Estoy bien, gracias!"</p></div>
-                    </div>
-                </div>
-                <div class="question-section">
-                    <h4>❓ Pregunta</h4>
-                    <div class="question-text">¿Quién está mejor según sus respuestas?</div>
-                    <div class="options-container" id="options8">
-                        <div class="option" onclick="selectAnswer(8, 'a', 'a')"><span class="option-letter">A</span><span class="option-text">Emma (great = muy bien)</span></div>
-                        <div class="option" onclick="selectAnswer(8, 'b', 'a')"><span class="option-letter">B</span><span class="option-text">Sophie (fine = mejor que great)</span></div>
-                        <div class="option" onclick="selectAnswer(8, 'c', 'a')"><span class="option-letter">C</span><span class="option-text">Las dos igual</span></div>
-                    </div>
-                    <div class="feedback" id="fb8"></div>
-                </div>
-            </div>
-            
-            <div class="audio-card" id="card9">
-                <div class="audio-header"><div class="audio-number hard">9</div><div class="audio-title"><h3>Tres respuestas diferentes</h3><p>Comparando estados</p></div></div>
-                <div class="audio-player">
-                    <button class="play-btn" onclick="playAudio(9)" id="playBtn9">▶️</button>
-                    <div class="text-buttons">
-                        <button class="text-btn" onclick="toggleText(9)" id="textBtn9">🔤 Ver texto en inglés</button>
-                        <button class="text-btn spanish" onclick="toggleSpanish(9)" id="spanishBtn9">🇪🇸 Ver en español</button>
-                    </div>
-                    <div class="text-container" id="textContainer9">
-                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Mrs. Johnson asked the class: "How are you today?" Emma said: "I'm great!" Sophie said: "I'm fine!" Tom said: "I'm okay."</p></div>
-                        <div class="spanish-text" id="spanish9"><div class="label">🇪🇸 Traducción</div><p>La Sra. Johnson preguntó a la clase: "¿Cómo están hoy?" Emma dijo: "¡Muy bien!" Sophie dijo: "¡Bien!" Tom dijo: "Okay."</p></div>
-                    </div>
-                </div>
-                <div class="question-section">
-                    <h4>❓ Pregunta</h4>
-                    <div class="question-text">¿Cuál es el orden de mejor a menos entusiasta?</div>
-                    <div class="options-container" id="options9">
-                        <div class="option" onclick="selectAnswer(9, 'a', 'b')"><span class="option-letter">A</span><span class="option-text">Fine → Great → Okay</span></div>
-                        <div class="option" onclick="selectAnswer(9, 'b', 'b')"><span class="option-letter">B</span><span class="option-text">Great → Fine → Okay</span></div>
-                        <div class="option" onclick="selectAnswer(9, 'c', 'b')"><span class="option-letter">C</span><span class="option-text">Okay → Fine → Great</span></div>
-                    </div>
-                    <div class="feedback" id="fb9"></div>
-                </div>
-            </div>
-            
-            <div class="audio-card" id="card10">
-                <div class="audio-header"><div class="audio-number hard">10</div><div class="audio-title"><h3>Conversación extendida</h3><p>Diálogo completo</p></div></div>
-                <div class="audio-player">
-                    <button class="play-btn" onclick="playAudio(10)" id="playBtn10">▶️</button>
-                    <div class="text-buttons">
-                        <button class="text-btn" onclick="toggleText(10)" id="textBtn10">🔤 Ver texto en inglés</button>
-                        <button class="text-btn spanish" onclick="toggleSpanish(10)" id="spanishBtn10">🇪🇸 Ver en español</button>
-                    </div>
-                    <div class="text-container" id="textContainer10">
-                        <div class="audio-text"><div class="label">🔤 Texto en Inglés</div><p>Tom asked: "Hi Emma! How are you?" Emma said: "I'm good, thanks! And you, Tom?" Tom replied: "I'm okay. I'm tired today." Emma said: "Oh! I hope you feel better. Thank you for asking!"</p></div>
-                        <div class="spanish-text" id="spanish10"><div class="label">🇪🇸 Traducción</div><p>Tom preguntó: "¡Hola Emma! ¿Cómo estás?" Emma dijo: "¡Bien, gracias! ¿Y tú, Tom?" Tom respondió: "Estoy okay. Estoy cansado hoy." Emma dijo: "¡Oh! Espero que te sientas mejor. ¡Gracias por preguntar!"</p></div>
-                    </div>
-                </div>
-                <div class="question-section">
-                    <h4>❓ Pregunta</h4>
-                    <div class="question-text">¿Por qué Tom dice "I'm okay" en vez de "I'm great"?</div>
-                    <div class="options-container" id="options10">
-                        <div class="option" onclick="selectAnswer(10, 'a', 'b')"><span class="option-letter">A</span><span class="option-text">Porque es muy feliz</span></div>
-                        <div class="option" onclick="selectAnswer(10, 'b', 'b')"><span class="option-letter">B</span><span class="option-text">Porque está cansado</span></div>
-                        <div class="option" onclick="selectAnswer(10, 'c', 'b')"><span class="option-letter">C</span><span class="option-text">Porque es su cumpleaños</span></div>
-                    </div>
-                    <div class="feedback" id="fb10"></div>
-                </div>
-            </div>
-        </div>
+        <div id="activitiesContainer"></div>
         
         <div class="results-panel" id="resultsPanel">
             <div class="trophy" id="trophy">🏆</div>
@@ -416,37 +165,24 @@
     </div>
 
     <script>
+        const activities = [
+            { id: 1, level: 'easy', title: 'Pregunta básica', desc: 'Sophie pregunta cómo está Emma', audio: 'Sophie asked: "Hi Emma! How are you?"', spanish: 'Sophie preguntó: "¡Hola Emma! ¿Cómo estás?"', question: '¿Qué preguntó Sophie?', options: ['What is your name?', 'How are you?', 'Where are you?'], correct: 'b', feedback: { correct: "✓ ¡Correcto! Sophie preguntó 'How are you?'", incorrect: "✗ La respuesta correcta es 'How are you?'" } },
+            { id: 2, level: 'easy', title: 'Respuesta positiva', desc: 'Emma responde que está bien', audio: 'Emma replied: "I am fine, thank you."', spanish: 'Emma respondió: "Estoy bien, gracias."', question: '¿Cómo está Emma?', options: ['Fine', 'Bad', 'Tired'], correct: 'a', feedback: { correct: "✓ ¡Correcto! Emma está 'fine' (bien).", incorrect: "✗ Emma dijo 'I am fine' (Estoy bien)." } },
+            { id: 3, level: 'easy', title: 'Muy bien', desc: 'Sophie está muy bien', audio: 'Sophie said: "I am great! My birthday is next week!"', spanish: 'Sophie dijo: "¡Estoy muy bien! ¡Mi cumpleaños es la próxima semana!"', question: '¿Por qué Sophie está muy bien?', options: ['Es viernes', 'Su cumpleaños es pronto', 'No hay tarea'], correct: 'b', feedback: { correct: "✓ ¡Correcto! Su cumpleaños es la próxima semana.", incorrect: "✗ Sophie dijo que su cumpleaños es la próxima semana." } },
+            { id: 4, level: 'easy', title: 'Devolver la pregunta', desc: 'Emma pregunta "¿Y tú?"', audio: 'Emma said: "I am fine, thank you. And you?"', spanish: 'Emma dijo: "Estoy bien, gracias. ¿Y tú?"', question: '¿Qué significa "And you?"', options: ['Y tú', 'Gracias', 'Adiós'], correct: 'a', feedback: { correct: "✓ ¡Correcto! 'And you?' significa '¿Y tú?'", incorrect: "✗ 'And you?' significa '¿Y tú?'" } },
+            { id: 5, level: 'medium', title: 'Estoy bien', desc: 'Tom dice que está okay', audio: 'Tom said: "I am okay. A little tired, but okay."', spanish: 'Tom dijo: "Estoy bien. Un poco cansado, pero bien."', question: '¿Cómo se siente Tom?', options: ['Muy bien', 'Okay pero cansado', 'Mal'], correct: 'b', feedback: { correct: "✓ ¡Correcto! Tom está okay pero un poco cansado.", incorrect: "✗ Tom dijo que está okay pero un poco cansado." } },
+            { id: 6, level: 'medium', title: 'Estoy bien (good)', desc: 'Emma usa "good" para responder', audio: 'Mrs. Johnson asked: "How are you today, Emma?" Emma replied: "I am good, thank you!"', spanish: 'Mrs. Johnson preguntó: "¿Cómo estás hoy, Emma?" Emma respondió: "¡Estoy bien, gracias!"', question: '¿Qué palabra usó Emma para decir que está bien?', options: ['Fine', 'Great', 'Good'], correct: 'c', feedback: { correct: "✓ ¡Correcto! Emma usó 'good'.", incorrect: "✗ Emma dijo 'I am good'." } },
+            { id: 7, level: 'medium', title: 'Conversación completa', desc: 'Sophie y Tom hablan', audio: 'Sophie: "Hi Tom! How are you?" Tom: "I am fine, thank you. And you?" Sophie: "I am great!"', spanish: 'Sophie: "¡Hola Tom! ¿Cómo estás?" Tom: "Estoy bien, gracias. ¿Y tú?" Sophie: "¡Estoy muy bien!"', question: '¿Quién está "great"?', options: ['Tom', 'Sophie', 'Ambos'], correct: 'b', feedback: { correct: "✓ ¡Correcto! Sophie dijo 'I am great!'", incorrect: "✗ Sophie es quien dijo 'I am great!'" } },
+            { id: 8, level: 'hard', title: 'Diferentes respuestas', desc: 'Tres formas de decir "bien"', audio: 'Emma said "I am fine." Tom said "I am okay." Sophie said "I am great!" All three are feeling good today.', spanish: 'Emma dijo "Estoy bien." Tom dijo "Estoy okay." Sophie dijo "¡Estoy genial!" Los tres se sienten bien hoy.', question: '¿Quién usó la palabra más positiva?', options: ['Emma (fine)', 'Tom (okay)', 'Sophie (great)'], correct: 'c', feedback: { correct: "✓ ¡Correcto! 'Great' es la más positiva.", incorrect: "✗ 'Great' es más positivo que 'fine' y 'okay'." } },
+            { id: 9, level: 'hard', title: 'Agradecer y preguntar', desc: 'La fórmula completa', audio: 'The complete answer is: "I am fine, thank you. And you?" This shows you are polite and care about the other person.', spanish: 'La respuesta completa es: "Estoy bien, gracias. ¿Y tú?" Esto muestra que eres educado y te importa la otra persona.', question: '¿Cuál es la respuesta más educada y completa?', options: ['I am fine.', 'Fine, thanks.', 'I am fine, thank you. And you?'], correct: 'c', feedback: { correct: "✓ ¡Correcto! Es la más completa y educada.", incorrect: "✗ La más educada incluye 'thank you' y 'And you?'" } },
+            { id: 10, level: 'hard', title: 'Resumen del tema', desc: 'Todo junto', audio: 'To ask how someone is, say "How are you?" To answer, you can say: "I am fine", "I am good", "I am great", or "I am okay". Always say "thank you" and ask "And you?"', spanish: 'Para preguntar cómo está alguien, di "How are you?" Para responder: "I am fine", "I am good", "I am great", o "I am okay". Siempre di "thank you" y pregunta "And you?"', question: '¿Cuántas formas de responder "bien" aprendimos?', options: ['2 formas', '3 formas', '4 formas'], correct: 'c', feedback: { correct: "✓ ¡Correcto! Fine, good, great, okay = 4 formas.", incorrect: "✗ Aprendimos 4: fine, good, great, okay." } }
+        ];
+
         let currentSpeed = 1, answered = 0, correct = 0, incorrect = 0;
         let easyCorrect = 0, mediumCorrect = 0, hardCorrect = 0;
         let answeredQuestions = {};
         let synthesis = window.speechSynthesis, voices = [], englishVoice = null, isPlaying = false;
-        
-        const audioTexts = {
-            1: 'Sophie asked: "How are you, Emma?"',
-            2: 'Emma replied: "I\'m fine, thank you!"',
-            3: 'Sophie said: "I\'m great! Today is my birthday!"',
-            4: 'Tom said: "Thank you, Emma!"',
-            5: 'Sophie asked: "How are you?" Emma replied: "I\'m fine, thank you. And you?"',
-            6: 'Emma asked Tom: "How are you today?" Tom replied: "I\'m good, thanks!"',
-            7: 'Mrs. Johnson asked: "How are you, Tom?" Tom said: "I\'m okay. I\'m a little tired today."',
-            8: 'Sophie said: "Hi, Emma! How are you today?" Emma replied: "I\'m great, thank you! And you?" Sophie said: "I\'m fine, thanks!"',
-            9: 'Mrs. Johnson asked the class: "How are you today?" Emma said: "I\'m great!" Sophie said: "I\'m fine!" Tom said: "I\'m okay."',
-            10: 'Tom asked: "Hi Emma! How are you?" Emma said: "I\'m good, thanks! And you, Tom?" Tom replied: "I\'m okay. I\'m tired today." Emma said: "Oh! I hope you feel better. Thank you for asking!"'
-        };
-        
-        const feedbacks = {
-            1: { correct: "✓ ¡Correcto! 'How are you?' significa '¿Cómo estás?'", incorrect: "✗ 'How are you?' = ¿Cómo estás?" },
-            2: { correct: "✓ ¡Exacto! Emma dijo 'I'm fine' = Estoy bien.", incorrect: "✗ Emma dijo 'I'm FINE' = Estoy bien." },
-            3: { correct: "✓ ¡Perfecto! 'I'm great' = Estoy muy bien.", incorrect: "✗ 'Great' significa 'muy bien' o 'genial'." },
-            4: { correct: "✓ ¡Correcto! 'Thank you' = Gracias.", incorrect: "✗ 'Thank you' significa 'Gracias'." },
-            5: { correct: "✓ ¡Muy bien! 'And you?' = ¿Y tú?", incorrect: "✗ 'And you?' significa '¿Y tú?' para devolver la pregunta." },
-            6: { correct: "✓ ¡Correcto! Tom dijo 'I'm good'.", incorrect: "✗ Tom respondió 'I'm GOOD, thanks!'" },
-            7: { correct: "✓ ¡Perfecto! Tom está okay pero un poco cansado.", incorrect: "✗ Tom dijo 'I'm okay' y 'I'm a little tired' (un poco cansado)." },
-            8: { correct: "✓ ¡Excelente! 'Great' es mejor que 'fine'. Emma está más entusiasmada.", incorrect: "✗ 'Great' (muy bien) es más positivo que 'fine' (bien). Emma está mejor." },
-            9: { correct: "✓ ¡Perfecto! Great (muy bien) > Fine (bien) > Okay (okay/regular).", incorrect: "✗ El orden de entusiasmo: Great > Fine > Okay." },
-            10: { correct: "✓ ¡Excelente! Tom dice 'I'm okay' porque está cansado.", incorrect: "✗ Tom dice 'I'm tired' (estoy cansado), por eso solo está 'okay'." }
-        };
-        
+
         function loadVoices() {
             voices = synthesis.getVoices();
             if (voices.length === 0) { setTimeout(loadVoices, 100); return; }
@@ -455,48 +191,103 @@
             if (!englishVoice) englishVoice = voices.find(v => v.lang.startsWith('en')) || voices[0];
         }
         if (synthesis) { loadVoices(); synthesis.onvoiceschanged = loadVoices; }
-        
+
+        function renderActivities() {
+            const container = document.getElementById('activitiesContainer');
+            let html = '';
+            let currentLevel = '';
+            
+            activities.forEach(a => {
+                if (a.level !== currentLevel) {
+                    if (currentLevel) html += '</div>';
+                    currentLevel = a.level;
+                    const levelInfo = { easy: ['🟢', 'Fácil', '1-4'], medium: ['🟡', 'Intermedio', '5-7'], hard: ['🔴', 'Difícil', '8-10'] }[a.level];
+                    html += `<div class="level-section"><div class="level-header ${a.level}"><span class="icon">${levelInfo[0]}</span><span class="title">Nivel ${levelInfo[1]}</span><span class="subtitle">Actividades ${levelInfo[2]}</span></div>`;
+                }
+                
+                html += `
+                <div class="audio-card" id="card${a.id}">
+                    <div class="audio-header"><div class="audio-number ${a.level}">${a.id}</div><div class="audio-title"><h3>${a.title}</h3><p>${a.desc}</p></div></div>
+                    <div class="audio-player">
+                        <button class="play-btn" onclick="playAudio(${a.id})" id="playBtn${a.id}">▶️</button>
+                        <div class="text-buttons">
+                            <button class="text-btn" onclick="toggleText(${a.id})" id="textBtn${a.id}">🔤 Ver texto en inglés</button>
+                            <button class="text-btn spanish" onclick="toggleSpanish(${a.id})" id="spanishBtn${a.id}">🇪🇸 Ver en español</button>
+                        </div>
+                        <div class="text-container">
+                            <div class="audio-text" id="englishText${a.id}"><div class="label">🔤 Texto en Inglés</div><p>${a.audio}</p></div>
+                            <div class="spanish-text" id="spanishText${a.id}"><div class="label">🇪🇸 Traducción</div><p>${a.spanish}</p></div>
+                        </div>
+                    </div>
+                    <button class="show-question-btn" id="showQ${a.id}" onclick="toggleQuestion(${a.id})">❓ Mostrar Pregunta</button>
+                    <div class="question-section" id="questionSection${a.id}">
+                        <h4>❓ Pregunta</h4>
+                        <div class="question-text">${a.question}</div>
+                        <div class="options-container" id="options${a.id}">
+                            ${a.options.map((opt, i) => `<div class="option" onclick="selectAnswer(${a.id}, '${['a','b','c'][i]}', '${a.correct}')"><span class="option-letter">${['A','B','C'][i]}</span><span class="option-text">${opt}</span></div>`).join('')}
+                        </div>
+                        <div class="feedback" id="fb${a.id}"></div>
+                    </div>
+                </div>`;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
         function setSpeed(s) { currentSpeed = s; document.querySelectorAll('.speed-btn').forEach(b => { b.classList.remove('active'); if (b.dataset.speed == s) b.classList.add('active'); }); }
-        
+
         function playAudio(n) {
             const btn = document.getElementById(`playBtn${n}`);
             if (isPlaying) { synthesis.cancel(); isPlaying = false; document.querySelectorAll('.play-btn').forEach(b => { b.classList.remove('playing'); b.textContent = '▶️'; }); return; }
-            const u = new SpeechSynthesisUtterance(audioTexts[n]);
+            const a = activities.find(x => x.id === n);
+            const u = new SpeechSynthesisUtterance(a.audio);
             u.voice = englishVoice; u.rate = currentSpeed; u.pitch = 1; u.volume = 1;
             isPlaying = true; btn.classList.add('playing'); btn.textContent = '⏹️';
             u.onend = () => { isPlaying = false; btn.classList.remove('playing'); btn.textContent = '▶️'; };
             u.onerror = () => { isPlaying = false; btn.classList.remove('playing'); btn.textContent = '▶️'; };
             synthesis.speak(u);
         }
-        
+
         function toggleText(n) {
-            const c = document.getElementById(`textContainer${n}`), b = document.getElementById(`textBtn${n}`);
-            if (c.classList.contains('show')) { c.classList.remove('show'); b.classList.remove('active'); b.textContent = '🔤 Ver texto en inglés'; }
-            else { c.classList.add('show'); b.classList.add('active'); b.textContent = '🔤 Ocultar texto'; }
+            const txt = document.getElementById(`englishText${n}`);
+            const btn = document.getElementById(`textBtn${n}`);
+            txt.classList.toggle('show');
+            btn.classList.toggle('active');
+            btn.textContent = txt.classList.contains('show') ? '🔤 Ocultar inglés' : '🔤 Ver texto en inglés';
         }
-        
+
         function toggleSpanish(n) {
-            const s = document.getElementById(`spanish${n}`), b = document.getElementById(`spanishBtn${n}`), c = document.getElementById(`textContainer${n}`);
-            if (!c.classList.contains('show')) { c.classList.add('show'); document.getElementById(`textBtn${n}`).classList.add('active'); document.getElementById(`textBtn${n}`).textContent = '🔤 Ocultar texto'; }
-            if (s.classList.contains('show')) { s.classList.remove('show'); b.classList.remove('active'); b.textContent = '🇪🇸 Ver en español'; }
-            else { s.classList.add('show'); b.classList.add('active'); b.textContent = '🇪🇸 Ocultar español'; }
+            const txt = document.getElementById(`spanishText${n}`);
+            const btn = document.getElementById(`spanishBtn${n}`);
+            txt.classList.toggle('show');
+            btn.classList.toggle('active');
+            btn.textContent = txt.classList.contains('show') ? '🇪🇸 Ocultar español' : '🇪🇸 Ver en español';
         }
-        
+
+        function toggleQuestion(n) {
+            const section = document.getElementById(`questionSection${n}`);
+            const btn = document.getElementById(`showQ${n}`);
+            section.classList.toggle('show');
+            btn.classList.toggle('active');
+            btn.textContent = section.classList.contains('show') ? '❓ Ocultar Pregunta' : '❓ Mostrar Pregunta';
+        }
+
         function selectAnswer(n, sel, cor) {
             if (answeredQuestions[n]) return;
             answeredQuestions[n] = true;
+            const a = activities.find(x => x.id === n);
             const opts = document.querySelectorAll(`#options${n} .option`), fb = document.getElementById(`fb${n}`), ok = sel === cor;
             answered++;
             if (ok) { correct++; if (n <= 4) easyCorrect++; else if (n <= 7) mediumCorrect++; else hardCorrect++; } else incorrect++;
             opts.forEach(o => { o.classList.add('disabled'); const l = o.querySelector('.option-letter').textContent.toLowerCase(); if (l === sel) o.classList.add(ok ? 'correct' : 'incorrect'); if (l === cor && !ok) o.classList.add('show-correct'); });
-            fb.innerHTML = ok ? feedbacks[n].correct : feedbacks[n].incorrect;
+            fb.innerHTML = ok ? a.feedback.correct : a.feedback.incorrect;
             fb.classList.add('show', ok ? 'correct' : 'incorrect');
             updateScore();
             if (answered === 10) setTimeout(showResults, 1000);
         }
-        
+
         function updateScore() { document.getElementById('answeredCount').textContent = `${answered}/10`; document.getElementById('correctCount').textContent = correct; document.getElementById('incorrectCount').textContent = incorrect; }
-        
+
         function showResults() {
             const p = document.getElementById('resultsPanel'), pct = (correct / 10) * 100;
             document.getElementById('resultsScore').textContent = `${correct}/10`;
@@ -504,12 +295,14 @@
             document.getElementById('mediumScore').textContent = `${mediumCorrect}/3`;
             document.getElementById('hardScore').textContent = `${hardCorrect}/3`;
             const tr = document.getElementById('trophy'), ti = document.getElementById('resultsTitle'), ms = document.getElementById('resultsMessage');
-            if (pct >= 90) { tr.textContent = '🏆'; ti.textContent = '¡Excelente oído!'; ms.textContent = 'Dominas las preguntas sobre estados de ánimo.'; }
-            else if (pct >= 70) { tr.textContent = '🥈'; ti.textContent = '¡Muy bien!'; ms.textContent = 'Buen progreso en comprensión auditiva.'; }
-            else if (pct >= 50) { tr.textContent = '🥉'; ti.textContent = '¡Buen intento!'; ms.textContent = 'Practica más con los audios.'; }
-            else { tr.textContent = '📚'; ti.textContent = 'Sigue practicando'; ms.textContent = 'Escucha con velocidad lenta.'; }
+            if (pct >= 90) { tr.textContent = '🏆'; ti.textContent = '¡Excelente!'; ms.textContent = 'Dominas "How are you?" perfectamente.'; }
+            else if (pct >= 70) { tr.textContent = '🥈'; ti.textContent = '¡Muy bien!'; ms.textContent = 'Buen progreso con las preguntas.'; }
+            else if (pct >= 50) { tr.textContent = '🥉'; ti.textContent = '¡Buen intento!'; ms.textContent = 'Sigue practicando.'; }
+            else { tr.textContent = '📚'; ti.textContent = 'Sigue practicando'; ms.textContent = 'Escucha los audios de nuevo.'; }
             p.classList.add('show'); p.scrollIntoView({ behavior: 'smooth' });
         }
+
+        renderActivities();
     </script>
 </body>
 </html>
