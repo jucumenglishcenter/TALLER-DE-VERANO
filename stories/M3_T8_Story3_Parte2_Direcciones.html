@@ -5,849 +5,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Story 3: Emma's Adventure - Parte 2 | ¿Dónde está...?</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
-            min-height: 100vh;
-            padding: 15px;
-            padding-bottom: 80px;
-        }
-
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #388E3C 0%, #2E7D32 100%);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(56, 142, 60, 0.4);
-        }
-
-        .header h1 {
-            color: white;
-            font-size: 1.4rem;
-            margin-bottom: 5px;
-        }
-
-        .header .subtitle {
-            color: rgba(255,255,255,0.9);
-            font-size: 1rem;
-            margin-bottom: 10px;
-        }
-
-        .header .badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: white;
-            margin: 3px;
-        }
-
-        /* Story Info */
-        .story-info {
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-left: 4px solid #388E3C;
-        }
-
-        .story-info h3 {
-            color: #2E7D32;
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-        }
-
-        .story-info p {
-            color: #555;
-            font-size: 0.85rem;
-            line-height: 1.5;
-        }
-
-        /* Characters */
-        .characters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .character-tag {
-            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: #2E7D32;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* Scene Card */
-        .scene-card {
-            background: white;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .scene-header {
-            background: linear-gradient(135deg, #388E3C 0%, #4CAF50 100%);
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .scene-number {
-            background: white;
-            color: #388E3C;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .scene-title {
-            color: white;
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-
-        .scene-content {
-            padding: 20px;
-        }
-
-        /* Dialogue Row */
-        .dialogue-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed #e0e0e0;
-        }
-
-        .dialogue-row:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .dialogue-box {
-            padding: 12px;
-            border-radius: 10px;
-            position: relative;
-        }
-
-        .dialogue-box.spanish {
-            background: linear-gradient(135deg, #F5F5F5 0%, #EEEEEE 100%);
-            border-left: 3px solid #9E9E9E;
-        }
-
-        .dialogue-box.english {
-            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
-            border-left: 3px solid #388E3C;
-        }
-
-        .dialogue-label {
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-
-        .dialogue-box.spanish .dialogue-label {
-            color: #757575;
-        }
-
-        .dialogue-box.english .dialogue-label {
-            color: #2E7D32;
-        }
-
-        .speaker {
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-bottom: 3px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .dialogue-box.spanish .speaker {
-            color: #424242;
-        }
-
-        .dialogue-box.english .speaker {
-            color: #2E7D32;
-        }
-
-        .dialogue-text {
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .dialogue-box.spanish .dialogue-text {
-            color: #555;
-        }
-
-        .dialogue-box.english .dialogue-text {
-            color: #333;
-        }
-
-        /* Highlighted vocabulary */
-        .vocab-highlight {
-            background: linear-gradient(135deg, #FFF9C4 0%, #FFF59D 100%);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-            color: #F57F17;
-        }
-
-        /* Narration */
-        .narration {
-            background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
-            padding: 12px 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            font-style: italic;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .narration-es {
-            color: #757575;
-            font-size: 0.85rem;
-            padding-right: 15px;
-            border-right: 1px dashed #ccc;
-        }
-
-        .narration-en {
-            color: #2E7D32;
-            font-size: 0.85rem;
-        }
-
-        /* Tip Box */
-        .tip-box {
-            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
-            border-radius: 10px;
-            padding: 12px 15px;
-            margin: 15px 0;
-            border-left: 4px solid #1976D2;
-        }
-
-        .tip-box .tip-title {
-            color: #1565C0;
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .tip-box .tip-content {
-            color: #555;
-            font-size: 0.85rem;
-            line-height: 1.4;
-        }
-
-        /* Navigation */
-        .nav-section {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            gap: 10px;
-        }
-
-        .nav-btn {
-            flex: 1;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .nav-btn.prev {
-            background: #E0E0E0;
-            color: #666;
-        }
-
-        .nav-btn.next {
-            background: linear-gradient(135deg, #388E3C 0%, #2E7D32 100%);
-            color: white;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        /* Toggle Button */
-        .toggle-container {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .toggle-btn {
-            background: white;
-            border: 2px solid #388E3C;
-            color: #388E3C;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .toggle-btn:hover {
-            background: #388E3C;
-            color: white;
-        }
-
-        .toggle-btn.active {
-            background: #388E3C;
-            color: white;
-        }
-
-        /* Hide Spanish when toggled */
-        .hide-spanish .dialogue-box.spanish,
-        .hide-spanish .narration-es {
-            visibility: hidden;
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .dialogue-row {
-                grid-template-columns: 1fr;
-            }
-
-            .narration {
-                grid-template-columns: 1fr;
-            }
-
-            .narration-es {
-                border-right: none;
-                border-bottom: 1px dashed #ccc;
-                padding-bottom: 10px;
-                padding-right: 0;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); min-height: 100vh; padding: 15px; padding-bottom: 100px; }
+        .container { max-width: 700px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #43A047 0%, #2E7D32 100%); border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 20px; }
+        .header h1 { color: white; font-size: 1.4rem; margin-bottom: 5px; }
+        .header .subtitle { color: rgba(255,255,255,0.9); font-size: 1rem; margin-bottom: 10px; }
+        .header .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: white; margin: 3px; }
+        .nav-buttons { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .nav-link { padding: 10px 20px; border: none; border-radius: 25px; font-size: 0.9rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+        .nav-link.home { background: linear-gradient(135deg, #607D8B 0%, #455A64 100%); color: white; }
+        .story-info { background: white; border-radius: 12px; padding: 15px; margin-bottom: 20px; border-left: 4px solid #43A047; }
+        .story-info h3 { color: #2E7D32; font-size: 0.95rem; margin-bottom: 8px; }
+        .story-info p { color: #555; font-size: 0.85rem; line-height: 1.5; }
+        .characters { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+        .character-tag { background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; color: #2E7D32; }
+        .toggle-section { background: white; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: center; }
+        .toggle-btn { padding: 12px 24px; border: 2px solid #43A047; background: white; color: #43A047; border-radius: 25px; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+        .toggle-btn.active { background: #43A047; color: white; }
+        .scene-card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+        .scene-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; padding-bottom: 12px; border-bottom: 2px solid #E8F5E9; }
+        .scene-number { width: 36px; height: 36px; background: linear-gradient(135deg, #43A047 0%, #2E7D32 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+        .scene-title { font-size: 1.1rem; color: #2E7D32; font-weight: 600; }
+        .narration { background: #F5F5F5; border-radius: 10px; padding: 12px; margin: 12px 0; }
+        .narration-es { color: #666; font-style: italic; margin-bottom: 8px; font-size: 0.9rem; }
+        .narration-en { color: #2E7D32; font-style: italic; font-size: 0.9rem; }
+        .dialogue-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+        .dialogue-box { padding: 12px; border-radius: 10px; }
+        .dialogue-box.spanish { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border-left: 3px solid #F57C00; }
+        .dialogue-box.english { background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); border-left: 3px solid #43A047; }
+        .dialogue-label { font-size: 0.7rem; color: #888; text-transform: uppercase; margin-bottom: 5px; }
+        .speaker { font-weight: 600; font-size: 0.85rem; margin-bottom: 5px; }
+        .dialogue-box.spanish .speaker { color: #E65100; }
+        .dialogue-box.english .speaker { color: #2E7D32; }
+        .dialogue-text { font-size: 0.9rem; line-height: 1.5; }
+        .vocab-highlight { background: #FFEB3B; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+        .tip-box { background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); border-radius: 10px; padding: 12px; margin-top: 15px; border-left: 4px solid #1976D2; }
+        .tip-title { font-weight: 600; color: #1565C0; font-size: 0.85rem; margin-bottom: 8px; }
+        .tip-content { color: #555; font-size: 0.85rem; line-height: 1.6; }
+        .nav-section { display: flex; justify-content: space-between; gap: 15px; margin-top: 30px; padding: 20px; background: white; border-radius: 16px; position: sticky; bottom: 15px; }
+        .nav-btn { padding: 12px 24px; border: none; border-radius: 25px; font-size: 0.9rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+        .nav-btn.prev { background: #E0E0E0; color: #666; }
+        .nav-btn.next { background: linear-gradient(135deg, #43A047 0%, #2E7D32 100%); color: white; }
+        .hide-spanish .dialogue-box.spanish { opacity: 0.3; }
+        .hide-spanish .narration-es { opacity: 0.3; }
+        @media (max-width: 600px) { .dialogue-row { grid-template-columns: 1fr; } .nav-section { flex-direction: column; } .nav-btn { width: 100%; justify-content: center; } }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <h1>📖 Story 3: Emma's Adventure</h1>
             <div class="subtitle">Parte 2: Perdidos en la ciudad</div>
-            <div>
-                <span class="badge">📗 Módulo 3</span>
-                <span class="badge">🎯 Tema 8: ¿Dónde está...?</span>
-            </div>
+            <span class="badge">📗 Módulo 3</span>
+            <span class="badge">🎯 Tema 8: Direcciones</span>
         </div>
-
-        <!-- Story Info -->
+        <div class="nav-buttons"><a href="../index.html" class="nav-link home">🏠 Volver al Panel Principal</a></div>
         <div class="story-info">
             <h3>📍 Contexto de la historia</h3>
-            <p>Después del almuerzo, los amigos quieren ir a una tienda de música que Sophie conoce. El problema es que Sophie no recuerda exactamente dónde está. Caminan por varias calles y se pierden. Tienen que pedir ayuda a diferentes personas hasta que finalmente encuentran la tienda.</p>
-            
-            <div class="characters">
-                <span class="character-tag">👧 Emma García</span>
-                <span class="character-tag">👧 Sophie Miller</span>
-                <span class="character-tag">👦 Tom Wilson</span>
-                <span class="character-tag">👨 Señor amable</span>
-            </div>
+            <p>Después del almuerzo, los amigos quieren ir a una tienda de música que Sophie conoce. El problema es que Sophie no recuerda exactamente dónde está.</p>
+            <div class="characters"><span class="character-tag">👧 Emma</span><span class="character-tag">👧 Sophie</span><span class="character-tag">👦 Tom</span><span class="character-tag">👨 Señor amable</span></div>
         </div>
+        <div class="toggle-section"><button class="toggle-btn" onclick="toggleSpanish()">👁️ Ocultar español (modo desafío)</button></div>
 
-        <!-- Toggle Button -->
-        <div class="toggle-container">
-            <button class="toggle-btn" onclick="toggleSpanish()">
-                👁️ Ocultar español (modo desafío)
-            </button>
-        </div>
-
-        <!-- SCENE 1 -->
         <div class="scene-card">
-            <div class="scene-header">
-                <div class="scene-number">1</div>
-                <div class="scene-title">🚶 Saliendo del restaurante</div>
-            </div>
+            <div class="scene-header"><div class="scene-number">1</div><div class="scene-title">🎵 Buscando la tienda</div></div>
             <div class="scene-content">
-                <div class="narration">
-                    <div class="narration-es">Los tres amigos salen del restaurante con energía después de su delicioso almuerzo.</div>
-                    <div class="narration-en">The three friends leave the restaurant with energy after their delicious lunch.</div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">¡Oigan! Conozco una tienda de música increíble. ¡Vamos!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Hey! I know an amazing music store. Let's go!</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">¡Genial! ¿Dónde está la tienda?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Great! <span class="vocab-highlight">Where</span> is the store?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Mmm... creo que está cerca de aquí. Por esta calle...</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Mmm... I think it's <span class="vocab-highlight">near here</span>. Down this <span class="vocab-highlight">street</span>...</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">¿Estás segura? ¿Sabes dónde está?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">Are you sure? Do you know <span class="vocab-highlight">where</span> it is?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">¡Claro! Bueno... más o menos. ¡Síganme!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Of course! Well... kind of. Follow me!</div>
-                    </div>
-                </div>
-
-                <div class="tip-box">
-                    <div class="tip-title">💡 "Where is...?" - ¿Dónde está...?</div>
-                    <div class="tip-content">
-                        <strong>"Where"</strong> <em>(wér)</em> significa "dónde". Es la palabra para preguntar por ubicaciones.<br>
-                        ❓ <strong>Where is the store?</strong> = ¿Dónde está la tienda?
-                    </div>
-                </div>
+                <div class="narration"><div class="narration-es">Los amigos salen del restaurante. Sophie quiere ir a una tienda de música.</div><div class="narration-en">The friends leave the restaurant. Sophie wants to go to a music store.</div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">¡Vamos a la tienda de música! Está cerca de aquí.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">Let's go to the music store! It's <span class="vocab-highlight">near</span> <span class="vocab-highlight">here</span>.</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">¡Genial! ¿Dónde está la tienda?</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">Great! <span class="vocab-highlight">Where</span> is the store?</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">Hmm... creo que está por allá...</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">Hmm... I think it's over <span class="vocab-highlight">there</span>...</div></div></div>
             </div>
         </div>
 
-        <!-- SCENE 2 -->
         <div class="scene-card">
-            <div class="scene-header">
-                <div class="scene-number">2</div>
-                <div class="scene-title">😰 ¡Estamos perdidos!</div>
-            </div>
+            <div class="scene-header"><div class="scene-number">2</div><div class="scene-title">😕 ¡Estamos perdidos!</div></div>
             <div class="scene-content">
-                <div class="narration">
-                    <div class="narration-es">Los amigos caminan por varias calles. Todo se ve diferente. Sophie está confundida.</div>
-                    <div class="narration-en">The friends walk through several streets. Everything looks different. Sophie is confused.</div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Hmm... no reconozco esta calle. Creo que estamos perdidos.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Hmm... I don't recognize this <span class="vocab-highlight">street</span>. I think we're lost.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">¿Está lejos la tienda de música?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">Is the music store <span class="vocab-highlight">far</span>?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">No lo sé. Pensé que estaba cerca, pero ahora no estoy segura.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">I don't know. I thought it was <span class="vocab-highlight">near</span>, but now I'm not sure.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">No te preocupes, Sophie. Podemos pedir ayuda a alguien.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Don't worry, Sophie. We can ask someone for <span class="vocab-highlight">help</span>.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">¡Buena idea! Miren, allí hay un señor. Preguntémosle.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">Good idea! Look, <span class="vocab-highlight">there</span> is a man. Let's ask him.</div>
-                    </div>
-                </div>
-
-                <div class="tip-box">
-                    <div class="tip-title">💡 "Near" vs "Far"</div>
-                    <div class="tip-content">
-                        📍 <strong>Near</strong> <em>(níer)</em> = Cerca<br>
-                        📍 <strong>Far</strong> <em>(far)</em> = Lejos<br>
-                        "Is it near?" = ¿Está cerca? | "Is it far?" = ¿Está lejos?
-                    </div>
-                </div>
+                <div class="narration"><div class="narration-es">Después de caminar varios minutos, los amigos no encuentran la tienda.</div><div class="narration-en">After walking for several minutes, the friends can't find the store.</div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">Sophie... ¿estás segura de que es por aquí?</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">Sophie... are you sure it's this way?</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">No lo sé... ¡Creo que estamos perdidos!</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">I don't know... I think we're lost!</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">¡Pidamos ayuda! Disculpe señor, ¿puede ayudarnos?</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">Let's ask for help! Excuse me sir, can you <span class="vocab-highlight">help</span> us?</div></div></div>
             </div>
         </div>
 
-        <!-- SCENE 3 -->
         <div class="scene-card">
-            <div class="scene-header">
-                <div class="scene-number">3</div>
-                <div class="scene-title">🗣️ Pidiendo direcciones</div>
-            </div>
+            <div class="scene-header"><div class="scene-number">3</div><div class="scene-title">🗺️ Pidiendo direcciones</div></div>
             <div class="scene-content">
-                <div class="narration">
-                    <div class="narration-es">Emma se acerca a un señor amable que está caminando por la calle.</div>
-                    <div class="narration-en">Emma approaches a kind man who is walking down the street.</div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Disculpe, ¿puede ayudarnos?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Excuse me, can you <span class="vocab-highlight">help</span> us?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👨 Señor:</div>
-                        <div class="dialogue-text">¡Claro! ¿En qué puedo ayudarles?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👨 Man:</div>
-                        <div class="dialogue-text">Of course! How can I <span class="vocab-highlight">help</span> you?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">¿Dónde está la tienda de música? Estamos perdidos.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text"><span class="vocab-highlight">Where</span> is the music store? We are lost.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👨 Señor:</div>
-                        <div class="dialogue-text">¡Ah, la tienda de música! No está lejos de aquí. Es fácil llegar.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👨 Man:</div>
-                        <div class="dialogue-text">Ah, the music store! It's not <span class="vocab-highlight">far</span> from <span class="vocab-highlight">here</span>. It's easy to get there.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">¡Qué alivio! ¿Cómo llegamos?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">What a relief! How do we get <span class="vocab-highlight">there</span>?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👨 Señor:</div>
-                        <div class="dialogue-text">Vayan derecho por esta calle. Luego giren a la izquierda. La tienda está a la derecha.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👨 Man:</div>
-                        <div class="dialogue-text">Go <span class="vocab-highlight">straight</span> down this <span class="vocab-highlight">street</span>. Then turn <span class="vocab-highlight">left</span>. The store is on the <span class="vocab-highlight">right</span>.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">Entonces... derecho, luego izquierda, y está a la derecha. ¿Correcto?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">So... <span class="vocab-highlight">straight</span>, then <span class="vocab-highlight">left</span>, and it's on the <span class="vocab-highlight">right</span>. Correct?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👨 Señor:</div>
-                        <div class="dialogue-text">¡Exacto! Está cerca del parque.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👨 Man:</div>
-                        <div class="dialogue-text">Exactly! It's <span class="vocab-highlight">near</span> the park.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧👧👦 Todos:</div>
-                        <div class="dialogue-text">¡Muchas gracias!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧👧👦 Everyone:</div>
-                        <div class="dialogue-text">Thank you so much!</div>
-                    </div>
-                </div>
-
-                <div class="tip-box">
-                    <div class="tip-title">💡 Direcciones básicas</div>
-                    <div class="tip-content">
-                        ⬆️ <strong>Go straight</strong> = Vaya derecho<br>
-                        ⬅️ <strong>Turn left</strong> = Gire a la izquierda<br>
-                        ➡️ <strong>Turn right</strong> = Gire a la derecha<br>
-                        📍 <strong>It's on the left/right</strong> = Está a la izquierda/derecha
-                    </div>
-                </div>
+                <div class="narration"><div class="narration-es">Un señor amable se detiene para ayudarlos.</div><div class="narration-en">A kind man stops to help them.</div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👨 Señor:</div><div class="dialogue-text">¡Claro! ¿Qué necesitan?</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👨 Man:</div><div class="dialogue-text">Of course! What do you need?</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">¿Dónde está la tienda de música?</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Emma:</div><div class="dialogue-text"><span class="vocab-highlight">Where</span> is the music store?</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👨 Señor:</div><div class="dialogue-text">¡Ah! Está en la calle Main. Vayan derecho, luego a la izquierda.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👨 Man:</div><div class="dialogue-text">Ah! It's on Main <span class="vocab-highlight">Street</span>. Go <span class="vocab-highlight">straight</span>, then turn <span class="vocab-highlight">left</span>.</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">¿Está lejos?</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">Is it <span class="vocab-highlight">far</span>?</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👨 Señor:</div><div class="dialogue-text">No, está cerca. Después de girar a la izquierda, giren a la derecha.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👨 Man:</div><div class="dialogue-text">No, it's <span class="vocab-highlight">near</span>. After turning <span class="vocab-highlight">left</span>, turn <span class="vocab-highlight">right</span>.</div></div></div>
+                <div class="tip-box"><div class="tip-title">💡 Direcciones básicas</div><div class="tip-content">⬆️ <strong>Go straight</strong> = Ve derecho<br>⬅️ <strong>Turn left</strong> = Gira a la izquierda<br>➡️ <strong>Turn right</strong> = Gira a la derecha<br>📍 <strong>It's here/there</strong> = Está aquí/allá</div></div>
             </div>
         </div>
 
-        <!-- SCENE 4 -->
         <div class="scene-card">
-            <div class="scene-header">
-                <div class="scene-number">4</div>
-                <div class="scene-title">🎉 ¡La encontramos!</div>
-            </div>
+            <div class="scene-header"><div class="scene-number">4</div><div class="scene-title">🎉 ¡La encontramos!</div></div>
             <div class="scene-content">
-                <div class="narration">
-                    <div class="narration-es">Los amigos siguen las instrucciones. Caminan derecho, giran a la izquierda y...</div>
-                    <div class="narration-en">The friends follow the instructions. They walk straight, turn left and...</div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">¡Miren! ¡Está aquí! ¡La tienda de música!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Look! It's <span class="vocab-highlight">here</span>! The music store!</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">¡Sí! ¡Está justo allí, a la derecha! ¡Lo logramos!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Yes! It's right <span class="vocab-highlight">there</span>, on the <span class="vocab-highlight">right</span>! We made it!</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">¡Genial! Y miren, el parque está muy cerca también.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">Awesome! And look, the park is very <span class="vocab-highlight">near</span> too.</div>
-                    </div>
-                </div>
-
-                <div class="narration">
-                    <div class="narration-es">Los amigos entran a la tienda. Emma encuentra un póster de su banda favorita, "Star Lights".</div>
-                    <div class="narration-en">The friends enter the store. Emma finds a poster of her favorite band, "Star Lights".</div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">¡Miren! ¡Un póster de Star Lights! ¡Lo quiero comprar!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Look! A Star Lights poster! I want to buy it!</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">¡Qué emoción! ¡Valió la pena perderse!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">How exciting! It was worth getting lost!</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">¡Fue una aventura! Y ahora sabemos dónde está la tienda.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">It was an adventure! And now we know <span class="vocab-highlight">where</span> the store is.</div>
-                    </div>
-                </div>
-
-                <div class="narration">
-                    <div class="narration-es">Los tres amigos sonríen. Fue una aventura divertida y aprendieron a pedir direcciones.</div>
-                    <div class="narration-en">The three friends smile. It was a fun adventure and they learned to ask for directions.</div>
-                </div>
-
-                <div class="tip-box">
-                    <div class="tip-title">💡 "Here" vs "There"</div>
-                    <div class="tip-content">
-                        📍 <strong>Here</strong> <em>(jíer)</em> = Aquí (cerca de ti)<br>
-                        📍 <strong>There</strong> <em>(dér)</em> = Allí/Allá (lejos de ti)<br>
-                        "It's here!" = ¡Está aquí! | "It's there!" = ¡Está allí!
-                    </div>
-                </div>
+                <div class="narration"><div class="narration-es">Los amigos siguen las direcciones y finalmente encuentran la tienda.</div><div class="narration-en">The friends follow the directions and finally find the store.</div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">¡Miren! ¡Está aquí! ¡La encontramos!</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">Look! It's <span class="vocab-highlight">here</span>! We found it!</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">¡Qué bueno! Gracias por la ayuda, señor.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">Great! Thank you for the <span class="vocab-highlight">help</span>, sir.</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">¡Entremos! Quiero ver los pósters de bandas.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">Let's go in! I want to see the band posters.</div></div></div>
+                <div class="narration"><div class="narration-es">Emma compra un póster de su banda favorita. ¡Están muy felices de haber encontrado la tienda!</div><div class="narration-en">Emma buys a poster of her favorite band. They're so happy to have found the store!</div></div>
+                <div class="tip-box"><div class="tip-title">💡 Vocabulario de ubicación</div><div class="tip-content">❓ <strong>Where is...?</strong> = ¿Dónde está...?<br>📍 <strong>here</strong> = aquí | <strong>there</strong> = allá<br>📏 <strong>near</strong> = cerca | <strong>far</strong> = lejos<br>🛣️ <strong>street</strong> = calle<br>🆘 <strong>Can you help me?</strong> = ¿Puede ayudarme?</div></div>
             </div>
         </div>
 
-        <!-- Navigation -->
         <div class="nav-section">
-            <a href="#" class="nav-btn prev">← Parte 1: Almuerzo de amigos</a>
-            <a href="#" class="nav-btn next">Parte 3: Planes de verano →</a>
+            <a href="M3_T7_Story3_Parte1_Restaurante.html" class="nav-btn prev">← Parte 1: Restaurante</a>
+            <a href="M3_T9_Story3_Parte3_Planes.html" class="nav-btn next">Parte 3: Planes →</a>
         </div>
     </div>
-
     <script>
         let spanishHidden = false;
-
         function toggleSpanish() {
             const btn = document.querySelector('.toggle-btn');
-            
             spanishHidden = !spanishHidden;
-            
-            if (spanishHidden) {
-                document.querySelectorAll('.scene-card').forEach(card => {
-                    card.classList.add('hide-spanish');
-                });
-                btn.textContent = '👁️ Mostrar español';
-                btn.classList.add('active');
-            } else {
-                document.querySelectorAll('.scene-card').forEach(card => {
-                    card.classList.remove('hide-spanish');
-                });
-                btn.textContent = '👁️ Ocultar español (modo desafío)';
-                btn.classList.remove('active');
-            }
+            document.querySelectorAll('.scene-card').forEach(card => card.classList.toggle('hide-spanish', spanishHidden));
+            btn.textContent = spanishHidden ? '👁️ Mostrar español' : '👁️ Ocultar español (modo desafío)';
+            btn.classList.toggle('active', spanishHidden);
         }
     </script>
 </body>

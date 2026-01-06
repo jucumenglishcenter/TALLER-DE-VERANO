@@ -5,894 +5,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Story 3: Emma's Adventure - Parte 3 | Planes y Despedidas</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
-            min-height: 100vh;
-            padding: 15px;
-            padding-bottom: 80px;
-        }
-
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #388E3C 0%, #2E7D32 100%);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(56, 142, 60, 0.4);
-        }
-
-        .header h1 {
-            color: white;
-            font-size: 1.4rem;
-            margin-bottom: 5px;
-        }
-
-        .header .subtitle {
-            color: rgba(255,255,255,0.9);
-            font-size: 1rem;
-            margin-bottom: 10px;
-        }
-
-        .header .badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: white;
-            margin: 3px;
-        }
-
-        /* Story Info */
-        .story-info {
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-left: 4px solid #388E3C;
-        }
-
-        .story-info h3 {
-            color: #2E7D32;
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-        }
-
-        .story-info p {
-            color: #555;
-            font-size: 0.85rem;
-            line-height: 1.5;
-        }
-
-        /* Characters */
-        .characters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .character-tag {
-            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: #2E7D32;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* Scene Card */
-        .scene-card {
-            background: white;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .scene-header {
-            background: linear-gradient(135deg, #388E3C 0%, #4CAF50 100%);
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .scene-number {
-            background: white;
-            color: #388E3C;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .scene-title {
-            color: white;
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-
-        .scene-content {
-            padding: 20px;
-        }
-
-        /* Dialogue Row */
-        .dialogue-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed #e0e0e0;
-        }
-
-        .dialogue-row:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .dialogue-box {
-            padding: 12px;
-            border-radius: 10px;
-            position: relative;
-        }
-
-        .dialogue-box.spanish {
-            background: linear-gradient(135deg, #F5F5F5 0%, #EEEEEE 100%);
-            border-left: 3px solid #9E9E9E;
-        }
-
-        .dialogue-box.english {
-            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
-            border-left: 3px solid #388E3C;
-        }
-
-        .dialogue-label {
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-
-        .dialogue-box.spanish .dialogue-label {
-            color: #757575;
-        }
-
-        .dialogue-box.english .dialogue-label {
-            color: #2E7D32;
-        }
-
-        .speaker {
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-bottom: 3px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .dialogue-box.spanish .speaker {
-            color: #424242;
-        }
-
-        .dialogue-box.english .speaker {
-            color: #2E7D32;
-        }
-
-        .dialogue-text {
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .dialogue-box.spanish .dialogue-text {
-            color: #555;
-        }
-
-        .dialogue-box.english .dialogue-text {
-            color: #333;
-        }
-
-        /* Highlighted vocabulary */
-        .vocab-highlight {
-            background: linear-gradient(135deg, #FFF9C4 0%, #FFF59D 100%);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-            color: #F57F17;
-        }
-
-        /* Narration */
-        .narration {
-            background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
-            padding: 12px 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            font-style: italic;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .narration-es {
-            color: #757575;
-            font-size: 0.85rem;
-            padding-right: 15px;
-            border-right: 1px dashed #ccc;
-        }
-
-        .narration-en {
-            color: #2E7D32;
-            font-size: 0.85rem;
-        }
-
-        /* Tip Box */
-        .tip-box {
-            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
-            border-radius: 10px;
-            padding: 12px 15px;
-            margin: 15px 0;
-            border-left: 4px solid #1976D2;
-        }
-
-        .tip-box .tip-title {
-            color: #1565C0;
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .tip-box .tip-content {
-            color: #555;
-            font-size: 0.85rem;
-            line-height: 1.4;
-        }
-
-        /* Story Complete Badge */
-        .story-complete {
-            background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            margin-top: 20px;
-            color: white;
-        }
-
-        .story-complete h3 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-        }
-
-        .story-complete p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        /* Course Complete Badge */
-        .course-complete {
-            background: linear-gradient(135deg, #FF6F00 0%, #F57C00 50%, #388E3C 100%);
-            border-radius: 16px;
-            padding: 25px;
-            text-align: center;
-            margin-top: 20px;
-            color: white;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        }
-
-        .course-complete h2 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-
-        .course-complete p {
-            font-size: 0.95rem;
-            opacity: 0.95;
-            margin-bottom: 5px;
-        }
-
-        .course-complete .emoji-row {
-            font-size: 2rem;
-            margin: 15px 0;
-        }
-
-        /* Navigation */
-        .nav-section {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            gap: 10px;
-        }
-
-        .nav-btn {
-            flex: 1;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .nav-btn.prev {
-            background: #E0E0E0;
-            color: #666;
-        }
-
-        .nav-btn.next {
-            background: linear-gradient(135deg, #388E3C 0%, #2E7D32 100%);
-            color: white;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        /* Toggle Button */
-        .toggle-container {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .toggle-btn {
-            background: white;
-            border: 2px solid #388E3C;
-            color: #388E3C;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .toggle-btn:hover {
-            background: #388E3C;
-            color: white;
-        }
-
-        .toggle-btn.active {
-            background: #388E3C;
-            color: white;
-        }
-
-        /* Hide Spanish when toggled */
-        .hide-spanish .dialogue-box.spanish,
-        .hide-spanish .narration-es {
-            visibility: hidden;
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .dialogue-row {
-                grid-template-columns: 1fr;
-            }
-
-            .narration {
-                grid-template-columns: 1fr;
-            }
-
-            .narration-es {
-                border-right: none;
-                border-bottom: 1px dashed #ccc;
-                padding-bottom: 10px;
-                padding-right: 0;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); min-height: 100vh; padding: 15px; padding-bottom: 100px; }
+        .container { max-width: 700px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #43A047 0%, #2E7D32 100%); border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 20px; }
+        .header h1 { color: white; font-size: 1.4rem; margin-bottom: 5px; }
+        .header .subtitle { color: rgba(255,255,255,0.9); font-size: 1rem; margin-bottom: 10px; }
+        .header .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: white; margin: 3px; }
+        .nav-buttons { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .nav-link { padding: 10px 20px; border: none; border-radius: 25px; font-size: 0.9rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+        .nav-link.home { background: linear-gradient(135deg, #607D8B 0%, #455A64 100%); color: white; }
+        .story-info { background: white; border-radius: 12px; padding: 15px; margin-bottom: 20px; border-left: 4px solid #43A047; }
+        .story-info h3 { color: #2E7D32; font-size: 0.95rem; margin-bottom: 8px; }
+        .story-info p { color: #555; font-size: 0.85rem; line-height: 1.5; }
+        .characters { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+        .character-tag { background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; color: #2E7D32; }
+        .toggle-section { background: white; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: center; }
+        .toggle-btn { padding: 12px 24px; border: 2px solid #43A047; background: white; color: #43A047; border-radius: 25px; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+        .toggle-btn.active { background: #43A047; color: white; }
+        .scene-card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+        .scene-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; padding-bottom: 12px; border-bottom: 2px solid #E8F5E9; }
+        .scene-number { width: 36px; height: 36px; background: linear-gradient(135deg, #43A047 0%, #2E7D32 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+        .scene-title { font-size: 1.1rem; color: #2E7D32; font-weight: 600; }
+        .narration { background: #F5F5F5; border-radius: 10px; padding: 12px; margin: 12px 0; }
+        .narration-es { color: #666; font-style: italic; margin-bottom: 8px; font-size: 0.9rem; }
+        .narration-en { color: #2E7D32; font-style: italic; font-size: 0.9rem; }
+        .dialogue-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+        .dialogue-box { padding: 12px; border-radius: 10px; }
+        .dialogue-box.spanish { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border-left: 3px solid #F57C00; }
+        .dialogue-box.english { background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); border-left: 3px solid #43A047; }
+        .dialogue-label { font-size: 0.7rem; color: #888; text-transform: uppercase; margin-bottom: 5px; }
+        .speaker { font-weight: 600; font-size: 0.85rem; margin-bottom: 5px; }
+        .dialogue-box.spanish .speaker { color: #E65100; }
+        .dialogue-box.english .speaker { color: #2E7D32; }
+        .dialogue-text { font-size: 0.9rem; line-height: 1.5; }
+        .vocab-highlight { background: #FFEB3B; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+        .tip-box { background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); border-radius: 10px; padding: 12px; margin-top: 15px; border-left: 4px solid #1976D2; }
+        .tip-title { font-weight: 600; color: #1565C0; font-size: 0.85rem; margin-bottom: 8px; }
+        .tip-content { color: #555; font-size: 0.85rem; line-height: 1.6; }
+        .final-box { background: linear-gradient(135deg, #43A047 0%, #2E7D32 100%); border-radius: 16px; padding: 25px; text-align: center; color: white; margin-top: 20px; }
+        .final-box h2 { margin-bottom: 10px; }
+        .final-box p { opacity: 0.9; }
+        .nav-section { display: flex; justify-content: space-between; gap: 15px; margin-top: 30px; padding: 20px; background: white; border-radius: 16px; position: sticky; bottom: 15px; }
+        .nav-btn { padding: 12px 24px; border: none; border-radius: 25px; font-size: 0.9rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+        .nav-btn.prev { background: #E0E0E0; color: #666; }
+        .nav-btn.next { background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%); color: white; }
+        .nav-btn.next[disabled] { opacity: 0.5; cursor: not-allowed; }
+        .hide-spanish .dialogue-box.spanish { opacity: 0.3; }
+        .hide-spanish .narration-es { opacity: 0.3; }
+        @media (max-width: 600px) { .dialogue-row { grid-template-columns: 1fr; } .nav-section { flex-direction: column; } .nav-btn { width: 100%; justify-content: center; } }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <h1>📖 Story 3: Emma's Adventure</h1>
             <div class="subtitle">Parte 3: Planes de verano</div>
-            <div>
-                <span class="badge">📗 Módulo 3</span>
-                <span class="badge">🎯 Tema 9: Planes y Despedidas</span>
-            </div>
+            <span class="badge">📗 Módulo 3</span>
+            <span class="badge">🎯 Tema 9: Planes y Despedidas</span>
         </div>
-
-        <!-- Story Info -->
+        <div class="nav-buttons"><a href="../index.html" class="nav-link home">🏠 Volver al Panel Principal</a></div>
         <div class="story-info">
             <h3>📍 Contexto de la historia</h3>
-            <p>Las clases están por terminar. Emma, Sophie y Tom están en el parque hablando sobre sus planes de verano. Sophie está triste porque viajará con su familia todo el verano y no verá a sus amigos. Se despiden con la esperanza de verse pronto cuando termine el verano.</p>
-            
-            <div class="characters">
-                <span class="character-tag">👧 Emma García</span>
-                <span class="character-tag">👧 Sophie Miller</span>
-                <span class="character-tag">👦 Tom Wilson</span>
-            </div>
+            <p>Las clases están por terminar. Emma, Sophie y Tom están en el parque hablando sobre sus planes de verano. Sophie viajará todo el verano y tendrán una despedida emotiva.</p>
+            <div class="characters"><span class="character-tag">👧 Emma</span><span class="character-tag">👧 Sophie</span><span class="character-tag">👦 Tom</span></div>
         </div>
+        <div class="toggle-section"><button class="toggle-btn" onclick="toggleSpanish()">👁️ Ocultar español (modo desafío)</button></div>
 
-        <!-- Toggle Button -->
-        <div class="toggle-container">
-            <button class="toggle-btn" onclick="toggleSpanish()">
-                👁️ Ocultar español (modo desafío)
-            </button>
-        </div>
-
-        <!-- SCENE 1 -->
         <div class="scene-card">
-            <div class="scene-header">
-                <div class="scene-number">1</div>
-                <div class="scene-title">🌳 En el parque</div>
-            </div>
+            <div class="scene-header"><div class="scene-number">1</div><div class="scene-title">🌳 En el parque</div></div>
             <div class="scene-content">
-                <div class="narration">
-                    <div class="narration-es">Es el último día de clases. Emma, Sophie y Tom están sentados en el parque, cerca de la tienda de música que encontraron.</div>
-                    <div class="narration-en">It's the last day of school. Emma, Sophie, and Tom are sitting in the park, near the music store they found.</div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">¡No puedo creer que las clases terminaron! ¿Qué van a hacer en el verano?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">I can't believe school is over! What are you going to do in the summer?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">La próxima semana visitaré a mis abuelos. ¡Estoy emocionado!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text"><span class="vocab-highlight">Next week</span> I <span class="vocab-highlight">will visit</span> my grandparents. I'm <span class="vocab-highlight">excited</span>!</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">¡Qué divertido! ¿Cuánto tiempo estarás allá?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">How fun! How long <span class="vocab-highlight">will</span> you be there?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">Estaré dos semanas con ellos. Luego regresaré a casa.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">I <span class="vocab-highlight">will</span> be two <span class="vocab-highlight">weeks</span> with them. Then I <span class="vocab-highlight">will</span> come back home.</div>
-                    </div>
-                </div>
-
-                <div class="tip-box">
-                    <div class="tip-title">💡 "Will" - El futuro simple</div>
-                    <div class="tip-content">
-                        <strong>"Will"</strong> <em>(wil)</em> se usa para hablar del futuro.<br>
-                        🔮 <strong>I will visit</strong> = Visitaré<br>
-                        🔮 <strong>I will travel</strong> = Viajaré<br>
-                        Es muy fácil: <strong>will + verbo</strong>
-                    </div>
-                </div>
+                <div class="narration"><div class="narration-es">Es el último día de clases. Los tres amigos están sentados en el parque, disfrutando del sol.</div><div class="narration-en">It's the last day of school. The three friends are sitting in the park, enjoying the sun.</div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">¡No puedo creer que el verano empiece mañana!</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">I can't believe summer starts <span class="vocab-highlight">tomorrow</span>!</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">¡Estoy muy emocionado! ¿Cuáles son sus planes?</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">I'm so <span class="vocab-highlight">excited</span>! What are your plans?</div></div></div>
             </div>
         </div>
 
-        <!-- SCENE 2 -->
         <div class="scene-card">
-            <div class="scene-header">
-                <div class="scene-number">2</div>
-                <div class="scene-title">😢 Sophie tiene noticias</div>
-            </div>
+            <div class="scene-header"><div class="scene-number">2</div><div class="scene-title">✈️ Los planes de Sophie</div></div>
             <div class="scene-content">
-                <div class="narration">
-                    <div class="narration-es">Sophie está callada. Se ve un poco triste.</div>
-                    <div class="narration-en">Sophie is quiet. She looks a little sad.</div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Sophie, ¿estás bien? ¿Qué harás tú en el verano?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Sophie, are you okay? What <span class="vocab-highlight">will</span> you do in the summer?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Viajaré con mi familia... todo el verano.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">I <span class="vocab-highlight">will travel</span> with my family... all summer.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">¡Eso suena increíble! ¿A dónde viajarás?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">That sounds amazing! Where <span class="vocab-highlight">will</span> you <span class="vocab-highlight">travel</span>?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Visitaremos muchos lugares. Pero eso significa que no los veré en todo el verano...</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">We <span class="vocab-highlight">will visit</span> many places. But that means I won't see you all summer...</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Oh, Sophie... Te vamos a extrañar mucho.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Oh, Sophie... We <span class="vocab-highlight">will miss</span> you so much.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Yo también los extrañaré. Son mis mejores amigos.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">I <span class="vocab-highlight">will miss</span> you too. You are my best friends.</div>
-                    </div>
-                </div>
-
-                <div class="tip-box">
-                    <div class="tip-title">💡 "I will miss you" - Te extrañaré</div>
-                    <div class="tip-content">
-                        <strong>"Miss"</strong> <em>(mis)</em> significa "extrañar".<br>
-                        💔 <strong>I will miss you</strong> = Te extrañaré<br>
-                        💔 <strong>I miss you</strong> = Te extraño (presente)
-                    </div>
-                </div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">Tengo noticias... Viajaré a Europa con mi familia.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">I have news... I <span class="vocab-highlight">will travel</span> to Europe with my family.</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">¡Wow! ¡Qué emocionante! ¿Por cuánto tiempo?</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">Wow! How <span class="vocab-highlight">exciting</span>! For how long?</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">Todo el verano... No los veré hasta la próxima semana de agosto.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">All summer... I won't see you until <span class="vocab-highlight">next week</span> of August.</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">Oh... te extrañaré mucho, Sophie.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">Oh... I <span class="vocab-highlight">will miss</span> you so much, Sophie.</div></div></div>
             </div>
         </div>
 
-        <!-- SCENE 3 -->
         <div class="scene-card">
-            <div class="scene-header">
-                <div class="scene-number">3</div>
-                <div class="scene-title">📝 Los planes de Emma</div>
-            </div>
+            <div class="scene-header"><div class="scene-number">3</div><div class="scene-title">👦 Los planes de Tom</div></div>
             <div class="scene-content">
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">Emma, ¿qué harás tú este verano?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">Emma, what <span class="vocab-highlight">will</span> you do this summer?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Me quedaré en la ciudad. ¡Quiero explorar más!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">I <span class="vocab-highlight">will</span> stay in the city. I want to explore more!</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">¡Genial! Cuando regrese de visitar a mis abuelos, podemos explorar juntos.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">Great! When I come back from visiting my grandparents, we can explore together.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">¡Sí! ¡Estoy emocionada! Mañana empezaré a hacer una lista de lugares.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Yes! I'm <span class="vocab-highlight">excited</span>! <span class="vocab-highlight">Tomorrow</span> I <span class="vocab-highlight">will</span> start making a list of places.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">¡Espero que me cuenten todo cuando regrese!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">I <span class="vocab-highlight">hope</span> you tell me everything when I come back!</div>
-                    </div>
-                </div>
-
-                <div class="tip-box">
-                    <div class="tip-title">💡 Palabras de tiempo futuro</div>
-                    <div class="tip-content">
-                        📅 <strong>Tomorrow</strong> <em>(tumórou)</em> = Mañana<br>
-                        📅 <strong>Next week</strong> <em>(nekst wíik)</em> = La próxima semana<br>
-                        📅 <strong>Soon</strong> <em>(súun)</em> = Pronto
-                    </div>
-                </div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">Yo visitaré a mis abuelos la próxima semana. Me quedaré dos semanas.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">I <span class="vocab-highlight">will visit</span> my grandparents <span class="vocab-highlight">next week</span>. I'll stay for two <span class="vocab-highlight">weeks</span>.</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">¿Y después de eso?</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">And after that?</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">Regresaré aquí. ¿Y tú, Emma? ¿Qué harás?</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">I'll come back here. And you, Emma? What <span class="vocab-highlight">will</span> you do?</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">Me quedaré aquí y exploraré más la ciudad. ¡Todavía hay mucho que ver!</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">I <span class="vocab-highlight">will</span> stay here and explore the city more. There's still a lot to see!</div></div></div>
             </div>
         </div>
 
-        <!-- SCENE 4 -->
         <div class="scene-card">
-            <div class="scene-header">
-                <div class="scene-number">4</div>
-                <div class="scene-title">🤗 La despedida</div>
-            </div>
+            <div class="scene-header"><div class="scene-number">4</div><div class="scene-title">💕 Despedida emotiva</div></div>
             <div class="scene-content">
-                <div class="narration">
-                    <div class="narration-es">El sol comienza a ponerse. Es hora de despedirse.</div>
-                    <div class="narration-en">The sun begins to set. It's time to say goodbye.</div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Chicos, tengo que irme. Mi familia sale mañana temprano.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Guys, I have to go. My family leaves <span class="vocab-highlight">tomorrow</span> morning.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Sophie, te voy a extrañar muchísimo. Eres mi mejor amiga.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Sophie, I <span class="vocab-highlight">will miss</span> you so much. You are my best friend.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Tú también eres mi mejor amiga, Emma. ¡Espero verte pronto!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">You are my best friend too, Emma. I <span class="vocab-highlight">hope</span> to see you <span class="vocab-highlight">soon</span>!</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">¡Te extrañaremos, Sophie! Pero el verano pasará rápido.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">We <span class="vocab-highlight">will miss</span> you, Sophie! But summer <span class="vocab-highlight">will</span> pass quickly.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">¡Hagamos una promesa! Nos veremos cuando termine el verano.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Let's make a promise! We <span class="vocab-highlight">will</span> see each other when summer ends.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧👦 Emma y Tom:</div>
-                        <div class="dialogue-text">¡Lo prometemos!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧👦 Emma and Tom:</div>
-                        <div class="dialogue-text">We promise!</div>
-                    </div>
-                </div>
-
-                <div class="narration">
-                    <div class="narration-es">Los tres amigos se abrazan fuerte.</div>
-                    <div class="narration-en">The three friends hug tightly.</div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">¡Adiós, amigos! ¡Los quiero mucho! ¡Nos vemos pronto!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Goodbye, friends! I love you so much! <span class="vocab-highlight">See you soon</span>!</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">¡Cuídate mucho, Sophie! ¡Te extrañaré! ¡Hasta pronto!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Take care, Sophie! I <span class="vocab-highlight">will miss</span> you! <span class="vocab-highlight">See you soon</span>!</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">¡Buen viaje! ¡Espero que te diviertas mucho! ¡Nos vemos!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">Have a good trip! I <span class="vocab-highlight">hope</span> you have fun! See you!</div>
-                    </div>
-                </div>
-
-                <div class="narration">
-                    <div class="narration-es">Sophie se va caminando, mirando hacia atrás y despidiéndose con la mano. Emma sonríe con lágrimas en los ojos. Ha sido el mejor año de su vida. Llegó a una ciudad nueva, hizo amigos increíbles, y aunque Sophie se va por el verano, sabe que su amistad durará para siempre.</div>
-                    <div class="narration-en">Sophie walks away, looking back and waving. Emma smiles with tears in her eyes. It has been the best year of her life. She came to a new city, made amazing friends, and although Sophie is leaving for the summer, she knows their friendship will last forever.</div>
-                </div>
-
-                <div class="tip-box">
-                    <div class="tip-title">💡 Despedidas especiales</div>
-                    <div class="tip-content">
-                        👋 <strong>See you soon!</strong> = ¡Nos vemos pronto!<br>
-                        💕 <strong>I will miss you!</strong> = ¡Te extrañaré!<br>
-                        🤞 <strong>I hope to see you soon!</strong> = ¡Espero verte pronto!<br>
-                        ✈️ <strong>Have a good trip!</strong> = ¡Buen viaje!
-                    </div>
-                </div>
+                <div class="narration"><div class="narration-es">Los tres amigos se miran con cariño. Ha sido un año increíble.</div><div class="narration-en">The three friends look at each other fondly. It has been an amazing year.</div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">Los extrañaré mucho a los dos. Espero verlos pronto.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">I <span class="vocab-highlight">will miss</span> you both so much. I <span class="vocab-highlight">hope</span> to see you <span class="vocab-highlight">soon</span>.</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">¡Yo también te extrañaré! ¡Escríbenos desde Europa!</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">I <span class="vocab-highlight">will miss</span> you too! Write to us from Europe!</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">¡Cuídense! ¡Que tengan un gran verano!</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">Take care! Have a great summer!</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">¡Nos vemos pronto! ¡Los quiero, amigos!</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">See you <span class="vocab-highlight">soon</span>! I love you, friends!</div></div></div>
+                <div class="narration"><div class="narration-es">Los tres amigos se abrazan. Aunque estarán separados, saben que su amistad durará para siempre.</div><div class="narration-en">The three friends hug. Even though they'll be apart, they know their friendship will last forever.</div></div>
+                <div class="tip-box"><div class="tip-title">💡 Vocabulario de planes y despedidas</div><div class="tip-content">📅 <strong>tomorrow</strong> = mañana | <strong>next week</strong> = próxima semana<br>🔮 <strong>will + verbo</strong> = futuro (I will travel = Viajaré)<br>💕 <strong>I will miss you</strong> = Te extrañaré<br>🤞 <strong>I hope</strong> = Espero<br>⏰ <strong>soon</strong> = pronto</div></div>
             </div>
         </div>
 
-        <!-- Story Complete -->
-        <div class="story-complete">
-            <h3>🎉 ¡Felicidades! Has completado Story 3</h3>
-            <p>"Emma's Adventure" - Emma y sus amigos vivieron aventuras increíbles y se despidieron con esperanza.</p>
+        <div class="final-box">
+            <h2>🎉 ¡Felicidades!</h2>
+            <p>Has completado las 3 Stories del Taller de Inglés de Verano 2025.<br>¡Ahora conoces a Emma, Sophie y Tom y has aprendido mucho inglés con ellos!</p>
         </div>
 
-        <!-- Course Complete -->
-        <div class="course-complete">
-            <div class="emoji-row">🎊 📚 🌟 🏆 🎊</div>
-            <h2>¡FELICIDADES!</h2>
-            <p>Has completado las <strong>9 Stories</strong> del curso</p>
-            <p>"The New Student" → "Emma's Week" → "Emma's Adventure"</p>
-            <p style="margin-top: 15px; font-size: 0.85rem;">Emma llegó nerviosa a una nueva ciudad y terminó con los mejores amigos del mundo. ¡Tú también has logrado algo increíble!</p>
-        </div>
-
-        <!-- Navigation -->
         <div class="nav-section">
-            <a href="#" class="nav-btn prev">← Parte 2: Perdidos en la ciudad</a>
-            <button class="nav-btn next" disabled style="opacity: 0.5; cursor: not-allowed;">✓ Curso completado</button>
+            <a href="M3_T8_Story3_Parte2_Direcciones.html" class="nav-btn prev">← Parte 2: Direcciones</a>
+            <a href="../index.html" class="nav-btn next">🏠 Volver al Inicio →</a>
         </div>
     </div>
-
     <script>
         let spanishHidden = false;
-
         function toggleSpanish() {
             const btn = document.querySelector('.toggle-btn');
-            
             spanishHidden = !spanishHidden;
-            
-            if (spanishHidden) {
-                document.querySelectorAll('.scene-card').forEach(card => {
-                    card.classList.add('hide-spanish');
-                });
-                btn.textContent = '👁️ Mostrar español';
-                btn.classList.add('active');
-            } else {
-                document.querySelectorAll('.scene-card').forEach(card => {
-                    card.classList.remove('hide-spanish');
-                });
-                btn.textContent = '👁️ Ocultar español (modo desafío)';
-                btn.classList.remove('active');
-            }
+            document.querySelectorAll('.scene-card').forEach(card => card.classList.toggle('hide-spanish', spanishHidden));
+            btn.textContent = spanishHidden ? '👁️ Mostrar español' : '👁️ Ocultar español (modo desafío)';
+            btn.classList.toggle('active', spanishHidden);
         }
     </script>
 </body>

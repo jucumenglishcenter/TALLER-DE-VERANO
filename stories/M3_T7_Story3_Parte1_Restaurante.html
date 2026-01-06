@@ -5,856 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Story 3: Emma's Adventure - Parte 1 | En el Restaurante</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
-            min-height: 100vh;
-            padding: 15px;
-            padding-bottom: 80px;
-        }
-
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #388E3C 0%, #2E7D32 100%);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(56, 142, 60, 0.4);
-        }
-
-        .header h1 {
-            color: white;
-            font-size: 1.4rem;
-            margin-bottom: 5px;
-        }
-
-        .header .subtitle {
-            color: rgba(255,255,255,0.9);
-            font-size: 1rem;
-            margin-bottom: 10px;
-        }
-
-        .header .badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: white;
-            margin: 3px;
-        }
-
-        /* Story Info */
-        .story-info {
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-left: 4px solid #388E3C;
-        }
-
-        .story-info h3 {
-            color: #2E7D32;
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-        }
-
-        .story-info p {
-            color: #555;
-            font-size: 0.85rem;
-            line-height: 1.5;
-        }
-
-        /* Characters */
-        .characters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .character-tag {
-            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: #2E7D32;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* Scene Card */
-        .scene-card {
-            background: white;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .scene-header {
-            background: linear-gradient(135deg, #388E3C 0%, #4CAF50 100%);
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .scene-number {
-            background: white;
-            color: #388E3C;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .scene-title {
-            color: white;
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-
-        .scene-content {
-            padding: 20px;
-        }
-
-        /* Dialogue Row */
-        .dialogue-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed #e0e0e0;
-        }
-
-        .dialogue-row:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .dialogue-box {
-            padding: 12px;
-            border-radius: 10px;
-            position: relative;
-        }
-
-        .dialogue-box.spanish {
-            background: linear-gradient(135deg, #F5F5F5 0%, #EEEEEE 100%);
-            border-left: 3px solid #9E9E9E;
-        }
-
-        .dialogue-box.english {
-            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
-            border-left: 3px solid #388E3C;
-        }
-
-        .dialogue-label {
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-
-        .dialogue-box.spanish .dialogue-label {
-            color: #757575;
-        }
-
-        .dialogue-box.english .dialogue-label {
-            color: #2E7D32;
-        }
-
-        .speaker {
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-bottom: 3px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .dialogue-box.spanish .speaker {
-            color: #424242;
-        }
-
-        .dialogue-box.english .speaker {
-            color: #2E7D32;
-        }
-
-        .dialogue-text {
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .dialogue-box.spanish .dialogue-text {
-            color: #555;
-        }
-
-        .dialogue-box.english .dialogue-text {
-            color: #333;
-        }
-
-        /* Highlighted vocabulary */
-        .vocab-highlight {
-            background: linear-gradient(135deg, #FFF9C4 0%, #FFF59D 100%);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-            color: #F57F17;
-        }
-
-        /* Narration */
-        .narration {
-            background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
-            padding: 12px 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            font-style: italic;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .narration-es {
-            color: #757575;
-            font-size: 0.85rem;
-            padding-right: 15px;
-            border-right: 1px dashed #ccc;
-        }
-
-        .narration-en {
-            color: #2E7D32;
-            font-size: 0.85rem;
-        }
-
-        /* Tip Box */
-        .tip-box {
-            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
-            border-radius: 10px;
-            padding: 12px 15px;
-            margin: 15px 0;
-            border-left: 4px solid #1976D2;
-        }
-
-        .tip-box .tip-title {
-            color: #1565C0;
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .tip-box .tip-content {
-            color: #555;
-            font-size: 0.85rem;
-            line-height: 1.4;
-        }
-
-        /* Navigation */
-        .nav-section {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            gap: 10px;
-        }
-
-        .nav-btn {
-            flex: 1;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .nav-btn.prev {
-            background: #E0E0E0;
-            color: #666;
-        }
-
-        .nav-btn.next {
-            background: linear-gradient(135deg, #388E3C 0%, #2E7D32 100%);
-            color: white;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        /* Toggle Button */
-        .toggle-container {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .toggle-btn {
-            background: white;
-            border: 2px solid #388E3C;
-            color: #388E3C;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .toggle-btn:hover {
-            background: #388E3C;
-            color: white;
-        }
-
-        .toggle-btn.active {
-            background: #388E3C;
-            color: white;
-        }
-
-        /* Hide Spanish when toggled */
-        .hide-spanish .dialogue-box.spanish,
-        .hide-spanish .narration-es {
-            visibility: hidden;
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .dialogue-row {
-                grid-template-columns: 1fr;
-            }
-
-            .narration {
-                grid-template-columns: 1fr;
-            }
-
-            .narration-es {
-                border-right: none;
-                border-bottom: 1px dashed #ccc;
-                padding-bottom: 10px;
-                padding-right: 0;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); min-height: 100vh; padding: 15px; padding-bottom: 100px; }
+        .container { max-width: 700px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #43A047 0%, #2E7D32 100%); border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 20px; }
+        .header h1 { color: white; font-size: 1.4rem; margin-bottom: 5px; }
+        .header .subtitle { color: rgba(255,255,255,0.9); font-size: 1rem; margin-bottom: 10px; }
+        .header .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: white; margin: 3px; }
+        .nav-buttons { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .nav-link { padding: 10px 20px; border: none; border-radius: 25px; font-size: 0.9rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+        .nav-link.home { background: linear-gradient(135deg, #607D8B 0%, #455A64 100%); color: white; }
+        .story-info { background: white; border-radius: 12px; padding: 15px; margin-bottom: 20px; border-left: 4px solid #43A047; }
+        .story-info h3 { color: #2E7D32; font-size: 0.95rem; margin-bottom: 8px; }
+        .story-info p { color: #555; font-size: 0.85rem; line-height: 1.5; }
+        .characters { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+        .character-tag { background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; color: #2E7D32; }
+        .toggle-section { background: white; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: center; }
+        .toggle-btn { padding: 12px 24px; border: 2px solid #43A047; background: white; color: #43A047; border-radius: 25px; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+        .toggle-btn.active { background: #43A047; color: white; }
+        .scene-card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+        .scene-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; padding-bottom: 12px; border-bottom: 2px solid #E8F5E9; }
+        .scene-number { width: 36px; height: 36px; background: linear-gradient(135deg, #43A047 0%, #2E7D32 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+        .scene-title { font-size: 1.1rem; color: #2E7D32; font-weight: 600; }
+        .narration { background: #F5F5F5; border-radius: 10px; padding: 12px; margin: 12px 0; }
+        .narration-es { color: #666; font-style: italic; margin-bottom: 8px; font-size: 0.9rem; }
+        .narration-en { color: #2E7D32; font-style: italic; font-size: 0.9rem; }
+        .dialogue-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+        .dialogue-box { padding: 12px; border-radius: 10px; }
+        .dialogue-box.spanish { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border-left: 3px solid #F57C00; }
+        .dialogue-box.english { background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); border-left: 3px solid #43A047; }
+        .dialogue-label { font-size: 0.7rem; color: #888; text-transform: uppercase; margin-bottom: 5px; }
+        .speaker { font-weight: 600; font-size: 0.85rem; margin-bottom: 5px; }
+        .dialogue-box.spanish .speaker { color: #E65100; }
+        .dialogue-box.english .speaker { color: #2E7D32; }
+        .dialogue-text { font-size: 0.9rem; line-height: 1.5; }
+        .vocab-highlight { background: #FFEB3B; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+        .tip-box { background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); border-radius: 10px; padding: 12px; margin-top: 15px; border-left: 4px solid #1976D2; }
+        .tip-title { font-weight: 600; color: #1565C0; font-size: 0.85rem; margin-bottom: 8px; }
+        .tip-content { color: #555; font-size: 0.85rem; line-height: 1.6; }
+        .nav-section { display: flex; justify-content: space-between; gap: 15px; margin-top: 30px; padding: 20px; background: white; border-radius: 16px; position: sticky; bottom: 15px; }
+        .nav-btn { padding: 12px 24px; border: none; border-radius: 25px; font-size: 0.9rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+        .nav-btn.prev { background: linear-gradient(135deg, #F57C00 0%, #E65100 100%); color: white; }
+        .nav-btn.next { background: linear-gradient(135deg, #43A047 0%, #2E7D32 100%); color: white; }
+        .hide-spanish .dialogue-box.spanish { opacity: 0.3; }
+        .hide-spanish .narration-es { opacity: 0.3; }
+        @media (max-width: 600px) { .dialogue-row { grid-template-columns: 1fr; } .nav-section { flex-direction: column; } .nav-btn { width: 100%; justify-content: center; } }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <h1>📖 Story 3: Emma's Adventure</h1>
             <div class="subtitle">Parte 1: Almuerzo de amigos</div>
-            <div>
-                <span class="badge">📗 Módulo 3</span>
-                <span class="badge">🎯 Tema 7: En el Restaurante</span>
-            </div>
+            <span class="badge">📗 Módulo 3</span>
+            <span class="badge">🎯 Tema 7: Restaurante</span>
         </div>
-
-        <!-- Story Info -->
+        <div class="nav-buttons"><a href="../index.html" class="nav-link home">🏠 Volver al Panel Principal</a></div>
         <div class="story-info">
             <h3>📍 Contexto de la historia</h3>
-            <p>Es sábado. Emma, Sophie y Tom van a almorzar a "The Happy Plate", un restaurante nuevo cerca de la escuela. Es la primera vez que Emma va a un restaurante en esta ciudad. Tienen que pedir el menú, ordenar comida y bebidas, y pagar la cuenta. El mesero Mr. Chen es muy amable.</p>
-            
-            <div class="characters">
-                <span class="character-tag">👧 Emma García</span>
-                <span class="character-tag">👧 Sophie Miller</span>
-                <span class="character-tag">👦 Tom Wilson</span>
-                <span class="character-tag">🧑‍🍳 Mr. Chen (mesero)</span>
-            </div>
+            <p>Es sábado. Emma, Sophie y Tom van a almorzar a "The Happy Plate", un restaurante nuevo cerca de la escuela. Es la primera vez que Emma va a un restaurante en esta ciudad.</p>
+            <div class="characters"><span class="character-tag">👧 Emma</span><span class="character-tag">👧 Sophie</span><span class="character-tag">👦 Tom</span><span class="character-tag">👨 Mr. Chen (mesero)</span></div>
         </div>
+        <div class="toggle-section"><button class="toggle-btn" onclick="toggleSpanish()">👁️ Ocultar español (modo desafío)</button></div>
 
-        <!-- Toggle Button -->
-        <div class="toggle-container">
-            <button class="toggle-btn" onclick="toggleSpanish()">
-                👁️ Ocultar español (modo desafío)
-            </button>
-        </div>
-
-        <!-- SCENE 1 -->
         <div class="scene-card">
-            <div class="scene-header">
-                <div class="scene-number">1</div>
-                <div class="scene-title">🍽️ Llegando al restaurante</div>
-            </div>
+            <div class="scene-header"><div class="scene-number">1</div><div class="scene-title">🍽️ Llegando al restaurante</div></div>
             <div class="scene-content">
-                <div class="narration">
-                    <div class="narration-es">Es un sábado soleado. Emma, Sophie y Tom caminan hacia "The Happy Plate", un restaurante nuevo en la ciudad.</div>
-                    <div class="narration-en">It's a sunny Saturday. Emma, Sophie, and Tom walk towards "The Happy Plate", a new restaurant in the city.</div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">¡Por fin llegamos! ¡Tengo mucha hambre!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">We finally arrived! I'm so <span class="vocab-highlight">hungry</span>!</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">¡Yo también tengo hambre! Este lugar se ve muy bien.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">I'm <span class="vocab-highlight">hungry</span> too! This place looks very nice.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Es mi primera vez en un restaurante aquí. ¡Estoy emocionada!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">It's my first time at a restaurant here. I'm excited!</div>
-                    </div>
-                </div>
-
-                <div class="narration">
-                    <div class="narration-es">Un mesero amable los recibe en la entrada.</div>
-                    <div class="narration-en">A friendly waiter welcomes them at the entrance.</div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">🧑‍🍳 Mr. Chen:</div>
-                        <div class="dialogue-text">¡Buenas tardes! Bienvenidos a "The Happy Plate". ¿Mesa para tres?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">🧑‍🍳 Mr. Chen:</div>
-                        <div class="dialogue-text">Good afternoon! Welcome to "The Happy Plate". Table for three?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Sí, por favor. ¡Gracias!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Yes, <span class="vocab-highlight">please</span>. Thank you!</div>
-                    </div>
-                </div>
-
-                <div class="tip-box">
-                    <div class="tip-title">💡 "I'm hungry" - Tengo hambre</div>
-                    <div class="tip-content">
-                        En inglés decimos <strong>"I'm hungry"</strong> (Estoy hambriento), no "I have hungry". Es diferente al español donde decimos "Tengo hambre".
-                    </div>
-                </div>
+                <div class="narration"><div class="narration-es">Los tres amigos entran al restaurante "The Happy Plate". Tienen mucha hambre.</div><div class="narration-en">The three friends enter the restaurant "The Happy Plate". They are very hungry.</div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">¡Tengo mucha hambre!</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">I'm so <span class="vocab-highlight">hungry</span>!</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">¡Yo también! La comida aquí es deliciosa.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">Me too! The <span class="vocab-highlight">food</span> here is <span class="vocab-highlight">delicious</span>.</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">¡Qué emocionante! Es mi primera vez aquí.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">How exciting! It's my first time here.</div></div></div>
             </div>
         </div>
 
-        <!-- SCENE 2 -->
         <div class="scene-card">
-            <div class="scene-header">
-                <div class="scene-number">2</div>
-                <div class="scene-title">📋 Pidiendo el menú</div>
-            </div>
+            <div class="scene-header"><div class="scene-number">2</div><div class="scene-title">📋 El menú</div></div>
             <div class="scene-content">
-                <div class="narration">
-                    <div class="narration-es">Los tres amigos se sientan en una mesa junto a la ventana. Mr. Chen se acerca.</div>
-                    <div class="narration-en">The three friends sit at a table by the window. Mr. Chen approaches.</div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">🧑‍🍳 Mr. Chen:</div>
-                        <div class="dialogue-text">Aquí tienen el menú. ¿Les traigo algo de tomar?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">🧑‍🍳 Mr. Chen:</div>
-                        <div class="dialogue-text">Here is the <span class="vocab-highlight">menu</span>. Can I get you something to drink?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Agua, por favor.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text"><span class="vocab-highlight">Water</span>, <span class="vocab-highlight">please</span>.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">Para mí también agua, por favor.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text"><span class="vocab-highlight">Water</span> for me too, <span class="vocab-highlight">please</span>.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Agua para mí también, por favor.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text"><span class="vocab-highlight">Water</span> for me too, <span class="vocab-highlight">please</span>.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">🧑‍🍳 Mr. Chen:</div>
-                        <div class="dialogue-text">Perfecto. Tres aguas. Regreso en un momento para tomar su orden.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">🧑‍🍳 Mr. Chen:</div>
-                        <div class="dialogue-text">Perfect. Three waters. I'll be back in a moment to take your <span class="vocab-highlight">order</span>.</div>
-                    </div>
-                </div>
-
-                <div class="tip-box">
-                    <div class="tip-title">💡 "Please" - La palabra mágica</div>
-                    <div class="tip-content">
-                        <strong>"Please"</strong> <em>(plíis)</em> significa "por favor". Es muy importante usarla cuando pedimos algo. Hace que suenes educado y amable.
-                    </div>
-                </div>
+                <div class="narration"><div class="narration-es">Mr. Chen, el mesero, se acerca a su mesa con una sonrisa.</div><div class="narration-en">Mr. Chen, the waiter, approaches their table with a smile.</div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👨 Mr. Chen:</div><div class="dialogue-text">¡Buenas tardes! Aquí tienen el menú.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👨 Mr. Chen:</div><div class="dialogue-text">Good afternoon! Here's the <span class="vocab-highlight">menu</span>.</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">Gracias. ¿Qué hay para beber?</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">Thank you. What do you have to drink?</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👨 Mr. Chen:</div><div class="dialogue-text">Tenemos agua, jugo y refrescos.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👨 Mr. Chen:</div><div class="dialogue-text">We have <span class="vocab-highlight">water</span>, juice, and soda.</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">Agua, por favor.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text"><span class="vocab-highlight">Water</span>, <span class="vocab-highlight">please</span>.</div></div></div>
             </div>
         </div>
 
-        <!-- SCENE 3 -->
         <div class="scene-card">
-            <div class="scene-header">
-                <div class="scene-number">3</div>
-                <div class="scene-title">🍕 Ordenando la comida</div>
-            </div>
+            <div class="scene-header"><div class="scene-number">3</div><div class="scene-title">🍕 Ordenando la comida</div></div>
             <div class="scene-content">
-                <div class="narration">
-                    <div class="narration-es">Los amigos miran el menú con emoción. Hay muchas opciones deliciosas.</div>
-                    <div class="narration-en">The friends look at the menu with excitement. There are many delicious options.</div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">¡La comida se ve deliciosa! Yo quiero pizza.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">The <span class="vocab-highlight">food</span> looks <span class="vocab-highlight">delicious</span>! I <span class="vocab-highlight">want</span> pizza.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">Yo quiero una hamburguesa. ¡Se ve increíble!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">I <span class="vocab-highlight">want</span> a hamburger. It looks amazing!</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Yo quiero pasta. Me encanta la pasta.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">I <span class="vocab-highlight">want</span> pasta. I love pasta.</div>
-                    </div>
-                </div>
-
-                <div class="narration">
-                    <div class="narration-es">Mr. Chen regresa con el agua y su libreta.</div>
-                    <div class="narration-en">Mr. Chen returns with the water and his notepad.</div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">🧑‍🍳 Mr. Chen:</div>
-                        <div class="dialogue-text">¿Están listos para ordenar?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">🧑‍🍳 Mr. Chen:</div>
-                        <div class="dialogue-text">Are you ready to <span class="vocab-highlight">order</span>?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Sí. Yo quiero la pasta, por favor.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Yes. I <span class="vocab-highlight">want</span> the pasta, <span class="vocab-highlight">please</span>.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Pizza para mí, por favor.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">Pizza for me, <span class="vocab-highlight">please</span>.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">Y yo quiero la hamburguesa, por favor.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">And I <span class="vocab-highlight">want</span> the hamburger, <span class="vocab-highlight">please</span>.</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">🧑‍🍳 Mr. Chen:</div>
-                        <div class="dialogue-text">¡Excelente elección! La comida estará lista pronto.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">🧑‍🍳 Mr. Chen:</div>
-                        <div class="dialogue-text">Excellent choice! The <span class="vocab-highlight">food</span> will be ready soon.</div>
-                    </div>
-                </div>
-
-                <div class="tip-box">
-                    <div class="tip-title">💡 "I want..." - Yo quiero...</div>
-                    <div class="tip-content">
-                        <strong>"I want"</strong> <em>(ái wánt)</em> significa "Yo quiero". Es directo pero educado cuando agregas <strong>"please"</strong> al final.<br>
-                        ✅ I want pasta, please.<br>
-                        También puedes decir: <strong>"I'd like..."</strong> (Me gustaría...) que es más formal.
-                    </div>
-                </div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👨 Mr. Chen:</div><div class="dialogue-text">¿Están listos para ordenar?</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👨 Mr. Chen:</div><div class="dialogue-text">Are you ready to <span class="vocab-highlight">order</span>?</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">Sí. Quiero pasta, por favor.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">Yes. I <span class="vocab-highlight">want</span> pasta, <span class="vocab-highlight">please</span>.</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">Quiero pizza, por favor.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">I <span class="vocab-highlight">want</span> pizza, <span class="vocab-highlight">please</span>.</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">Y yo quiero una hamburguesa, por favor.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">And I <span class="vocab-highlight">want</span> a hamburger, <span class="vocab-highlight">please</span>.</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👨 Mr. Chen:</div><div class="dialogue-text">¡Excelente! En un momento les traigo todo.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👨 Mr. Chen:</div><div class="dialogue-text">Excellent! I'll bring everything in a moment.</div></div></div>
+                <div class="tip-box"><div class="tip-title">💡 Para ordenar comida</div><div class="tip-content">🍕 <strong>I want [comida], please</strong> = Quiero [comida], por favor<br>📋 <strong>The menu, please</strong> = El menú, por favor<br>💧 <strong>Water, please</strong> = Agua, por favor</div></div>
             </div>
         </div>
 
-        <!-- SCENE 4 -->
         <div class="scene-card">
-            <div class="scene-header">
-                <div class="scene-number">4</div>
-                <div class="scene-title">😋 ¡A comer! y la cuenta</div>
-            </div>
+            <div class="scene-header"><div class="scene-number">4</div><div class="scene-title">😋 ¡A comer!</div></div>
             <div class="scene-content">
-                <div class="narration">
-                    <div class="narration-es">La comida llega. Todo se ve y huele increíble.</div>
-                    <div class="narration-en">The food arrives. Everything looks and smells incredible.</div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">¡Wow! ¡Esta pasta está deliciosa!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Wow! This pasta is <span class="vocab-highlight">delicious</span>!</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">¡Mi pizza también está deliciosa! ¡La mejor pizza!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Sophie:</div>
-                        <div class="dialogue-text">My pizza is <span class="vocab-highlight">delicious</span> too! The best pizza!</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">¡Esta hamburguesa es increíble! ¿Puedo tener más agua, por favor?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👦 Tom:</div>
-                        <div class="dialogue-text">This hamburger is amazing! Can I have <span class="vocab-highlight">more water</span>, <span class="vocab-highlight">please</span>?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">🧑‍🍳 Mr. Chen:</div>
-                        <div class="dialogue-text">¡Por supuesto! Aquí tienen más agua.</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">🧑‍🍳 Mr. Chen:</div>
-                        <div class="dialogue-text">Of course! Here's <span class="vocab-highlight">more water</span>.</div>
-                    </div>
-                </div>
-
-                <div class="narration">
-                    <div class="narration-es">Después de comer, los amigos están muy satisfechos.</div>
-                    <div class="narration-en">After eating, the friends are very satisfied.</div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">¡Estuvo todo delicioso! ¿Podemos pedir la cuenta, por favor?</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧 Emma:</div>
-                        <div class="dialogue-text">Everything was <span class="vocab-highlight">delicious</span>! Can we have the <span class="vocab-highlight">bill</span>, <span class="vocab-highlight">please</span>?</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">🧑‍🍳 Mr. Chen:</div>
-                        <div class="dialogue-text">¡Claro! Aquí está la cuenta. ¡Gracias por venir!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">🧑‍🍳 Mr. Chen:</div>
-                        <div class="dialogue-text">Sure! Here is the <span class="vocab-highlight">bill</span>. Thank you for coming!</div>
-                    </div>
-                </div>
-
-                <div class="dialogue-row">
-                    <div class="dialogue-box spanish">
-                        <div class="dialogue-label">Español</div>
-                        <div class="speaker">👧👧👦 Todos:</div>
-                        <div class="dialogue-text">¡Gracias! ¡La comida estuvo deliciosa!</div>
-                    </div>
-                    <div class="dialogue-box english">
-                        <div class="dialogue-label">English</div>
-                        <div class="speaker">👧👧👦 Everyone:</div>
-                        <div class="dialogue-text">Thank you! The <span class="vocab-highlight">food</span> was <span class="vocab-highlight">delicious</span>!</div>
-                    </div>
-                </div>
-
-                <div class="narration">
-                    <div class="narration-es">Los amigos pagan y salen del restaurante muy felices. ¡Fue un almuerzo perfecto!</div>
-                    <div class="narration-en">The friends pay and leave the restaurant very happy. It was a perfect lunch!</div>
-                </div>
-
-                <div class="tip-box">
-                    <div class="tip-title">💡 Frases útiles en el restaurante</div>
-                    <div class="tip-content">
-                        📋 <strong>The menu, please</strong> = El menú, por favor<br>
-                        🍽️ <strong>I want [comida], please</strong> = Quiero [comida], por favor<br>
-                        💧 <strong>More water, please</strong> = Más agua, por favor<br>
-                        💵 <strong>The bill, please</strong> = La cuenta, por favor
-                    </div>
-                </div>
+                <div class="narration"><div class="narration-es">Mr. Chen trae la comida. Todo se ve delicioso.</div><div class="narration-en">Mr. Chen brings the food. Everything looks delicious.</div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">¡Mmm! ¡Está delicioso!</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Emma:</div><div class="dialogue-text">Mmm! It's <span class="vocab-highlight">delicious</span>!</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">¿Puedo tener más agua, por favor?</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👦 Tom:</div><div class="dialogue-text">Can I have <span class="vocab-highlight">more</span> <span class="vocab-highlight">water</span>, <span class="vocab-highlight">please</span>?</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👨 Mr. Chen:</div><div class="dialogue-text">¡Por supuesto! Aquí tienes.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👨 Mr. Chen:</div><div class="dialogue-text">Of course! Here you go.</div></div></div>
+                <div class="narration"><div class="narration-es">Después de comer, es hora de pedir la cuenta.</div><div class="narration-en">After eating, it's time to ask for the bill.</div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">La cuenta, por favor.</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👧 Sophie:</div><div class="dialogue-text">The <span class="vocab-highlight">bill</span>, <span class="vocab-highlight">please</span>.</div></div></div>
+                <div class="dialogue-row"><div class="dialogue-box spanish"><div class="dialogue-label">Español</div><div class="speaker">👨 Mr. Chen:</div><div class="dialogue-text">Aquí está. ¡Gracias por venir!</div></div><div class="dialogue-box english"><div class="dialogue-label">English</div><div class="speaker">👨 Mr. Chen:</div><div class="dialogue-text">Here it is. Thank you for coming!</div></div></div>
+                <div class="tip-box"><div class="tip-title">💡 Vocabulario del restaurante</div><div class="tip-content">🍽️ <strong>food</strong> = comida | 💧 <strong>water</strong> = agua<br>📋 <strong>menu</strong> = menú | 🧾 <strong>bill</strong> = cuenta<br>😋 <strong>delicious</strong> = delicioso | ➕ <strong>more</strong> = más<br>🙏 <strong>please</strong> = por favor</div></div>
             </div>
         </div>
 
-        <!-- Navigation -->
         <div class="nav-section">
-            <a href="#" class="nav-btn prev">← Story 2: Emma's Week</a>
-            <a href="#" class="nav-btn next">Parte 2: Perdidos en la ciudad →</a>
+            <a href="M2_T6_Story2_Parte3_Gustos.html" class="nav-btn prev">← Story 2: Gustos</a>
+            <a href="M3_T8_Story3_Parte2_Direcciones.html" class="nav-btn next">Parte 2: Direcciones →</a>
         </div>
     </div>
-
     <script>
         let spanishHidden = false;
-
         function toggleSpanish() {
             const btn = document.querySelector('.toggle-btn');
-            
             spanishHidden = !spanishHidden;
-            
-            if (spanishHidden) {
-                document.querySelectorAll('.scene-card').forEach(card => {
-                    card.classList.add('hide-spanish');
-                });
-                btn.textContent = '👁️ Mostrar español';
-                btn.classList.add('active');
-            } else {
-                document.querySelectorAll('.scene-card').forEach(card => {
-                    card.classList.remove('hide-spanish');
-                });
-                btn.textContent = '👁️ Ocultar español (modo desafío)';
-                btn.classList.remove('active');
-            }
+            document.querySelectorAll('.scene-card').forEach(card => card.classList.toggle('hide-spanish', spanishHidden));
+            btn.textContent = spanishHidden ? '👁️ Mostrar español' : '👁️ Ocultar español (modo desafío)';
+            btn.classList.toggle('active', spanishHidden);
         }
     </script>
 </body>
