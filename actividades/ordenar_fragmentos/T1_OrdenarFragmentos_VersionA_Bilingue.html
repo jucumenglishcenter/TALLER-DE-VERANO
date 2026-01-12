@@ -2,488 +2,106 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Ordenar Fragmentos | Tema 1: Saludos Básicos | Versión A</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
-            min-height: 100vh;
-            padding: 15px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4);
-        }
-
-        .header h1 {
-            color: white;
-            font-size: 1.4rem;
-            margin-bottom: 5px;
-        }
-
-        .header .subtitle {
-            color: rgba(255,255,255,0.9);
-            font-size: 0.95rem;
-            margin-bottom: 10px;
-        }
-
-        .header .badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: white;
-            margin: 3px;
-        }
-
-        /* Level Indicator */
-        .level-indicator {
-            display: inline-block;
-            background: #FF9800;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: white;
-            margin: 3px;
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-
-        .level-indicator.level-2 {
-            background: #E53935;
-            animation: pulse 1s ease-in-out;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        /* Instructions */
-        .instructions {
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-left: 4px solid #1976D2;
-        }
-
-        .instructions h3 {
-            color: #1565C0;
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-        }
-
-        .instructions p {
-            color: #555;
-            font-size: 0.85rem;
-            line-height: 1.5;
-        }
-
-        .instructions ol {
-            margin-left: 20px;
-            color: #555;
-            font-size: 0.85rem;
-        }
-
-        .instructions li {
-            margin: 5px 0;
-        }
-
-        /* Level Button Container */
-        .level-control {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-            gap: 10px;
-        }
-
-        .btn-level {
-            padding: 12px 28px;
-            border: none;
-            border-radius: 25px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-level-up {
-            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
-        }
-
-        .btn-level-up:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.5);
-        }
-
-        .btn-level-down {
-            background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
-            display: none;
-        }
-
-        .btn-level-down:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.5);
-        }
-
-        .btn-level-down.show {
-            display: flex;
-        }
-
-        .btn-level-up.hide {
-            display: none;
-        }
-
-        /* Main Layout */
-        .main-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            transition: all 0.5s ease;
-        }
-
-        .main-layout.full-width {
-            grid-template-columns: 1fr;
-        }
-
-        @media (max-width: 1000px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Panel Styles */
-        .panel {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.5s ease;
-        }
-
-        .panel-header {
-            padding: 15px;
-            color: white;
-            font-weight: 600;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .panel-left .panel-header {
-            background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
-        }
-
-        .panel-right .panel-header {
-            background: linear-gradient(135deg, #43A047 0%, #388E3C 100%);
-        }
-
-        .panel-content {
-            padding: 20px;
-        }
-
-        /* Hidden Panel */
-        .panel-right.hidden {
-            display: none;
-        }
-
-        /* Activity Panel - Left */
-        .fragment-item {
-            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
-            border: 2px solid #1976D2;
-            border-radius: 10px;
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            cursor: grab;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .fragment-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
-        }
-
-        .fragment-item.dragging {
-            opacity: 0.5;
-            cursor: grabbing;
-        }
-
-        .fragment-item.correct {
-            background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%);
-            border-color: #43A047;
-        }
-
-        .fragment-item.incorrect {
-            background: linear-gradient(135deg, #FFCDD2 0%, #EF9A9A 100%);
-            border-color: #E53935;
-        }
-
-        .fragment-number {
-            background: #1976D2;
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.85rem;
-            flex-shrink: 0;
-        }
-
-        .fragment-item.correct .fragment-number {
-            background: #43A047;
-        }
-
-        .fragment-item.incorrect .fragment-number {
-            background: #E53935;
-        }
-
-        .fragment-text {
-            font-size: 0.9rem;
-            color: #333;
-            line-height: 1.4;
-        }
-
-        /* Drop Zone */
-        .drop-zone {
-            min-height: 400px;
-            border: 2px dashed #BDBDBD;
-            border-radius: 12px;
-            padding: 15px;
-            background: #FAFAFA;
-        }
-
-        .drop-zone.drag-over {
-            border-color: #1976D2;
-            background: #E3F2FD;
-        }
-
-        .drop-placeholder {
-            text-align: center;
-            color: #9E9E9E;
-            padding: 20px;
-            font-size: 0.9rem;
-        }
-
-        /* Story Panel - Right */
-        .story-section {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed #e0e0e0;
-        }
-
-        .story-section:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .story-section-header {
-            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
-            padding: 8px 12px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: #2E7D32;
-        }
-
-        .story-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-
-        .story-es {
-            background: #F5F5F5;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            color: #555;
-            border-left: 3px solid #9E9E9E;
-        }
-
-        .story-en {
-            background: #E3F2FD;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            color: #1565C0;
-            border-left: 3px solid #1976D2;
-            font-weight: 500;
-        }
-
-        .story-label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-            font-weight: 600;
-        }
-
-        .story-es .story-label {
-            color: #757575;
-        }
-
-        .story-en .story-label {
-            color: #1976D2;
-        }
-
-        /* Buttons */
-        .button-row {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
-            color: white;
-        }
-
-        .btn-secondary {
-            background: #E0E0E0;
-            color: #666;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        /* Result */
-        .result-box {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            display: none;
-        }
-
-        .result-box.show {
-            display: block;
-        }
-
-        .result-box.success {
-            background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%);
-            border: 2px solid #43A047;
-            color: #2E7D32;
-        }
-
-        .result-box.partial {
-            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
-            border: 2px solid #FF9800;
-            color: #E65100;
-        }
-
-        .result-box h3 {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-
-        .result-box p {
-            font-size: 0.9rem;
-        }
-
-        /* Source Pool */
-        .source-pool {
-            margin-bottom: 20px;
-        }
-
-        .source-pool-title {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        /* Challenge Mode Banner */
-        .challenge-banner {
-            background: linear-gradient(135deg, #E53935 0%, #C62828 100%);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            text-align: center;
-            display: none;
-            animation: slideDown 0.5s ease;
-        }
-
-        .challenge-banner.show {
-            display: block;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .challenge-banner h4 {
-            font-size: 1rem;
-            margin-bottom: 3px;
-        }
-
-        .challenge-banner p {
-            font-size: 0.85rem;
-            opacity: 0.9;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); min-height: 100vh; padding: 15px; overscroll-behavior: none; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        
+        /* Back Button */
+        .back-button { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: linear-gradient(135deg, #5C6BC0 0%, #3F51B5 100%); color: white; text-decoration: none; border-radius: 25px; font-size: 0.9rem; font-weight: 600; margin-bottom: 15px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(63, 81, 181, 0.4); }
+        .back-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(63, 81, 181, 0.5); }
+        
+        .header { background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4); }
+        .header h1 { color: white; font-size: 1.4rem; margin-bottom: 5px; }
+        .header .subtitle { color: rgba(255,255,255,0.9); font-size: 0.95rem; margin-bottom: 10px; }
+        .header .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: white; margin: 3px; }
+        .level-indicator { display: inline-block; background: #FF9800; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: white; margin: 3px; font-weight: 700; transition: all 0.3s ease; }
+        .level-indicator.level-2 { background: #E53935; animation: pulse 1s ease-in-out; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        
+        .instructions { background: white; border-radius: 12px; padding: 15px; margin-bottom: 20px; border-left: 4px solid #1976D2; }
+        .instructions h3 { color: #1565C0; font-size: 0.95rem; margin-bottom: 8px; }
+        .instructions p, .instructions ol { color: #555; font-size: 0.85rem; line-height: 1.5; }
+        .instructions ol { margin-left: 20px; }
+        .instructions li { margin: 5px 0; }
+        
+        .level-control { display: flex; justify-content: center; margin-bottom: 20px; gap: 10px; flex-wrap: wrap; }
+        .btn-level { padding: 12px 28px; border: none; border-radius: 25px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
+        .btn-level-up { background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%); color: white; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4); }
+        .btn-level-down { background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%); color: white; box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4); display: none; }
+        .btn-level-down.show { display: flex; }
+        .btn-level-up.hide { display: none; }
+        
+        .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; transition: all 0.5s ease; }
+        .main-layout.full-width { grid-template-columns: 1fr; }
+        @media (max-width: 1000px) { .main-layout { grid-template-columns: 1fr; } }
+        
+        .panel { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: all 0.5s ease; }
+        .panel-header { padding: 15px; color: white; font-weight: 600; font-size: 1rem; display: flex; align-items: center; gap: 10px; }
+        .panel-left .panel-header { background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); }
+        .panel-right .panel-header { background: linear-gradient(135deg, #43A047 0%, #388E3C 100%); }
+        .panel-content { padding: 20px; }
+        .panel-right.hidden { display: none; }
+        
+        .fragment-item { background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); border: 2px solid #1976D2; border-radius: 10px; padding: 12px 15px; margin-bottom: 10px; cursor: grab; transition: all 0.2s ease; display: flex; align-items: center; gap: 12px; -webkit-user-select: none; user-select: none; touch-action: none; }
+        .fragment-item:active { cursor: grabbing; }
+        .fragment-item.dragging { opacity: 0.4; transform: scale(0.98); }
+        .fragment-item.correct { background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%); border-color: #43A047; }
+        .fragment-item.incorrect { background: linear-gradient(135deg, #FFCDD2 0%, #EF9A9A 100%); border-color: #E53935; }
+        .fragment-number { background: #1976D2; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+        .fragment-item.correct .fragment-number { background: #43A047; }
+        .fragment-item.incorrect .fragment-number { background: #E53935; }
+        .fragment-text { font-size: 0.9rem; color: #333; line-height: 1.4; }
+        
+        .drop-zone { min-height: 350px; border: 3px dashed #BDBDBD; border-radius: 12px; padding: 15px; background: #FAFAFA; transition: all 0.3s ease; }
+        .drop-zone.drag-over { border-color: #1976D2; background: #E3F2FD; border-style: solid; }
+        .drop-placeholder { text-align: center; color: #9E9E9E; padding: 40px 20px; font-size: 0.95rem; }
+        
+        .source-pool { margin-bottom: 20px; }
+        .source-pool-title { font-size: 0.85rem; color: #666; margin-bottom: 10px; font-weight: 600; }
+        #sourcePool { min-height: 50px; }
+        
+        .story-section { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px dashed #e0e0e0; }
+        .story-section:last-child { border-bottom: none; }
+        .story-section-header { background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 8px 12px; border-radius: 8px; margin-bottom: 10px; font-weight: 600; font-size: 0.85rem; color: #2E7D32; }
+        .story-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; }
+        .story-es { background: #F5F5F5; padding: 10px; border-radius: 8px; font-size: 0.85rem; color: #555; border-left: 3px solid #9E9E9E; }
+        .story-en { background: #E3F2FD; padding: 10px; border-radius: 8px; font-size: 0.85rem; color: #1565C0; border-left: 3px solid #1976D2; font-weight: 500; }
+        .story-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; font-weight: 600; }
+        .story-es .story-label { color: #757575; }
+        .story-en .story-label { color: #1976D2; }
+        @media (max-width: 600px) { .story-row { grid-template-columns: 1fr; } }
+        
+        .button-row { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+        .btn { padding: 12px 24px; border: none; border-radius: 25px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+        .btn-primary { background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%); color: white; }
+        .btn-secondary { background: #E0E0E0; color: #666; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        
+        .result-box { margin-top: 15px; padding: 15px; border-radius: 10px; text-align: center; display: none; }
+        .result-box.show { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .result-box.success { background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%); border: 2px solid #43A047; color: #2E7D32; }
+        .result-box.partial { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border: 2px solid #FF9800; color: #E65100; }
+        .result-box h3 { font-size: 1.1rem; margin-bottom: 5px; }
+        .result-box p { font-size: 0.9rem; }
+        
+        .challenge-banner { background: linear-gradient(135deg, #E53935 0%, #C62828 100%); color: white; padding: 12px 20px; border-radius: 10px; margin-bottom: 15px; text-align: center; display: none; }
+        .challenge-banner.show { display: block; animation: slideDown 0.5s ease; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .challenge-banner h4 { font-size: 1rem; margin-bottom: 3px; }
+        .challenge-banner p { font-size: 0.85rem; opacity: 0.9; }
+        
+        .drag-ghost { position: fixed; pointer-events: none; z-index: 10000; opacity: 0.9; transform: rotate(2deg); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
+        <!-- Back Button -->
+        <a href="https://jucumenglishcenter.github.io/TALLER-DE-VERANO/" class="back-button">← Regresar al Panel Principal</a>
+
         <div class="header">
             <h1>✏️ Ejercicio: Ordenar Fragmentos</h1>
             <div class="subtitle">Story 1: The New Student - Parte 1</div>
@@ -495,86 +113,53 @@
             </div>
         </div>
 
-        <!-- Instructions -->
         <div class="instructions">
             <h3>📋 Instrucciones</h3>
             <ol>
-                <li><strong>Lee el cuento</strong> en el panel derecho (español e inglés en paralelo)</li>
-                <li><strong>Arrastra los fragmentos</strong> en inglés del panel izquierdo</li>
+                <li><strong>Lee el cuento</strong> en el panel derecho (español e inglés)</li>
+                <li><strong>Arrastra los fragmentos</strong> en inglés al área de respuesta</li>
                 <li><strong>Ordénalos</strong> según aparecen en la historia</li>
                 <li><strong>Verifica</strong> tu respuesta cuando termines</li>
             </ol>
-            <p style="margin-top: 10px;"><strong>💡 Tip:</strong> Usa el cuento en español como guía para entender el orden correcto.</p>
+            <p style="margin-top: 10px;"><strong>💡 Tip:</strong> En celular, mantén presionado y arrastra. Usa el cuento como guía.</p>
         </div>
 
-        <!-- Level Control -->
         <div class="level-control">
-            <button class="btn-level btn-level-up" id="btnLevelUp" onclick="levelUp()">
-                🚀 Subir Nivel - ¡Ocultar el cuento!
-            </button>
-            <button class="btn-level btn-level-down" id="btnLevelDown" onclick="levelDown()">
-                📖 Volver al Nivel 1 - Mostrar cuento
-            </button>
+            <button class="btn-level btn-level-up" id="btnLevelUp" onclick="levelUp()">🚀 Subir Nivel - ¡Ocultar el cuento!</button>
+            <button class="btn-level btn-level-down" id="btnLevelDown" onclick="levelDown()">📖 Volver al Nivel 1 - Mostrar cuento</button>
         </div>
 
-        <!-- Main Layout -->
         <div class="main-layout" id="mainLayout">
-            <!-- Left Panel - Activity -->
             <div class="panel panel-left">
-                <div class="panel-header">
-                    ✏️ Actividad: Ordena los fragmentos en inglés
-                </div>
+                <div class="panel-header">✏️ Actividad: Ordena los fragmentos en inglés</div>
                 <div class="panel-content">
-                    <!-- Challenge Banner -->
                     <div class="challenge-banner" id="challengeBanner">
                         <h4>🔥 ¡MODO DESAFÍO ACTIVADO!</h4>
                         <p>Ordena los fragmentos usando solo tu memoria</p>
                     </div>
 
-                    <!-- Source Pool -->
                     <div class="source-pool">
                         <div class="source-pool-title">📦 Fragmentos desordenados:</div>
                         <div id="sourcePool">
-                            <div class="fragment-item" draggable="true" data-order="3">
-                                <div class="fragment-number">?</div>
-                                <div class="fragment-text">"My name is Emma. Nice to meet you!"</div>
-                            </div>
-                            <div class="fragment-item" draggable="true" data-order="1">
-                                <div class="fragment-number">?</div>
-                                <div class="fragment-text">"Good morning! Welcome to our school."</div>
-                            </div>
-                            <div class="fragment-item" draggable="true" data-order="5">
-                                <div class="fragment-number">?</div>
-                                <div class="fragment-text">"Hello, everyone! This is Emma, our new student."</div>
-                            </div>
-                            <div class="fragment-item" draggable="true" data-order="2">
-                                <div class="fragment-number">?</div>
-                                <div class="fragment-text">"Hello! My name is Mrs. Johnson. I am your teacher."</div>
-                            </div>
-                            <div class="fragment-item" draggable="true" data-order="6">
-                                <div class="fragment-number">?</div>
-                                <div class="fragment-text">"Hi, Emma! Nice to meet you! Welcome!"</div>
-                            </div>
-                            <div class="fragment-item" draggable="true" data-order="4">
-                                <div class="fragment-number">?</div>
-                                <div class="fragment-text">"Nice to meet you too, Emma. Let's go to the classroom."</div>
-                            </div>
+                            <div class="fragment-item" data-order="3"><div class="fragment-number">?</div><div class="fragment-text">"My name is Emma. Nice to meet you!"</div></div>
+                            <div class="fragment-item" data-order="1"><div class="fragment-number">?</div><div class="fragment-text">"Good morning! Welcome to our school."</div></div>
+                            <div class="fragment-item" data-order="5"><div class="fragment-number">?</div><div class="fragment-text">"Hello, everyone! This is Emma, our new student."</div></div>
+                            <div class="fragment-item" data-order="2"><div class="fragment-number">?</div><div class="fragment-text">"Hello! My name is Mrs. Johnson. I am your teacher."</div></div>
+                            <div class="fragment-item" data-order="6"><div class="fragment-number">?</div><div class="fragment-text">"Hi, Emma! Nice to meet you! Welcome!"</div></div>
+                            <div class="fragment-item" data-order="4"><div class="fragment-number">?</div><div class="fragment-text">"Nice to meet you too, Emma. Let's go to the classroom."</div></div>
                         </div>
                     </div>
 
-                    <!-- Drop Zone -->
                     <div class="source-pool-title">📥 Suelta aquí en orden (1° arriba → último abajo):</div>
                     <div class="drop-zone" id="dropZone">
-                        <div class="drop-placeholder">Arrastra los fragmentos aquí en el orden correcto</div>
+                        <div class="drop-placeholder" id="dropPlaceholder">Arrastra los fragmentos aquí en el orden correcto</div>
                     </div>
 
-                    <!-- Buttons -->
                     <div class="button-row">
                         <button class="btn btn-primary" onclick="checkOrder()">✓ Verificar orden</button>
                         <button class="btn btn-secondary" onclick="resetActivity()">↺ Reiniciar</button>
                     </div>
 
-                    <!-- Result -->
                     <div class="result-box" id="resultBox">
                         <h3 id="resultTitle"></h3>
                         <p id="resultText"></p>
@@ -582,123 +167,54 @@
                 </div>
             </div>
 
-            <!-- Right Panel - Story -->
             <div class="panel panel-right" id="storyPanel">
-                <div class="panel-header">
-                    📖 Cuento: Llegando a la escuela (Español | English)
-                </div>
+                <div class="panel-header">📖 Cuento: Llegando a la escuela (Español | English)</div>
                 <div class="panel-content">
-                    <!-- Section 1 -->
                     <div class="story-section">
                         <div class="story-section-header">🏫 Escena 1: En la entrada de la escuela</div>
-                        
                         <div class="story-row">
-                            <div class="story-es">
-                                <div class="story-label">Español</div>
-                                Es lunes por la mañana. Emma llega a su nueva escuela con su mamá Sara. Está nerviosa pero emocionada.
-                            </div>
-                            <div class="story-en">
-                                <div class="story-label">English</div>
-                                It's Monday morning. Emma arrives at her new school with her mom Sara. She is nervous but excited.
-                            </div>
+                            <div class="story-es"><div class="story-label">Español</div>Es lunes por la mañana. Emma llega a su nueva escuela con su mamá Sara. Está nerviosa pero emocionada.</div>
+                            <div class="story-en"><div class="story-label">English</div>It's Monday morning. Emma arrives at her new school with her mom Sara. She is nervous but excited.</div>
                         </div>
-
                         <div class="story-row">
-                            <div class="story-es">
-                                <div class="story-label">Español</div>
-                                <strong>Mrs. Johnson:</strong> "¡Buenos días! Bienvenidas a nuestra escuela."
-                            </div>
-                            <div class="story-en">
-                                <div class="story-label">English</div>
-                                <strong>Mrs. Johnson:</strong> "Good morning! Welcome to our school."
-                            </div>
+                            <div class="story-es"><div class="story-label">Español</div><strong>Mrs. Johnson:</strong> "¡Buenos días! Bienvenidas a nuestra escuela."</div>
+                            <div class="story-en"><div class="story-label">English</div><strong>Mrs. Johnson:</strong> "Good morning! Welcome to our school."</div>
                         </div>
                     </div>
 
-                    <!-- Section 2 -->
                     <div class="story-section">
                         <div class="story-section-header">👋 Escena 2: Las presentaciones</div>
-                        
                         <div class="story-row">
-                            <div class="story-es">
-                                <div class="story-label">Español</div>
-                                <strong>Mrs. Johnson:</strong> "¡Hola! Mi nombre es Mrs. Johnson. Soy tu maestra."
-                            </div>
-                            <div class="story-en">
-                                <div class="story-label">English</div>
-                                <strong>Mrs. Johnson:</strong> "Hello! My name is Mrs. Johnson. I am your teacher."
-                            </div>
+                            <div class="story-es"><div class="story-label">Español</div><strong>Mrs. Johnson:</strong> "¡Hola! Mi nombre es Mrs. Johnson. Soy tu maestra."</div>
+                            <div class="story-en"><div class="story-label">English</div><strong>Mrs. Johnson:</strong> "Hello! My name is Mrs. Johnson. I am your teacher."</div>
                         </div>
-
                         <div class="story-row">
-                            <div class="story-es">
-                                <div class="story-label">Español</div>
-                                <strong>Emma:</strong> "Mi nombre es Emma. ¡Mucho gusto!"
-                            </div>
-                            <div class="story-en">
-                                <div class="story-label">English</div>
-                                <strong>Emma:</strong> "My name is Emma. Nice to meet you!"
-                            </div>
+                            <div class="story-es"><div class="story-label">Español</div><strong>Emma:</strong> "Mi nombre es Emma. ¡Mucho gusto!"</div>
+                            <div class="story-en"><div class="story-label">English</div><strong>Emma:</strong> "My name is Emma. Nice to meet you!"</div>
                         </div>
-
                         <div class="story-row">
-                            <div class="story-es">
-                                <div class="story-label">Español</div>
-                                <strong>Mrs. Johnson:</strong> "Mucho gusto también, Emma. Vamos al salón de clases."
-                            </div>
-                            <div class="story-en">
-                                <div class="story-label">English</div>
-                                <strong>Mrs. Johnson:</strong> "Nice to meet you too, Emma. Let's go to the classroom."
-                            </div>
+                            <div class="story-es"><div class="story-label">Español</div><strong>Mrs. Johnson:</strong> "Mucho gusto también, Emma. Vamos al salón de clases."</div>
+                            <div class="story-en"><div class="story-label">English</div><strong>Mrs. Johnson:</strong> "Nice to meet you too, Emma. Let's go to the classroom."</div>
                         </div>
                     </div>
 
-                    <!-- Section 3 -->
                     <div class="story-section">
                         <div class="story-section-header">🎒 Escena 3: En el salón de clases</div>
-                        
                         <div class="story-row">
-                            <div class="story-es">
-                                <div class="story-label">Español</div>
-                                Mrs. Johnson lleva a Emma al salón. Todos los estudiantes miran a Emma con curiosidad.
-                            </div>
-                            <div class="story-en">
-                                <div class="story-label">English</div>
-                                Mrs. Johnson takes Emma to the classroom. All the students look at Emma with curiosity.
-                            </div>
+                            <div class="story-es"><div class="story-label">Español</div>Mrs. Johnson lleva a Emma al salón. Todos los estudiantes miran a Emma con curiosidad.</div>
+                            <div class="story-en"><div class="story-label">English</div>Mrs. Johnson takes Emma to the classroom. All the students look at Emma with curiosity.</div>
                         </div>
-
                         <div class="story-row">
-                            <div class="story-es">
-                                <div class="story-label">Español</div>
-                                <strong>Mrs. Johnson:</strong> "¡Hola a todos! Esta es Emma, nuestra nueva estudiante."
-                            </div>
-                            <div class="story-en">
-                                <div class="story-label">English</div>
-                                <strong>Mrs. Johnson:</strong> "Hello, everyone! This is Emma, our new student."
-                            </div>
+                            <div class="story-es"><div class="story-label">Español</div><strong>Mrs. Johnson:</strong> "¡Hola a todos! Esta es Emma, nuestra nueva estudiante."</div>
+                            <div class="story-en"><div class="story-label">English</div><strong>Mrs. Johnson:</strong> "Hello, everyone! This is Emma, our new student."</div>
                         </div>
-
                         <div class="story-row">
-                            <div class="story-es">
-                                <div class="story-label">Español</div>
-                                <strong>Clase:</strong> "¡Hola, Emma! ¡Mucho gusto! ¡Bienvenida!"
-                            </div>
-                            <div class="story-en">
-                                <div class="story-label">English</div>
-                                <strong>Class:</strong> "Hi, Emma! Nice to meet you! Welcome!"
-                            </div>
+                            <div class="story-es"><div class="story-label">Español</div><strong>Clase:</strong> "¡Hola, Emma! ¡Mucho gusto! ¡Bienvenida!"</div>
+                            <div class="story-en"><div class="story-label">English</div><strong>Class:</strong> "Hi, Emma! Nice to meet you! Welcome!"</div>
                         </div>
-
                         <div class="story-row">
-                            <div class="story-es">
-                                <div class="story-label">Español</div>
-                                Emma sonríe. Se siente feliz. Este será un buen día.
-                            </div>
-                            <div class="story-en">
-                                <div class="story-label">English</div>
-                                Emma smiles. She feels happy. This will be a good day.
-                            </div>
+                            <div class="story-es"><div class="story-label">Español</div>Emma sonríe. Se siente feliz. Este será un buen día.</div>
+                            <div class="story-en"><div class="story-label">English</div>Emma smiles. She feels happy. This will be a good day.</div>
                         </div>
                     </div>
                 </div>
@@ -707,203 +223,149 @@
     </div>
 
     <script>
-        let draggedItem = null;
         let currentLevel = 1;
-
-        // Initialize drag and drop
-        document.querySelectorAll('.fragment-item').forEach(item => {
-            item.addEventListener('dragstart', handleDragStart);
-            item.addEventListener('dragend', handleDragEnd);
-        });
+        let draggedElement = null;
+        let dragGhost = null;
+        let touchOffsetX = 0, touchOffsetY = 0;
 
         const dropZone = document.getElementById('dropZone');
-        dropZone.addEventListener('dragover', handleDragOver);
-        dropZone.addEventListener('dragleave', handleDragLeave);
-        dropZone.addEventListener('drop', handleDrop);
+        const sourcePool = document.getElementById('sourcePool');
+        const dropPlaceholder = document.getElementById('dropPlaceholder');
 
-        function handleDragStart(e) {
-            draggedItem = this;
-            this.classList.add('dragging');
-            e.dataTransfer.effectAllowed = 'move';
-        }
-
-        function handleDragEnd(e) {
-            this.classList.remove('dragging');
-            draggedItem = null;
-        }
-
-        function handleDragOver(e) {
-            e.preventDefault();
-            this.classList.add('drag-over');
-            
-            const afterElement = getDragAfterElement(this, e.clientY);
-            if (afterElement == null) {
-                this.appendChild(draggedItem);
-            } else {
-                this.insertBefore(draggedItem, afterElement);
-            }
-        }
-
-        function handleDragLeave(e) {
-            this.classList.remove('drag-over');
-        }
-
-        function handleDrop(e) {
-            e.preventDefault();
-            this.classList.remove('drag-over');
-            
-            // Remove placeholder if exists
-            const placeholder = this.querySelector('.drop-placeholder');
-            if (placeholder) {
-                placeholder.remove();
-            }
-            
-            updateNumbers();
-        }
-
-        function getDragAfterElement(container, y) {
-            const draggableElements = [...container.querySelectorAll('.fragment-item:not(.dragging)')];
-            
-            return draggableElements.reduce((closest, child) => {
-                const box = child.getBoundingClientRect();
-                const offset = y - box.top - box.height / 2;
-                
-                if (offset < 0 && offset > closest.offset) {
-                    return { offset: offset, element: child };
-                } else {
-                    return closest;
-                }
-            }, { offset: Number.NEGATIVE_INFINITY }).element;
-        }
-
-        function updateNumbers() {
-            const items = dropZone.querySelectorAll('.fragment-item');
-            items.forEach((item, index) => {
-                item.querySelector('.fragment-number').textContent = index + 1;
+        function init() {
+            document.querySelectorAll('.fragment-item').forEach(item => {
+                item.addEventListener('mousedown', onMouseDown);
+                item.addEventListener('touchstart', onTouchStart, { passive: false });
             });
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+            document.addEventListener('touchmove', onTouchMove, { passive: false });
+            document.addEventListener('touchend', onTouchEnd);
+        }
+
+        function onMouseDown(e) { if (e.button !== 0) return; e.preventDefault(); startDrag(this, e.clientX, e.clientY); }
+        function onMouseMove(e) { if (!draggedElement) return; e.preventDefault(); moveDrag(e.clientX, e.clientY); }
+        function onMouseUp(e) { if (!draggedElement) return; endDrag(e.clientX, e.clientY); }
+        function onTouchStart(e) { e.preventDefault(); const touch = e.touches[0]; startDrag(this, touch.clientX, touch.clientY); }
+        function onTouchMove(e) { if (!draggedElement) return; e.preventDefault(); const touch = e.touches[0]; moveDrag(touch.clientX, touch.clientY); }
+        function onTouchEnd(e) { if (!draggedElement) return; const touch = e.changedTouches[0]; endDrag(touch.clientX, touch.clientY); }
+
+        function startDrag(element, x, y) {
+            draggedElement = element;
+            const rect = element.getBoundingClientRect();
+            touchOffsetX = x - rect.left; touchOffsetY = y - rect.top;
+            dragGhost = element.cloneNode(true);
+            dragGhost.classList.add('drag-ghost');
+            dragGhost.style.width = rect.width + 'px';
+            dragGhost.style.left = rect.left + 'px';
+            dragGhost.style.top = rect.top + 'px';
+            document.body.appendChild(dragGhost);
+            element.classList.add('dragging');
+        }
+
+        function moveDrag(x, y) {
+            if (!dragGhost) return;
+            dragGhost.style.left = (x - touchOffsetX) + 'px';
+            dragGhost.style.top = (y - touchOffsetY) + 'px';
+            const dropRect = dropZone.getBoundingClientRect();
+            const sourceRect = sourcePool.getBoundingClientRect();
+            if (isInsideRect(x, y, dropRect)) { dropZone.classList.add('drag-over'); sourcePool.classList.remove('drag-over'); }
+            else if (isInsideRect(x, y, sourceRect)) { sourcePool.classList.add('drag-over'); dropZone.classList.remove('drag-over'); }
+            else { dropZone.classList.remove('drag-over'); sourcePool.classList.remove('drag-over'); }
+        }
+
+        function endDrag(x, y) {
+            if (!draggedElement) return;
+            if (dragGhost) { dragGhost.remove(); dragGhost = null; }
+            draggedElement.classList.remove('dragging');
+            const dropRect = dropZone.getBoundingClientRect();
+            const sourceRect = sourcePool.getBoundingClientRect();
+            if (isInsideRect(x, y, dropRect)) {
+                const afterElement = getElementAfterDrag(dropZone, y);
+                if (afterElement) { dropZone.insertBefore(draggedElement, afterElement); }
+                else { dropZone.appendChild(draggedElement); }
+            } else if (isInsideRect(x, y, sourceRect)) { sourcePool.appendChild(draggedElement); }
+            dropZone.classList.remove('drag-over'); sourcePool.classList.remove('drag-over');
+            draggedElement = null;
+            updateUI();
+        }
+
+        function isInsideRect(x, y, rect) { return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom; }
+
+        function getElementAfterDrag(container, y) {
+            const items = [...container.querySelectorAll('.fragment-item:not(.dragging)')];
+            for (let item of items) { const rect = item.getBoundingClientRect(); if (y < rect.top + rect.height / 2) return item; }
+            return null;
+        }
+
+        function updateUI() {
+            const dropItems = dropZone.querySelectorAll('.fragment-item');
+            dropItems.forEach((item, index) => { item.querySelector('.fragment-number').textContent = index + 1; });
+            const sourceItems = sourcePool.querySelectorAll('.fragment-item');
+            sourceItems.forEach(item => { item.querySelector('.fragment-number').textContent = '?'; });
+            dropPlaceholder.style.display = dropItems.length > 0 ? 'none' : 'block';
         }
 
         function checkOrder() {
             const items = dropZone.querySelectorAll('.fragment-item');
-            
-            if (items.length === 0) {
-                alert('¡Arrastra los fragmentos al área de respuesta primero!');
-                return;
-            }
-
-            if (items.length < 6) {
-                alert('¡Faltan fragmentos! Asegúrate de ordenar todos.');
-                return;
-            }
-
+            if (items.length === 0) { alert('¡Arrastra los fragmentos al área de respuesta primero!'); return; }
+            if (items.length < 6) { alert('¡Faltan fragmentos! Asegúrate de ordenar los 6.'); return; }
             let correct = 0;
-            const total = items.length;
-
             items.forEach((item, index) => {
                 const expectedOrder = index + 1;
-                const actualOrder = parseInt(item.dataset.order);
-                
+                const actualOrder = parseInt(item.getAttribute('data-order'));
                 item.classList.remove('correct', 'incorrect');
-                
-                if (actualOrder === expectedOrder) {
-                    item.classList.add('correct');
-                    correct++;
-                } else {
-                    item.classList.add('incorrect');
-                }
+                if (actualOrder === expectedOrder) { item.classList.add('correct'); correct++; }
+                else { item.classList.add('incorrect'); }
             });
-
             const resultBox = document.getElementById('resultBox');
-            const resultTitle = document.getElementById('resultTitle');
-            const resultText = document.getElementById('resultText');
-
-            resultBox.classList.remove('success', 'partial');
+            resultBox.classList.remove('success', 'partial', 'show');
+            void resultBox.offsetWidth;
             resultBox.classList.add('show');
-
-            if (correct === total) {
+            if (correct === 6) {
                 resultBox.classList.add('success');
-                if (currentLevel === 2) {
-                    resultTitle.textContent = '🏆 ¡INCREÍBLE!';
-                    resultText.textContent = `¡Completaste el Nivel 2 sin ayuda! ¡Eres un experto!`;
-                } else {
-                    resultTitle.textContent = '🎉 ¡Excelente!';
-                    resultText.textContent = `¡Ordenaste todos los ${total} fragmentos correctamente! ¿Te atreves a subir de nivel?`;
-                }
+                document.getElementById('resultTitle').textContent = currentLevel === 2 ? '🏆 ¡INCREÍBLE!' : '🎉 ¡Excelente!';
+                document.getElementById('resultText').textContent = currentLevel === 2 ? '¡Completaste el Nivel 2 sin ayuda! ¡Eres un experto!' : '¡Ordenaste todos los 6 fragmentos correctamente! ¿Te atreves a subir de nivel?';
             } else {
                 resultBox.classList.add('partial');
-                resultTitle.textContent = '💪 ¡Sigue intentando!';
-                resultText.textContent = `Tienes ${correct} de ${total} correctos. Los verdes están bien, revisa los rojos.`;
+                document.getElementById('resultTitle').textContent = '💪 ¡Sigue intentando!';
+                document.getElementById('resultText').textContent = 'Tienes ' + correct + ' de 6 correctos. Los verdes están bien, revisa los rojos.';
             }
         }
 
         function resetActivity() {
-            const sourcePool = document.getElementById('sourcePool');
-            const dropZone = document.getElementById('dropZone');
-            const resultBox = document.getElementById('resultBox');
-
-            // Move all items back to source
             const items = dropZone.querySelectorAll('.fragment-item');
-            items.forEach(item => {
-                item.classList.remove('correct', 'incorrect');
-                item.querySelector('.fragment-number').textContent = '?';
-                sourcePool.appendChild(item);
-            });
-
-            // Add placeholder back
-            dropZone.innerHTML = '<div class="drop-placeholder">Arrastra los fragmentos aquí en el orden correcto</div>';
-
-            // Hide result
-            resultBox.classList.remove('show');
-
-            // Shuffle items in source pool
-            const shuffledItems = [...sourcePool.querySelectorAll('.fragment-item')].sort(() => Math.random() - 0.5);
-            shuffledItems.forEach(item => sourcePool.appendChild(item));
+            items.forEach(item => { item.classList.remove('correct', 'incorrect', 'dragging'); item.querySelector('.fragment-number').textContent = '?'; sourcePool.appendChild(item); });
+            dropPlaceholder.style.display = 'block';
+            document.getElementById('resultBox').classList.remove('show');
+            const allItems = [...sourcePool.querySelectorAll('.fragment-item')];
+            allItems.sort(() => Math.random() - 0.5);
+            allItems.forEach(item => sourcePool.appendChild(item));
         }
 
-        // Level Functions
         function levelUp() {
             currentLevel = 2;
-            
-            // Hide story panel
             document.getElementById('storyPanel').classList.add('hidden');
-            
-            // Expand main layout
             document.getElementById('mainLayout').classList.add('full-width');
-            
-            // Show challenge banner
             document.getElementById('challengeBanner').classList.add('show');
-            
-            // Update level indicator
-            const levelIndicator = document.getElementById('levelIndicator');
-            levelIndicator.textContent = '🔥 Nivel 2';
-            levelIndicator.classList.add('level-2');
-            
-            // Toggle buttons
+            document.getElementById('levelIndicator').textContent = '🔥 Nivel 2';
+            document.getElementById('levelIndicator').classList.add('level-2');
             document.getElementById('btnLevelUp').classList.add('hide');
             document.getElementById('btnLevelDown').classList.add('show');
         }
 
         function levelDown() {
             currentLevel = 1;
-            
-            // Show story panel
             document.getElementById('storyPanel').classList.remove('hidden');
-            
-            // Reset main layout
             document.getElementById('mainLayout').classList.remove('full-width');
-            
-            // Hide challenge banner
             document.getElementById('challengeBanner').classList.remove('show');
-            
-            // Update level indicator
-            const levelIndicator = document.getElementById('levelIndicator');
-            levelIndicator.textContent = '⭐ Nivel 1';
-            levelIndicator.classList.remove('level-2');
-            
-            // Toggle buttons
+            document.getElementById('levelIndicator').textContent = '⭐ Nivel 1';
+            document.getElementById('levelIndicator').classList.remove('level-2');
             document.getElementById('btnLevelUp').classList.remove('hide');
             document.getElementById('btnLevelDown').classList.remove('show');
         }
+
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
