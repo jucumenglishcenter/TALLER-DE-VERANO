@@ -2,38 +2,153 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Ordenar Fragmentos | Tema 6: ¿Qué te gusta hacer? | Versión A</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#FFF3E0,#FFE0B2);min-height:100vh;padding:15px}.container{max-width:1400px;margin:0 auto}.header{background:linear-gradient(135deg,#F57C00,#E65100);border-radius:16px;padding:20px;text-align:center;margin-bottom:20px;color:white}.header h1{font-size:1.4rem}.badge{display:inline-block;background:rgba(255,255,255,.2);padding:6px 14px;border-radius:20px;font-size:.8rem;color:white;margin:3px}.level-indicator{background:#FF9800;padding:6px 14px;border-radius:20px;font-size:.8rem;color:white;font-weight:700}.level-indicator.level-2{background:#E53935}.instructions{background:white;border-radius:12px;padding:15px;margin-bottom:20px;border-left:4px solid #F57C00}.level-control{display:flex;justify-content:center;gap:10px;margin-bottom:20px}.btn-level{padding:12px 28px;border:none;border-radius:25px;font-weight:700;cursor:pointer}.btn-level-up{background:#FF9800;color:white}.btn-level-down{background:#4CAF50;color:white;display:none}.btn-level-down.show{display:block}.btn-level-up.hide{display:none}.main-layout{display:grid;grid-template-columns:1fr 1fr;gap:20px}.main-layout.full-width{grid-template-columns:1fr}@media(max-width:1000px){.main-layout{grid-template-columns:1fr}}.panel{background:white;border-radius:16px;overflow:hidden}.panel-header{padding:15px;color:white;font-weight:600}.panel-left .panel-header{background:#F57C00}.panel-right .panel-header{background:#43A047}.panel-content{padding:20px}.panel-right.hidden{display:none}.fragment-item{background:#FFF3E0;border:2px solid #F57C00;border-radius:10px;padding:12px;margin-bottom:10px;cursor:grab;display:flex;align-items:center;gap:12px}.fragment-item.correct{background:#C8E6C9;border-color:#43A047}.fragment-item.incorrect{background:#FFCDD2;border-color:#E53935}.fragment-number{background:#F57C00;color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700}.fragment-item.correct .fragment-number{background:#43A047}.fragment-item.incorrect .fragment-number{background:#E53935}.drop-zone{min-height:380px;border:2px dashed #BDBDBD;border-radius:12px;padding:15px;background:#FAFAFA}.drop-zone.drag-over{border-color:#F57C00;background:#FFF3E0}.drop-placeholder{text-align:center;color:#9E9E9E;padding:20px}.story-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}.story-es{background:#F5F5F5;padding:10px;border-radius:8px;font-size:.85rem;border-left:3px solid #9E9E9E}.story-en{background:#FFF3E0;padding:10px;border-radius:8px;font-size:.85rem;border-left:3px solid #F57C00;color:#E65100}.story-label{font-size:.6rem;text-transform:uppercase;margin-bottom:4px;font-weight:600;color:#999}.button-row{display:flex;gap:10px;margin-top:20px}.btn{padding:12px 24px;border:none;border-radius:25px;font-weight:600;cursor:pointer}.btn-primary{background:#F57C00;color:white}.btn-secondary{background:#E0E0E0}.result-box{margin-top:15px;padding:15px;border-radius:10px;text-align:center;display:none}.result-box.show{display:block}.result-box.success{background:#C8E6C9}.result-box.partial{background:#FFF3E0}.challenge-banner{background:#E53935;color:white;padding:12px;border-radius:10px;margin-bottom:15px;text-align:center;display:none}.challenge-banner.show{display:block}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); min-height: 100vh; padding: 15px; overscroll-behavior: none; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        
+        .back-button { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: linear-gradient(135deg, #F57C00 0%, #E65100 100%); color: white; text-decoration: none; border-radius: 25px; font-size: 0.9rem; font-weight: 600; margin-bottom: 15px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(245, 124, 0, 0.4); }
+        .back-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245, 124, 0, 0.5); }
+        
+        .header { background: linear-gradient(135deg, #F57C00 0%, #E65100 100%); border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 20px; color: white; }
+        .header h1 { font-size: 1.4rem; margin-bottom: 5px; }
+        .header .subtitle { font-size: 0.95rem; margin-bottom: 10px; opacity: 0.9; }
+        .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: white; margin: 3px; }
+        .level-indicator { display: inline-block; background: #FF9800; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; color: white; font-weight: 700; transition: all 0.3s ease; }
+        .level-indicator.level-2 { background: #E53935; animation: pulse 1s ease-in-out; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        
+        .instructions { background: white; border-radius: 12px; padding: 15px; margin-bottom: 20px; border-left: 4px solid #F57C00; }
+        .instructions h3 { color: #E65100; font-size: 0.95rem; margin-bottom: 8px; }
+        .instructions p { color: #555; font-size: 0.85rem; }
+        
+        .level-control { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .btn-level { padding: 12px 28px; border: none; border-radius: 25px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; }
+        .btn-level-up { background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%); color: white; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4); }
+        .btn-level-down { background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%); color: white; display: none; }
+        .btn-level-down.show { display: block; }
+        .btn-level-up.hide { display: none; }
+        
+        .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; transition: all 0.5s ease; }
+        .main-layout.full-width { grid-template-columns: 1fr; }
+        @media (max-width: 1000px) { .main-layout { grid-template-columns: 1fr; } }
+        
+        .panel { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .panel-header { padding: 15px; color: white; font-weight: 600; }
+        .panel-left .panel-header { background: linear-gradient(135deg, #F57C00 0%, #E65100 100%); }
+        .panel-right .panel-header { background: linear-gradient(135deg, #43A047 0%, #388E3C 100%); }
+        .panel-content { padding: 20px; }
+        .panel-right.hidden { display: none; }
+        
+        .fragment-item { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border: 2px solid #F57C00; border-radius: 10px; padding: 12px 15px; margin-bottom: 10px; cursor: grab; transition: all 0.2s ease; display: flex; align-items: center; gap: 12px; -webkit-user-select: none; user-select: none; touch-action: none; }
+        .fragment-item:active { cursor: grabbing; }
+        .fragment-item.dragging { opacity: 0.4; transform: scale(0.98); }
+        .fragment-item.correct { background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%); border-color: #43A047; }
+        .fragment-item.incorrect { background: linear-gradient(135deg, #FFCDD2 0%, #EF9A9A 100%); border-color: #E53935; }
+        .fragment-number { background: #F57C00; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+        .fragment-item.correct .fragment-number { background: #43A047; }
+        .fragment-item.incorrect .fragment-number { background: #E53935; }
+        .fragment-text { font-size: 0.9rem; color: #333; line-height: 1.4; }
+        
+        .drop-zone { min-height: 350px; border: 3px dashed #BDBDBD; border-radius: 12px; padding: 15px; background: #FAFAFA; transition: all 0.3s ease; }
+        .drop-zone.drag-over { border-color: #F57C00; background: #FFF3E0; border-style: solid; }
+        .drop-placeholder { text-align: center; color: #9E9E9E; padding: 40px 20px; font-size: 0.95rem; }
+        
+        .source-pool { margin-bottom: 20px; }
+        .source-pool-title { font-size: 0.85rem; color: #666; margin-bottom: 10px; font-weight: 600; }
+        #sourcePool { min-height: 50px; }
+        
+        .story-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+        .story-es { background: #F5F5F5; padding: 10px; border-radius: 8px; font-size: 0.85rem; border-left: 3px solid #9E9E9E; color: #555; }
+        .story-en { background: #FFF3E0; padding: 10px; border-radius: 8px; font-size: 0.85rem; border-left: 3px solid #F57C00; color: #E65100; }
+        .story-label { font-size: 0.6rem; text-transform: uppercase; margin-bottom: 4px; font-weight: 600; color: #999; }
+        @media (max-width: 600px) { .story-row { grid-template-columns: 1fr; } }
+        
+        .button-row { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+        .btn { padding: 12px 24px; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+        .btn-primary { background: linear-gradient(135deg, #F57C00 0%, #E65100 100%); color: white; }
+        .btn-secondary { background: #E0E0E0; color: #666; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        
+        .result-box { margin-top: 15px; padding: 15px; border-radius: 10px; text-align: center; display: none; }
+        .result-box.show { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .result-box.success { background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%); border: 2px solid #43A047; color: #2E7D32; }
+        .result-box.partial { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border: 2px solid #FF9800; color: #E65100; }
+        .result-box h3 { font-size: 1.1rem; margin-bottom: 5px; }
+        .result-box p { font-size: 0.9rem; }
+        
+        .challenge-banner { background: linear-gradient(135deg, #E53935 0%, #C62828 100%); color: white; padding: 12px 20px; border-radius: 10px; margin-bottom: 15px; text-align: center; display: none; }
+        .challenge-banner.show { display: block; animation: slideDown 0.5s ease; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .drag-ghost { position: fixed; pointer-events: none; z-index: 10000; opacity: 0.9; transform: rotate(2deg); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header"><h1>✏️ Ordenar Fragmentos</h1><div>Story 2: Emma's Week - Parte 3</div><div><span class="badge">📙 Módulo 2</span><span class="badge">🎯 Tema 6: ¿Qué te gusta hacer?</span><span class="badge">📝 Versión A</span><span class="level-indicator" id="levelIndicator">⭐ Nivel 1</span></div></div>
-        <div class="instructions"><h3 style="color:#E65100">📋 Instrucciones</h3><p>Lee el cuento bilingüe y ordena los fragmentos en inglés.</p></div>
-        <div class="level-control"><button class="btn-level btn-level-up" id="btnLevelUp" onclick="levelUp()">🚀 Subir Nivel</button><button class="btn-level btn-level-down" id="btnLevelDown" onclick="levelDown()">📖 Mostrar cuento</button></div>
+        <a href="https://jucumenglishcenter.github.io/TALLER-DE-VERANO/" class="back-button">← Regresar al Panel Principal</a>
+
+        <div class="header">
+            <h1>✏️ Ejercicio: Ordenar Fragmentos</h1>
+            <div class="subtitle">Story 2: Emma's Week - Parte 3</div>
+            <div>
+                <span class="badge">📙 Módulo 2</span>
+                <span class="badge">🎯 Tema 6: ¿Qué te gusta hacer?</span>
+                <span class="badge">📝 Versión A: Bilingüe</span>
+                <span class="level-indicator" id="levelIndicator">⭐ Nivel 1</span>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 Instrucciones</h3>
+            <p>Lee el cuento bilingüe en el panel derecho y ordena los fragmentos en inglés según la historia.</p>
+        </div>
+
+        <div class="level-control">
+            <button class="btn-level btn-level-up" id="btnLevelUp" onclick="levelUp()">🚀 Subir Nivel - ¡Ocultar el cuento!</button>
+            <button class="btn-level btn-level-down" id="btnLevelDown" onclick="levelDown()">📖 Volver al Nivel 1 - Mostrar cuento</button>
+        </div>
+
         <div class="main-layout" id="mainLayout">
             <div class="panel panel-left">
-                <div class="panel-header">✏️ Ordena los fragmentos</div>
+                <div class="panel-header">✏️ Ordena los fragmentos en inglés</div>
                 <div class="panel-content">
-                    <div class="challenge-banner" id="challengeBanner"><strong>🔥 MODO DESAFÍO</strong></div>
-                    <div id="sourcePool">
-                        <div class="fragment-item" draggable="true" data-order="4"><div class="fragment-number">?</div><div>"I like to listen to music too! We like the same band!"</div></div>
-                        <div class="fragment-item" draggable="true" data-order="1"><div class="fragment-number">?</div><div>"I like to read books and listen to music."</div></div>
-                        <div class="fragment-item" draggable="true" data-order="6"><div class="fragment-number">?</div><div>"Let's play video games together!"</div></div>
-                        <div class="fragment-item" draggable="true" data-order="3"><div class="fragment-number">?</div><div>"I like to watch TV and play video games."</div></div>
-                        <div class="fragment-item" draggable="true" data-order="5"><div class="fragment-number">?</div><div>"I like sports! Does anyone want to play with me?"</div></div>
-                        <div class="fragment-item" draggable="true" data-order="2"><div class="fragment-number">?</div><div>"That's cool! What do you like to do, Sophie?"</div></div>
+                    <div class="challenge-banner" id="challengeBanner"><strong>🔥 ¡MODO DESAFÍO ACTIVADO!</strong></div>
+                    
+                    <div class="source-pool">
+                        <div class="source-pool-title">📦 Fragmentos desordenados:</div>
+                        <div id="sourcePool">
+                            <div class="fragment-item" data-order="4"><div class="fragment-number">?</div><div class="fragment-text">"I like to listen to music too! We like the same band!"</div></div>
+                            <div class="fragment-item" data-order="1"><div class="fragment-number">?</div><div class="fragment-text">"I like to read books and listen to music."</div></div>
+                            <div class="fragment-item" data-order="6"><div class="fragment-number">?</div><div class="fragment-text">"Let's play video games together!"</div></div>
+                            <div class="fragment-item" data-order="3"><div class="fragment-number">?</div><div class="fragment-text">"I like to watch TV and play video games."</div></div>
+                            <div class="fragment-item" data-order="5"><div class="fragment-number">?</div><div class="fragment-text">"I like sports! Does anyone want to play with me?"</div></div>
+                            <div class="fragment-item" data-order="2"><div class="fragment-number">?</div><div class="fragment-text">"That's cool! What do you like to do, Sophie?"</div></div>
+                        </div>
                     </div>
-                    <div style="margin-top:15px;font-size:.85rem;color:#666">📥 Suelta aquí:</div>
-                    <div class="drop-zone" id="dropZone"><div class="drop-placeholder">Arrastra aquí</div></div>
-                    <div class="button-row"><button class="btn btn-primary" onclick="checkOrder()">✓ Verificar</button><button class="btn btn-secondary" onclick="resetActivity()">↺ Reiniciar</button></div>
-                    <div class="result-box" id="resultBox"><h3 id="resultTitle"></h3><p id="resultText"></p></div>
+
+                    <div class="source-pool-title">📥 Suelta aquí en orden (1° arriba → último abajo):</div>
+                    <div class="drop-zone" id="dropZone">
+                        <div class="drop-placeholder" id="dropPlaceholder">Arrastra los fragmentos aquí en el orden correcto</div>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn btn-primary" onclick="checkOrder()">✓ Verificar orden</button>
+                        <button class="btn btn-secondary" onclick="resetActivity()">↺ Reiniciar</button>
+                    </div>
+
+                    <div class="result-box" id="resultBox">
+                        <h3 id="resultTitle"></h3>
+                        <p id="resultText"></p>
+                    </div>
                 </div>
             </div>
+
             <div class="panel panel-right" id="storyPanel">
-                <div class="panel-header">📖 Tiempo libre (ES | EN)</div>
+                <div class="panel-header">📖 Cuento: Tiempo libre (Español | English)</div>
                 <div class="panel-content">
                     <div class="story-row"><div class="story-es"><div class="story-label">ES</div><strong>Emma:</strong> "Me gusta leer libros y escuchar música."</div><div class="story-en"><div class="story-label">EN</div><strong>Emma:</strong> "I like to read books and listen to music."</div></div>
                     <div class="story-row"><div class="story-es"><div class="story-label">ES</div><strong>Sophie:</strong> "¡Qué genial! ¿Qué te gusta hacer, Sophie?"</div><div class="story-en"><div class="story-label">EN</div><strong>Sophie:</strong> "That's cool! What do you like to do, Sophie?"</div></div>
@@ -45,8 +160,151 @@
             </div>
         </div>
     </div>
+
     <script>
-        let draggedItem=null,currentLevel=1;document.querySelectorAll('.fragment-item').forEach(item=>{item.addEventListener('dragstart',()=>draggedItem=item);item.addEventListener('dragend',()=>draggedItem=null)});const dropZone=document.getElementById('dropZone');dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('drag-over');const after=[...dropZone.querySelectorAll('.fragment-item')].reduce((c,el)=>{const b=el.getBoundingClientRect();const o=e.clientY-b.top-b.height/2;return o<0&&o>c.offset?{offset:o,element:el}:c},{offset:-Infinity}).element;after?dropZone.insertBefore(draggedItem,after):dropZone.appendChild(draggedItem)});dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('drag-over'));dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.classList.remove('drag-over');const ph=dropZone.querySelector('.drop-placeholder');if(ph)ph.remove();dropZone.querySelectorAll('.fragment-item').forEach((it,i)=>it.querySelector('.fragment-number').textContent=i+1)});function checkOrder(){const items=dropZone.querySelectorAll('.fragment-item');if(items.length<6){alert('¡Ordena todos!');return}let c=0;items.forEach((it,i)=>{it.classList.remove('correct','incorrect');if(parseInt(it.dataset.order)===i+1){it.classList.add('correct');c++}else it.classList.add('incorrect')});const rb=document.getElementById('resultBox');rb.classList.remove('success','partial');rb.classList.add('show');if(c===6){rb.classList.add('success');document.getElementById('resultTitle').textContent=currentLevel===2?'🏆 ¡INCREÍBLE!':'🎉 ¡Excelente!';document.getElementById('resultText').textContent='¡Todos correctos!'}else{rb.classList.add('partial');document.getElementById('resultTitle').textContent='💪 ¡Sigue!';document.getElementById('resultText').textContent=c+'/6 correctos.'}}function resetActivity(){const sp=document.getElementById('sourcePool');dropZone.querySelectorAll('.fragment-item').forEach(it=>{it.classList.remove('correct','incorrect');it.querySelector('.fragment-number').textContent='?';sp.appendChild(it)});dropZone.innerHTML='<div class="drop-placeholder">Arrastra aquí</div>';document.getElementById('resultBox').classList.remove('show')}function levelUp(){currentLevel=2;document.getElementById('storyPanel').classList.add('hidden');document.getElementById('mainLayout').classList.add('full-width');document.getElementById('challengeBanner').classList.add('show');document.getElementById('levelIndicator').textContent='🔥 Nivel 2';document.getElementById('levelIndicator').classList.add('level-2');document.getElementById('btnLevelUp').classList.add('hide');document.getElementById('btnLevelDown').classList.add('show')}function levelDown(){currentLevel=1;document.getElementById('storyPanel').classList.remove('hidden');document.getElementById('mainLayout').classList.remove('full-width');document.getElementById('challengeBanner').classList.remove('show');document.getElementById('levelIndicator').textContent='⭐ Nivel 1';document.getElementById('levelIndicator').classList.remove('level-2');document.getElementById('btnLevelUp').classList.remove('hide');document.getElementById('btnLevelDown').classList.remove('show')}
+        let currentLevel = 1;
+        let draggedElement = null;
+        let dragGhost = null;
+        let touchOffsetX = 0, touchOffsetY = 0;
+
+        const dropZone = document.getElementById('dropZone');
+        const sourcePool = document.getElementById('sourcePool');
+        const dropPlaceholder = document.getElementById('dropPlaceholder');
+
+        function init() {
+            document.querySelectorAll('.fragment-item').forEach(item => {
+                item.addEventListener('mousedown', onMouseDown);
+                item.addEventListener('touchstart', onTouchStart, { passive: false });
+            });
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+            document.addEventListener('touchmove', onTouchMove, { passive: false });
+            document.addEventListener('touchend', onTouchEnd);
+        }
+
+        function onMouseDown(e) { if (e.button !== 0) return; e.preventDefault(); startDrag(this, e.clientX, e.clientY); }
+        function onMouseMove(e) { if (!draggedElement) return; e.preventDefault(); moveDrag(e.clientX, e.clientY); }
+        function onMouseUp(e) { if (!draggedElement) return; endDrag(e.clientX, e.clientY); }
+        function onTouchStart(e) { e.preventDefault(); const touch = e.touches[0]; startDrag(this, touch.clientX, touch.clientY); }
+        function onTouchMove(e) { if (!draggedElement) return; e.preventDefault(); const touch = e.touches[0]; moveDrag(touch.clientX, touch.clientY); }
+        function onTouchEnd(e) { if (!draggedElement) return; const touch = e.changedTouches[0]; endDrag(touch.clientX, touch.clientY); }
+
+        function startDrag(element, x, y) {
+            draggedElement = element;
+            const rect = element.getBoundingClientRect();
+            touchOffsetX = x - rect.left; touchOffsetY = y - rect.top;
+            dragGhost = element.cloneNode(true);
+            dragGhost.classList.add('drag-ghost');
+            dragGhost.style.width = rect.width + 'px';
+            dragGhost.style.left = rect.left + 'px';
+            dragGhost.style.top = rect.top + 'px';
+            document.body.appendChild(dragGhost);
+            element.classList.add('dragging');
+        }
+
+        function moveDrag(x, y) {
+            if (!dragGhost) return;
+            dragGhost.style.left = (x - touchOffsetX) + 'px';
+            dragGhost.style.top = (y - touchOffsetY) + 'px';
+            const dropRect = dropZone.getBoundingClientRect();
+            const sourceRect = sourcePool.getBoundingClientRect();
+            if (isInsideRect(x, y, dropRect)) { dropZone.classList.add('drag-over'); sourcePool.classList.remove('drag-over'); }
+            else if (isInsideRect(x, y, sourceRect)) { sourcePool.classList.add('drag-over'); dropZone.classList.remove('drag-over'); }
+            else { dropZone.classList.remove('drag-over'); sourcePool.classList.remove('drag-over'); }
+        }
+
+        function endDrag(x, y) {
+            if (!draggedElement) return;
+            if (dragGhost) { dragGhost.remove(); dragGhost = null; }
+            draggedElement.classList.remove('dragging');
+            const dropRect = dropZone.getBoundingClientRect();
+            const sourceRect = sourcePool.getBoundingClientRect();
+            if (isInsideRect(x, y, dropRect)) {
+                const afterElement = getElementAfterDrag(dropZone, y);
+                if (afterElement) { dropZone.insertBefore(draggedElement, afterElement); }
+                else { dropZone.appendChild(draggedElement); }
+            } else if (isInsideRect(x, y, sourceRect)) { sourcePool.appendChild(draggedElement); }
+            dropZone.classList.remove('drag-over'); sourcePool.classList.remove('drag-over');
+            draggedElement = null;
+            updateUI();
+        }
+
+        function isInsideRect(x, y, rect) { return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom; }
+
+        function getElementAfterDrag(container, y) {
+            const items = [...container.querySelectorAll('.fragment-item:not(.dragging)')];
+            for (let item of items) { const rect = item.getBoundingClientRect(); if (y < rect.top + rect.height / 2) return item; }
+            return null;
+        }
+
+        function updateUI() {
+            const dropItems = dropZone.querySelectorAll('.fragment-item');
+            dropItems.forEach((item, index) => { item.querySelector('.fragment-number').textContent = index + 1; });
+            const sourceItems = sourcePool.querySelectorAll('.fragment-item');
+            sourceItems.forEach(item => { item.querySelector('.fragment-number').textContent = '?'; });
+            dropPlaceholder.style.display = dropItems.length > 0 ? 'none' : 'block';
+        }
+
+        function checkOrder() {
+            const items = dropZone.querySelectorAll('.fragment-item');
+            if (items.length === 0) { alert('¡Arrastra los fragmentos al área de respuesta primero!'); return; }
+            if (items.length < 6) { alert('¡Faltan fragmentos! Asegúrate de ordenar los 6.'); return; }
+            let correct = 0;
+            items.forEach((item, index) => {
+                const expectedOrder = index + 1;
+                const actualOrder = parseInt(item.getAttribute('data-order'));
+                item.classList.remove('correct', 'incorrect');
+                if (actualOrder === expectedOrder) { item.classList.add('correct'); correct++; }
+                else { item.classList.add('incorrect'); }
+            });
+            const resultBox = document.getElementById('resultBox');
+            resultBox.classList.remove('success', 'partial', 'show');
+            void resultBox.offsetWidth;
+            resultBox.classList.add('show');
+            if (correct === 6) {
+                resultBox.classList.add('success');
+                document.getElementById('resultTitle').textContent = currentLevel === 2 ? '🏆 ¡INCREÍBLE!' : '🎉 ¡Excelente!';
+                document.getElementById('resultText').textContent = '¡Todos los fragmentos están en orden correcto!';
+            } else {
+                resultBox.classList.add('partial');
+                document.getElementById('resultTitle').textContent = '💪 ¡Sigue intentando!';
+                document.getElementById('resultText').textContent = 'Tienes ' + correct + ' de 6 correctos. Los verdes están bien.';
+            }
+        }
+
+        function resetActivity() {
+            const items = dropZone.querySelectorAll('.fragment-item');
+            items.forEach(item => { item.classList.remove('correct', 'incorrect', 'dragging'); item.querySelector('.fragment-number').textContent = '?'; sourcePool.appendChild(item); });
+            dropPlaceholder.style.display = 'block';
+            document.getElementById('resultBox').classList.remove('show');
+            const allItems = [...sourcePool.querySelectorAll('.fragment-item')];
+            allItems.sort(() => Math.random() - 0.5);
+            allItems.forEach(item => sourcePool.appendChild(item));
+        }
+
+        function levelUp() {
+            currentLevel = 2;
+            document.getElementById('storyPanel').classList.add('hidden');
+            document.getElementById('mainLayout').classList.add('full-width');
+            document.getElementById('challengeBanner').classList.add('show');
+            document.getElementById('levelIndicator').textContent = '🔥 Nivel 2';
+            document.getElementById('levelIndicator').classList.add('level-2');
+            document.getElementById('btnLevelUp').classList.add('hide');
+            document.getElementById('btnLevelDown').classList.add('show');
+        }
+
+        function levelDown() {
+            currentLevel = 1;
+            document.getElementById('storyPanel').classList.remove('hidden');
+            document.getElementById('mainLayout').classList.remove('full-width');
+            document.getElementById('challengeBanner').classList.remove('show');
+            document.getElementById('levelIndicator').textContent = '⭐ Nivel 1';
+            document.getElementById('levelIndicator').classList.remove('level-2');
+            document.getElementById('btnLevelUp').classList.remove('hide');
+            document.getElementById('btnLevelDown').classList.remove('show');
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
